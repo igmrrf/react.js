@@ -1,8 +1,9 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 import album from "../static/album.svg";
 import comment from "../static/comment.svg";
 import photo from "../static/photo.svg";
@@ -15,24 +16,30 @@ const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center",
   },
+
+  App: {
+    // background: `url("../static/home.svg") no-repeat center center fixed`,
+    // backgroundSize: "cover",
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    // minHeight: "100vh",
+    // display: "flex",
+    // flexDirection: "column",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // fontSize: "calc(10px + 2vmin)",
+    // color: "white",
+  },
   AppLogo: {
     height: "20vmin",
     pointerEvents: "none",
   },
   AppHeader: {
-    background: `url("../static/home.svg") no-repeat center center fixed`,
-    backgroundSize: "cover",
-    paddingRight: theme.spacing(4),
-    paddingLeft: theme.spacing(4),
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "calc(10px + 2vmin)",
-    color: "white",
+    fontFamily: "FiraCode",
+    fontSize: "calc(16px + 3vmin)",
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
-
   AppLink: {
     color: "#61dafb",
   },
@@ -53,12 +60,19 @@ function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <header className={classes.AppHeader}>
+      <Box className={classes.App}>
+        <Typography
+          variant={"h3"}
+          component={"h1"}
+          className={classes.AppHeader}
+        >
+          React-Redux & JSONPlaceHolder
+        </Typography>
         <Grid container justify={"center"} alignItems={"center"} spacing={4}>
           {Fixes.map((item) => (
             <Grid
               item
-              xs={10}
+              xs={11}
               md={4}
               component={RouterLink}
               to={`/${item.title.toLowerCase()}`}
@@ -77,7 +91,7 @@ function App() {
             </Grid>
           ))}
         </Grid>
-      </header>
+      </Box>
     </div>
   );
 }

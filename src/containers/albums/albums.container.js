@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     marginLeft: "auto",
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
 }));
 
@@ -34,19 +36,16 @@ const AlbumContainer = ({ fetchAlbumsStartAsync, albums, isFetching }) => {
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
-  const [image, setImage] = useState(true);
   const [pageAlbums, setPageAlbums] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
     fetchAlbumsStartAsync();
-    console.log(isFetching);
-  }, []);
+  }, [fetchAlbumsStartAsync]);
 
   useEffect(() => {
-    console.log(isFetching);
     setPageAlbums(albums.slice(minimum, maximum));
-  }, [page, isFetching]);
+  }, [page, isFetching, albums, minimum, maximum]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -62,11 +61,11 @@ const AlbumContainer = ({ fetchAlbumsStartAsync, albums, isFetching }) => {
 
       <Grid container justify={"center"} alignItems={"center"} spacing={4}>
         {pageAlbums.map((each) => (
-          <Grid item xs={5} md={3} key={each.id}>
+          <Grid item xs={10} md={3} key={each.id}>
             <Paper className={classes.card} elevation={10}>
               {each.id}
               <Typography>{each.title}</Typography>
-              {image ? (
+              {true ? (
                 <img
                   src={`https://picsum.photos/seed/${each.id}/200`}
                   alt={""}
@@ -86,6 +85,9 @@ const AlbumContainer = ({ fetchAlbumsStartAsync, albums, isFetching }) => {
         page={page}
         onChange={handleChange}
         className={classes.pagination}
+        color="primary"
+        variant="outlined"
+        size="small"
       />
     </Box>
   );

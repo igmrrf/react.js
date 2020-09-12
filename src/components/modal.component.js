@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -30,14 +30,11 @@ const useStyles = makeStyles((theme) => ({
 function TransitionsModal({ album, editAlbumStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState("");
+  const [newTitle, setNewTitle] = React.useState(album.title);
 
   const handleOpen = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    setNewTitle(album.title);
-  }, []);
 
   const handleClose = () => {
     setOpen(false);
