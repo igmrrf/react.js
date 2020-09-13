@@ -54,3 +54,57 @@ export const editAlbumStartAsync = (data) => {
       .catch((error) => dispatch(editAlbumFailure(error.message)));
   };
 };
+
+export const addAlbumStart = () => ({
+  type: AlbumsActionTypes.ADD_ALBUM_START,
+});
+
+export const addAlbumSuccess = (album) => ({
+  type: AlbumsActionTypes.ADD_ALBUM_SUCCESS,
+  payload: album,
+});
+
+export const addAlbumFailure = (errorMessage) => ({
+  type: AlbumsActionTypes.ADD_ALBUM_FAILURE,
+  payload: errorMessage,
+});
+
+export const addAlbumStartAsync = (data) => {
+  return (dispatch) => {
+    dispatch(addAlbumStart());
+    axios
+      .post(`albums/`, data)
+      .then((res) => {
+        const album = res.data;
+        dispatch(addAlbumSuccess(album));
+      })
+      .catch((error) => dispatch(addAlbumFailure(error.message)));
+  };
+};
+
+export const deleteAlbumStart = () => ({
+  type: AlbumsActionTypes.DELETE_ALBUM_START,
+});
+
+export const deleteAlbumSuccess = (id) => ({
+  type: AlbumsActionTypes.DELETE_ALBUM_SUCCESS,
+  payload: id,
+});
+
+export const deleteAlbumFailure = (errorMessage) => ({
+  type: AlbumsActionTypes.DELETE_ALBUM_FAILURE,
+  payload: errorMessage,
+});
+
+export const deleteAlbumStartAsync = (id) => {
+  return (dispatch) => {
+    dispatch(deleteAlbumStart());
+    axios
+      .delete(`albums/${id}`)
+      .then((res) => {
+        console.log(res.status);
+        dispatch(deleteAlbumSuccess(id));
+      })
+      .catch((error) => dispatch(deleteAlbumFailure(error.message)));
+  };
+};
