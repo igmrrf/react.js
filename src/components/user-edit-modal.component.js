@@ -3,13 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addAlbumStartAsync } from "../redux/albums-redux/albums.actions";
+import { editUserStartAsync } from "../redux/users-redux/users.actions";
 import { connect } from "react-redux";
-import IconButton from "@material-ui/core/IconButton";
-import { AddPhotoAlternateOutlined } from "@material-ui/icons";
+import Edit from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -24,17 +23,21 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     height: "150px",
   },
-  add: {
-    position: "fixed",
-    top: theme.spacing(2),
-    right: theme.spacing(2),
+  button: {
+    marginTop: theme.spacing(2),
+  },
+  edit: {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    cursor: "pointer",
   },
 }));
 
-function AddItemModal({ addAlbumStartAsync }) {
+function TransitionsModal({ user, editUserStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState("");
+  const [newTitle, setNewTitle] = React.useState(user.title);
 
   const handleOpen = () => {
     setOpen(true);
@@ -50,22 +53,19 @@ function AddItemModal({ addAlbumStartAsync }) {
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { userId: 1, title: newTitle };
-    addAlbumStartAsync(data);
+    const data = { ...user, title: newTitle };
+    editUserStartAsync(data);
     handleClose();
-    setNewTitle("");
   };
 
   return (
     <div>
-      <IconButton onClick={handleOpen}>
-        <AddPhotoAlternateOutlined
-          color={"primary"}
-          fontSize={"large"}
-          className={classes.add}
-        />
-      </IconButton>
-
+      <Edit
+        variant={"outlined"}
+        color={"primary"}
+        onClick={handleOpen}
+        className={classes.edit}
+      />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -81,12 +81,12 @@ function AddItemModal({ addAlbumStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Add New Album
+              Edit
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Album"}
-                name={"album"}
+                label={"Title"}
+                name={"title"}
                 value={newTitle}
                 onChange={handleChange}
                 fullWidth
@@ -97,7 +97,7 @@ function AddItemModal({ addAlbumStartAsync }) {
                 color={"secondary"}
                 className={classes.button}
               >
-                Create
+                Submit
               </Button>
             </form>
           </div>
@@ -108,7 +108,7 @@ function AddItemModal({ addAlbumStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addAlbumStartAsync: (data) => dispatch(addAlbumStartAsync(data)),
+  editUserStartAsync: (data) => dispatch(editUserStartAsync(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AddItemModal);
+export default connect(null, mapDispatchToProps)(TransitionsModal);

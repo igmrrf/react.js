@@ -1,31 +1,89 @@
 import TodosActionTypes from "./todos.types";
+import {
+  updateItemDetails,
+  addNewItem,
+  deleteItem,
+} from "../redux-reducer-utils";
 
 const initialState = {
-  isFetching: 0,
+  isFetching: false,
   todos: [],
+  errorMessage: "",
 };
 
-const todosReducer = (state = initialState, action) => {
+const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case TodosActionTypes.FETCH_TODOS_START:
       return {
         ...state,
-        isFetching: +1,
+        isFetching: true,
       };
     case TodosActionTypes.FETCH_TODOS_SUCCESS:
       return {
         ...state,
+        isFetching: false,
         todos: action.payload,
-        isFetching: -1,
       };
     case TodosActionTypes.FETCH_TODOS_FAILURE:
       return {
         ...state,
+        isFetching: false,
         errorMessage: action.payload,
-        isFetching: -1,
+      };
+    case TodosActionTypes.EDIT_TODO_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case TodosActionTypes.EDIT_TODO_SUCCESS:
+      return {
+        ...state,
+        todos: updateItemDetails(state.todos, action.payload),
+        isFetching: false,
+      };
+    case TodosActionTypes.EDIT_TODO_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.payload,
+      };
+    case TodosActionTypes.ADD_TODO_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case TodosActionTypes.ADD_TODO_SUCCESS:
+      return {
+        ...state,
+        todos: addNewItem(state.todos, action.payload),
+        isFetching: false,
+      };
+    case TodosActionTypes.ADD_TODO_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.payload,
+      };
+    case TodosActionTypes.DELETE_TODO_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case TodosActionTypes.DELETE_TODO_SUCCESS:
+      return {
+        ...state,
+        todos: deleteItem(state.todos, action.payload),
+        isFetching: false,
+      };
+    case TodosActionTypes.DELETE_TODO_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.payload,
       };
     default:
       return state;
   }
 };
-export default todosReducer;
+
+export default todoReducer;

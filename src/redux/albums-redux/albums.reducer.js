@@ -1,5 +1,9 @@
 import AlbumsActionTypes from "./albums.types";
-import { updateAlbumDetails, addNewAlbum, deleteAlbum } from "./album.utils";
+import {
+  updateItemDetails,
+  deleteItem,
+  addNewItem,
+} from "../redux-reducer-utils";
 
 const initialState = {
   isFetching: false,
@@ -33,7 +37,7 @@ const albumReducer = (state = initialState, action) => {
     case AlbumsActionTypes.EDIT_ALBUM_SUCCESS:
       return {
         ...state,
-        albums: updateAlbumDetails(state.albums, action.payload),
+        albums: updateItemDetails(state.albums, action.payload),
         isFetching: false,
       };
     case AlbumsActionTypes.EDIT_ALBUM_FAILURE:
@@ -50,7 +54,7 @@ const albumReducer = (state = initialState, action) => {
     case AlbumsActionTypes.ADD_ALBUM_SUCCESS:
       return {
         ...state,
-        albums: addNewAlbum(state.albums, action.payload),
+        albums: addNewItem(state.albums, action.payload),
         isFetching: false,
       };
     case AlbumsActionTypes.ADD_ALBUM_FAILURE:
@@ -67,7 +71,7 @@ const albumReducer = (state = initialState, action) => {
     case AlbumsActionTypes.DELETE_ALBUM_SUCCESS:
       return {
         ...state,
-        albums: deleteAlbum(state.albums, action.payload),
+        albums: deleteItem(state.albums, action.payload),
         isFetching: false,
       };
     case AlbumsActionTypes.DELETE_ALBUM_FAILURE:

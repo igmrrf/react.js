@@ -10,8 +10,8 @@ import { connect } from "react-redux";
 import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../components/modal.component";
-import AddItemModal from "../../components/add-item-modal.component";
+import TransitionsModal from "../../components/album-edit-modal.component";
+import AddItemModal from "../../components/album-add-modal.component";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import blue from "@material-ui/core/colors/blue";
 
@@ -62,6 +62,7 @@ const AlbumContainer = ({
   const [maximum, setMaximum] = useState(10);
   const [pageAlbums, setPageAlbums] = useState([]);
   const classes = useStyles();
+  const count = Math.ceil(albums.length / 10);
 
   useEffect(() => {
     fetchAlbumsStartAsync();
@@ -112,7 +113,7 @@ const AlbumContainer = ({
         ))}
       </Grid>
       <Pagination
-        count={10}
+        count={count}
         page={page}
         onChange={handleChange}
         className={classes.pagination}
