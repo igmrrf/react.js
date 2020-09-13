@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
+import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { addAlbumStartAsync } from "../redux/albums-redux/albums.actions";
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: theme.spacing(2),
     right: theme.spacing(2),
+  },
+  button: {
+    marginTop: theme.spacing(2),
   },
 }));
 

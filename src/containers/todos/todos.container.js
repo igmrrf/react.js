@@ -109,7 +109,7 @@ const TodoContainer = ({
                     checked={each.completed}
                   />
                 }
-                label="Completed"
+                label={each.completed ? "Completed" : "Uncompleted"}
               />
 
               <Box>

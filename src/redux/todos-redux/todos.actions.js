@@ -46,7 +46,7 @@ export const editTodoStartAsync = (data) => {
   return (dispatch) => {
     dispatch(editTodoStart());
     axios
-      .put(`todos/${data.id}`, data)
+      .patch(`todos/${data.id}`, { ...data })
       .then((res) => {
         const todo = res.data;
         dispatch(editTodoSuccess(todo));

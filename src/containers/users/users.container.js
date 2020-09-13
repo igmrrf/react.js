@@ -99,13 +99,8 @@ const UserContainer = ({
               <Typography>{each.name}</Typography>
               <Typography> {each.username}</Typography>
               <Typography>{each.email}</Typography>
-              <Typography variant={"h6"} component={"h6"}>
-                Address
-              </Typography>
-              <Typography>{each.address.street}</Typography>
-              <Typography>{each.address.suite}</Typography>
-              <Typography>{each.address.city}</Typography>
-              <Typography>{each.address.zipcode}</Typography>
+              <Typography>{each.phone}</Typography>
+              <Typography>{each.website}</Typography>
 
               <Box>
                 <TransitionsModal key={each.id} user={each} />

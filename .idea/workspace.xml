@@ -7,38 +7,17 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e117d6-1cc5-4394-9574-1d604b259b29" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/add-item-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/album-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/album.component.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/album-edit-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/albums/albums.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/albums/albums.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/albums/albums.styled.container.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/comments/comments.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/comments/comments.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/comments/comments.styled.container.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/photos/photos.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/photos/photos.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/photos/photos.styled.container.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/posts/posts.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/posts/posts.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/posts/posts.styled.container.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/album-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/album-add-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/comment-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comment-add-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/comment-edit-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comment-edit-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/photo-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/photo-add-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/post-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post-add-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/todo-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/todo-add-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-add-modal.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-edit-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-edit-modal.component.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/todos/todos.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/todos/todos.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/todos/todos.styled.container.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/users/users.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/users/users.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/users/users.styled.container.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/albums-redux/album.utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/albums-redux/albums.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/albums-redux/albums.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/comments-redux/comments.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/comments-redux/comments.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/comments-redux/comments.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/comments-redux/comments.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/comments-redux/comments.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/comments-redux/comments.types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/photos-redux/photos.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/photos-redux/photos.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/photos-redux/photos.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/photos-redux/photos.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/photos-redux/photos.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/photos-redux/photos.types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/posts-redux/posts.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/posts-redux/posts.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/posts-redux/posts.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/posts-redux/posts.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/posts-redux/posts.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/posts-redux/posts.types.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/todos-redux/todos.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/todos-redux/todos.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/todos-redux/todos.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/todos-redux/todos.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/todos-redux/todos.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/todos-redux/todos.types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/users-redux/users.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-redux/users.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/users-redux/users.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-redux/users.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/users-redux/users.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-redux/users.types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +71,7 @@
       <workItem from="1599861240411" duration="15030000" />
       <workItem from="1599900987912" duration="5700000" />
       <workItem from="1599949643708" duration="15094000" />
-      <workItem from="1599997567842" duration="8609000" />
+      <workItem from="1599997567842" duration="15674000" />
     </task>
     <servers />
   </component>
@@ -155,10 +134,10 @@
       <screen x="0" y="768" width="1366" height="768" />
     </state>
     <state x="278" y="874" width="800" height="535" key="Vcs.Push.Dialog.v2/0.768.1366.768/0.0.1366.768@0.768.1366.768" timestamp="1599867552117" />
-    <state x="367" y="125" width="652" height="580" key="find.popup" timestamp="1600007187125">
+    <state x="367" y="34" width="822" height="680" key="find.popup" timestamp="1600013376503">
       <screen x="0" y="27" width="1366" height="687" />
     </state>
-    <state x="367" y="125" width="652" height="580" key="find.popup/0.27.1366.687@0.27.1366.687" timestamp="1600007187125" />
+    <state x="367" y="34" width="822" height="680" key="find.popup/0.27.1366.687@0.27.1366.687" timestamp="1600013376503" />
     <state x="367" y="877" width="631" height="522" key="find.popup/0.768.1366.768/0.0.1366.768@0.768.1366.768" timestamp="1599863505623" />
     <state x="346" y="107" width="672" height="607" key="search.everywhere.popup" timestamp="1599957087300">
       <screen x="0" y="27" width="1366" height="687" />

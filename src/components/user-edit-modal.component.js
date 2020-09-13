@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function TransitionsModal({ user, editUserStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState(user.title);
+  const [email, setEmail] = React.useState(user.email);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,12 +48,12 @@ function TransitionsModal({ user, editUserStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setEmail(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...user, title: newTitle };
+    const data = { ...user, email };
     editUserStartAsync(data);
     handleClose();
   };
@@ -81,13 +81,13 @@ function TransitionsModal({ user, editUserStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Edit
+              Edit E-mail
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Title"}
-                name={"title"}
-                value={newTitle}
+                label={"E-mail"}
+                name={"email"}
+                value={email}
                 onChange={handleChange}
                 fullWidth
               />

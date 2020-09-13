@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(2),
     right: theme.spacing(2),
   },
+  button: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 function AddItemModal({ addPostStartAsync }) {

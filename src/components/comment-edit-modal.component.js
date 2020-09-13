@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function TransitionsModal({ comment, editCommentStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState(comment.title);
+  const [newBody, setNewBody] = React.useState(comment.body);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,12 +48,12 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setNewBody(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...comment, title: newTitle };
+    const data = { ...comment, body: newBody };
     editCommentStartAsync(data);
     handleClose();
   };
@@ -81,13 +81,13 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Edit
+              Edit Comment
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Title"}
-                name={"title"}
-                value={newTitle}
+                label={"Body"}
+                name={"body"}
+                value={newBody}
                 onChange={handleChange}
                 fullWidth
               />

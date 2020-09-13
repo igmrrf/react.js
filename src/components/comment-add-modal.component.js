@@ -22,19 +22,26 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "150px",
+    height: "250px",
   },
   add: {
     position: "fixed",
     top: theme.spacing(2),
     right: theme.spacing(2),
   },
+  button: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 function AddCommentModal({ addCommentStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newComment, setNewComment] = React.useState("");
+  const [state, setState] = React.useState({
+    body: "",
+    name: "",
+    email: "",
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,15 +52,20 @@ function AddCommentModal({ addCommentStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewComment(event.target.value);
+    setState({ ...state, [event.target.name]: event.target.value });
   };
 
   const handlePost = (event) => {
+    const { name, email, body } = state;
     event.preventDefault();
-    const data = { userId: 1, title: newComment };
+    const data = { postId: 1, email, name, body };
     addCommentStartAsync(data);
     handleClose();
-    setNewComment("");
+    setState({
+      body: "",
+      name: "",
+      email: "",
+    });
   };
 
   return (
@@ -85,12 +97,28 @@ function AddCommentModal({ addCommentStartAsync }) {
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Comment"}
-                name={"comment"}
-                value={newComment}
+                label={"Name"}
+                name={"name"}
+                value={state.name}
                 onChange={handleChange}
                 fullWidth
               />
+
+              <TextField
+                label={"Email"}
+                name={"email"}
+                value={state.email}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label={"Body"}
+                name={"body"}
+                value={state.body}
+                onChange={handleChange}
+                fullWidth
+              />
+
               <Button
                 onClick={handlePost}
                 variant={"contained"}
