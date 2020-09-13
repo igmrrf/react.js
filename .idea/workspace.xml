@@ -7,17 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e117d6-1cc5-4394-9574-1d604b259b29" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/album-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/album-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/comment-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comment-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/comment-edit-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comment-edit-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/photo-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/photo-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/todo-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/todo-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user-add-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-add-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user-edit-modal.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-edit-modal.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/todos/todos.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/todos/todos.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/users/users.container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/users/users.container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/todos-redux/todos.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/todos-redux/todos.actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +61,7 @@
       <workItem from="1599861240411" duration="15030000" />
       <workItem from="1599900987912" duration="5700000" />
       <workItem from="1599949643708" duration="15094000" />
-      <workItem from="1599997567842" duration="15674000" />
+      <workItem from="1599997567842" duration="16558000" />
     </task>
     <servers />
   </component>
