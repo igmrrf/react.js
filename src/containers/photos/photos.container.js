@@ -81,7 +81,7 @@ const PhotoContainer = ({
   return (
     <Box className={classes.root}>
       <Typography variant={"h2"} component={"h1"}>
-        photos <strong className={classes.length}> [{photos.length}]</strong>
+        Photos <strong className={classes.length}> [{photos.length}]</strong>
       </Typography>
       <AddItemModal />
 
@@ -98,7 +98,12 @@ const PhotoContainer = ({
 
               <Typography>{each.title}</Typography>
               <Box style={{ height: "200px" }}>
-                <img loading={"eager"} src={each.thumbnailUrl} alt={""} />
+                <img
+                  loading={"eager"}
+                  src={each.thumbnailUrl}
+                  alt={""}
+                  height={"200px"}
+                />
               </Box>
 
               <Box>

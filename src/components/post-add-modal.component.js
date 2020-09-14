@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "150px",
+    height: "250px",
   },
   add: {
     position: "fixed",
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
 function AddItemModal({ addPostStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [body, setBody] = React.useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,15 +49,19 @@ function AddItemModal({ addPostStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setTitle(event.target.value);
+  };
+  const handleBody = (event) => {
+    setBody(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { userId: 1, title: newTitle };
+    const data = { userId: 1, title, body };
     addPostStartAsync(data);
     handleClose();
-    setNewTitle("");
+    setBody("");
+    setTitle("");
   };
 
   return (
@@ -84,14 +89,23 @@ function AddItemModal({ addPostStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Add New Album
+              New Post
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Album"}
-                name={"album"}
-                value={newTitle}
+                label={"Title"}
+                name={"title"}
+                value={title}
                 onChange={handleChange}
+                fullWidth
+                as={"textarea"}
+                rows={3}
+              />
+              <TextField
+                label={"Body"}
+                name={"body"}
+                value={body}
+                onChange={handleBody}
                 fullWidth
               />
               <Button

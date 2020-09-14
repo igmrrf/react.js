@@ -81,7 +81,7 @@ const CommentContainer = ({
   return (
     <Box className={classes.root}>
       <Typography variant={"h2"} component={"h1"}>
-        comments{" "}
+        Comments
         <strong className={classes.length}> [{comments.length}]</strong>
       </Typography>
       <AddItemModal />

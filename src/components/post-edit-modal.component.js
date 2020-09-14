@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "150px",
+    height: "200px",
   },
   button: {
     marginTop: theme.spacing(2),
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
 function TransitionsModal({ post, editPostStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState(post.title);
+  const [title, setTitle] = React.useState(post.title);
+  const [body, setBody] = React.useState(post.body);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,12 +49,16 @@ function TransitionsModal({ post, editPostStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setTitle(event.target.value);
+  };
+
+  const handleBody = (event) => {
+    setBody(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...post, title: newTitle };
+    const data = { ...post, title, body };
     editPostStartAsync(data);
     handleClose();
   };
@@ -87,8 +92,15 @@ function TransitionsModal({ post, editPostStartAsync }) {
               <TextField
                 label={"Title"}
                 name={"title"}
-                value={newTitle}
+                value={title}
                 onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label={"Body"}
+                name={"body"}
+                value={body}
+                onChange={handleBody}
                 fullWidth
               />
               <Button

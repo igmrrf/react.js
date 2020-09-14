@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function TransitionsModal({ photo, editPhotoStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState(photo.title);
+  const [title, setTitle] = React.useState(photo.title);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,12 +48,12 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...photo, title: newTitle };
+    const data = { ...photo, title };
     editPhotoStartAsync(data);
     handleClose();
   };
@@ -87,10 +87,11 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
               <TextField
                 label={"Title"}
                 name={"title"}
-                value={newTitle}
+                value={title}
                 onChange={handleChange}
                 fullWidth
               />
+
               <Button
                 onClick={handlePost}
                 variant={"contained"}

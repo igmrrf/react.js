@@ -9,7 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import { addPhotoStartAsync } from "../redux/photos-redux/photos.actions";
 import { connect } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
-import { AddPhotoAlternateOutlined } from "@material-ui/icons";
+import AddPhotoAlternateOutlined from "@material-ui/icons/AddPhotoAlternateOutlined";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "150px",
+    height: "180px",
   },
   add: {
     position: "fixed",
@@ -37,8 +37,10 @@ const useStyles = makeStyles((theme) => ({
 function AddItemModal({ addPhotoStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState("");
-
+  const [state, setState] = React.useState({
+    title: "",
+    thumbnailUrl: "",
+  });
   const handleOpen = () => {
     setOpen(true);
   };
@@ -46,17 +48,19 @@ function AddItemModal({ addPhotoStartAsync }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setState({ ...state, [event.target.name]: event.target.value });
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { userId: 1, title: newTitle };
+    const data = { ...state };
     addPhotoStartAsync(data);
     handleClose();
-    setNewTitle("");
+    setState({
+      title: "",
+      thumbnailUrl: "",
+    });
   };
 
   return (
@@ -88,9 +92,16 @@ function AddItemModal({ addPhotoStartAsync }) {
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Photo"}
-                name={"photo"}
-                value={newTitle}
+                label={"Title"}
+                name={"title"}
+                value={state.title}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label={"Image url"}
+                name={"thumbnailUrl"}
+                value={state.thumbnailUrl}
                 onChange={handleChange}
                 fullWidth
               />

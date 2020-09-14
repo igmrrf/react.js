@@ -81,7 +81,7 @@ const PostContainer = ({
   return (
     <Box className={classes.root}>
       <Typography variant={"h2"} component={"h1"}>
-        posts <strong className={classes.length}> [{posts.length}]</strong>
+        Posts <strong className={classes.length}> [{posts.length}]</strong>
       </Typography>
       <AddItemModal />
 

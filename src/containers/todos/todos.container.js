@@ -84,7 +84,7 @@ const TodoContainer = ({
   return (
     <Box className={classes.root}>
       <Typography variant={"h2"} component={"h1"}>
-        todos <strong className={classes.length}> [{todos.length}]</strong>
+        Todos <strong className={classes.length}> [{todos.length}]</strong>
       </Typography>
       <AddItemModal />
 

@@ -2,6 +2,7 @@ import React, { Suspense, Fragment, lazy } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import LoadingScreen from "./components/loading-screen.component";
 import Home from "./containers/home.container";
+import Layout from "./containers/layout";
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -15,7 +16,9 @@ export const renderRoutes = (routes = []) => (
             exact={route.exact}
             render={(props) => (
               <Fragment>
-                <Component {...props} />
+                <Layout>
+                  <Component {...props} />
+                </Layout>
               </Fragment>
             )}
           />
