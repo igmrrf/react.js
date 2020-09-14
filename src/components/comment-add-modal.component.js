@@ -8,8 +8,8 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { addCommentStartAsync } from "../redux/comments-redux/comments.actions";
 import { connect } from "react-redux";
-import IconButton from "@material-ui/core/IconButton";
-import AddPhotoAlternateOutlined from "@material-ui/icons/AddPhotoAlternateOutlined";
+
+import Add from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
     height: "250px",
   },
   add: {
-    position: "fixed",
-    top: theme.spacing(2),
-    right: theme.spacing(2),
+    height: "50px",
+    margin: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    zIndex: "1000",
   },
   button: {
     marginTop: theme.spacing(2),
@@ -70,13 +71,14 @@ function AddCommentModal({ addCommentStartAsync }) {
 
   return (
     <div>
-      <IconButton onClick={handleOpen}>
-        <AddPhotoAlternateOutlined
-          color={"primary"}
-          fontSize={"large"}
-          className={classes.add}
-        />
-      </IconButton>
+      <Button
+        onClick={handleOpen}
+        variant={"contained"}
+        color={"secondary"}
+        className={classes.add}
+      >
+        Add <Add color={"primary"} fontSize={"small"} />
+      </Button>
 
       <Modal
         aria-labelledby="transition-modal-title"
