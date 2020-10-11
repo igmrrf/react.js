@@ -1,44 +1,47 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import React, { useEffect, useState } from 'react';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import {
   fetchPhotosStartAsync,
   deletePhotoStartAsync,
-} from "../../redux/photos-redux/photos.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../components/photo-edit-modal.component";
-import AddItemModal from "../../components/photo-add-modal.component";
-import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
+  clearPhotoMessages,
+} from '../../redux/photos-redux/photos.actions';
+import { connect } from 'react-redux';
+import Pagination from '@material-ui/lab/Pagination';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Box from '@material-ui/core/Box';
+import TransitionsModal from '../../components/photo-edit-modal.component';
+import AddItemModal from '../../components/photo-add-modal.component';
+import DeleteForeverRounded from '@material-ui/icons/DeleteForeverRounded';
+import blue from '@material-ui/core/colors/blue';
+import SkeletonComponent from '../../components/skeleton.component';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: "center",
+    textAlign: 'center',
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
   },
   photoImage: {
-    height: "20vmin",
-    pointerEvents: "none",
+    height: '20vmin',
+    pointerEvents: 'none',
   },
   card: {
     padding: theme.spacing(2),
-    position: "relative",
+    position: 'relative',
   },
   delete: {
-    position: "absolute",
-    top: "10px",
-    left: "10px",
-    cursor: "pointer",
+    position: 'absolute',
+    top: '10px',
+    left: '10px',
+    cursor: 'pointer',
   },
   pagination: {
-    display: "flex",
-    justifyContent: "center",
-    marginLeft: "auto",
+    display: 'flex',
+    justifyContent: 'center',
+    marginLeft: 'auto',
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
   },
@@ -46,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   length: {
-    fontSize: "16px",
+    fontSize: '16px',
     color: blue,
   },
 }));
@@ -54,9 +57,12 @@ const useStyles = makeStyles((theme) => ({
 const PhotoContainer = ({
   fetchPhotosStartAsync,
   deletePhotoStartAsync,
+  clearPhotoMessages,
+  errorMessage,
   photos,
   isFetching,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
@@ -65,9 +71,15 @@ const PhotoContainer = ({
   const count = Math.ceil(photos.length / 10);
 
   useEffect(() => {
-    fetchPhotosStartAsync();
-  }, [fetchPhotosStartAsync]);
+    if (photos.length < 1) fetchPhotosStartAsync();
+  }, [fetchPhotosStartAsync, photos]);
 
+  useEffect(() => {
+    if (errorMessage) {
+      enqueueSnackbar(errorMessage, { variant: 'error' });
+      clearPhotoMessages();
+    }
+  }, [errorMessage, clearPhotoMessages, enqueueSnackbar]);
   useEffect(() => {
     setPagePhotos(photos.slice(minimum, maximum));
   }, [page, isFetching, photos, minimum, maximum]);
@@ -80,47 +92,51 @@ const PhotoContainer = ({
 
   return (
     <Box className={classes.root}>
-      <Typography variant={"h2"} component={"h1"}>
+      <Typography variant={'h2'} component={'h1'}>
         Photos <strong className={classes.length}> [{photos.length}]</strong>
       </Typography>
       <AddItemModal />
 
-      <Grid container justify={"center"} alignItems={"center"} spacing={4}>
-        {pagePhotos.map((each) => (
-          <Grid item xs={10} sm={5} md={3} key={each.id}>
-            <Paper className={classes.card} elevation={10}>
-              {each.id}
-              <DeleteForeverRounded
-                color={"primary"}
-                className={classes.delete}
-                onClick={() => deletePhotoStartAsync(each.id)}
-              />
-
-              <Typography>{each.title}</Typography>
-              <Box style={{ height: "200px" }}>
-                <img
-                  loading={"eager"}
-                  src={each.thumbnailUrl}
-                  alt={""}
-                  height={"200px"}
+      <Grid container justify={'center'} alignItems={'center'} spacing={4}>
+        {pagePhotos.length > 1 ? (
+          pagePhotos.map((each) => (
+            <Grid item xs={10} sm={5} md={3} key={each.id}>
+              <Paper className={classes.card} elevation={10}>
+                {each.id}
+                <DeleteForeverRounded
+                  color={'primary'}
+                  className={classes.delete}
+                  onClick={() => deletePhotoStartAsync(each.id)}
                 />
-              </Box>
 
-              <Box>
-                <TransitionsModal key={each.id} photo={each} />
-              </Box>
-            </Paper>
-          </Grid>
-        ))}
+                <Typography>{each.title}</Typography>
+                <Box style={{ height: '200px' }}>
+                  <img
+                    loading={'eager'}
+                    src={each.thumbnailUrl}
+                    alt={''}
+                    height={'200px'}
+                  />
+                </Box>
+
+                <Box>
+                  <TransitionsModal key={each.id} photo={each} />
+                </Box>
+              </Paper>
+            </Grid>
+          ))
+        ) : (
+          <SkeletonComponent />
+        )}
       </Grid>
       <Pagination
         count={count}
         page={page}
         onChange={handleChange}
         className={classes.pagination}
-        color="primary"
-        variant="outlined"
-        size="small"
+        color='primary'
+        variant='outlined'
+        size='small'
       />
     </Box>
   );
@@ -129,11 +145,13 @@ const PhotoContainer = ({
 const mapDispatchToProps = (dispatch) => ({
   fetchPhotosStartAsync: () => dispatch(fetchPhotosStartAsync()),
   deletePhotoStartAsync: (id) => dispatch(deletePhotoStartAsync(id)),
+  clearPhotoMessages: () => dispatch(clearPhotoMessages()),
 });
 
 const mapStateToProps = (state) => ({
   photos: state.photos.photos,
   isFetching: state.photos.isFetching,
+  errorMessage: state.photos.errorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhotoContainer);

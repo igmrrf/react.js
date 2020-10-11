@@ -1,16 +1,19 @@
-import PostsActionTypes from "./posts.types";
-import axios from "../../utils/axios";
+import PostsActionTypes from './posts.types';
+import axios from '../../utils/axios';
 
-export const fetchPostsStart = () => ({
+export const clearPostMessages = () => ({
+  type: PostsActionTypes.CLEAR_POST_MESSAGES,
+});
+const fetchPostsStart = () => ({
   type: PostsActionTypes.FETCH_POSTS_START,
 });
 
-export const fetchPostsSuccess = (posts) => ({
+const fetchPostsSuccess = (posts) => ({
   type: PostsActionTypes.FETCH_POSTS_SUCCESS,
   payload: posts,
 });
 
-export const fetchPostsFailure = (errorMessage) => ({
+const fetchPostsFailure = (errorMessage) => ({
   type: PostsActionTypes.FETCH_POSTS_FAILURE,
   payload: errorMessage,
 });
@@ -19,7 +22,7 @@ export const fetchPostsStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchPostsStart());
     axios
-      .get("posts")
+      .get('posts')
       .then((res) => {
         const posts = res.data;
         dispatch(fetchPostsSuccess(posts));
@@ -28,16 +31,16 @@ export const fetchPostsStartAsync = () => {
   };
 };
 
-export const editPostStart = () => ({
+const editPostStart = () => ({
   type: PostsActionTypes.EDIT_POST_START,
 });
 
-export const editPostSuccess = (post) => ({
+const editPostSuccess = (post) => ({
   type: PostsActionTypes.EDIT_POST_SUCCESS,
   payload: post,
 });
 
-export const editPostFailure = (errorMessage) => ({
+const editPostFailure = (errorMessage) => ({
   type: PostsActionTypes.EDIT_POST_FAILURE,
   payload: errorMessage,
 });
@@ -55,16 +58,16 @@ export const editPostStartAsync = (data) => {
   };
 };
 
-export const addPostStart = () => ({
+const addPostStart = () => ({
   type: PostsActionTypes.ADD_POST_START,
 });
 
-export const addPostSuccess = (post) => ({
+const addPostSuccess = (post) => ({
   type: PostsActionTypes.ADD_POST_SUCCESS,
   payload: post,
 });
 
-export const addPostFailure = (errorMessage) => ({
+const addPostFailure = (errorMessage) => ({
   type: PostsActionTypes.ADD_POST_FAILURE,
   payload: errorMessage,
 });
@@ -82,16 +85,16 @@ export const addPostStartAsync = (data) => {
   };
 };
 
-export const deletePostStart = () => ({
+const deletePostStart = () => ({
   type: PostsActionTypes.DELETE_POST_START,
 });
 
-export const deletePostSuccess = (id) => ({
+const deletePostSuccess = (id) => ({
   type: PostsActionTypes.DELETE_POST_SUCCESS,
   payload: id,
 });
 
-export const deletePostFailure = (errorMessage) => ({
+const deletePostFailure = (errorMessage) => ({
   type: PostsActionTypes.DELETE_POST_FAILURE,
   payload: errorMessage,
 });

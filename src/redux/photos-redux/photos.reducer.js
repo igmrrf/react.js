@@ -1,18 +1,24 @@
-import PhotosActionTypes from "./photos.types";
+import PhotosActionTypes from './photos.types';
 import {
   updateItemDetails,
   deleteItem,
   addNewItem,
-} from "../redux-reducer-utils";
+} from '../redux-reducer-utils';
 
 const initialState = {
   isFetching: false,
   photos: [],
-  errorMessage: "",
+  errorMessage: '',
 };
 
 const photoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case PhotosActionTypes.CLEAR_PHOTO_MESSAGES:
+      return {
+        ...state,
+        errorMessage: null,
+        message: null,
+      };
     case PhotosActionTypes.FETCH_PHOTOS_START:
       return {
         ...state,

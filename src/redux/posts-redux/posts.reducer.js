@@ -1,18 +1,24 @@
-import PostsActionTypes from "./posts.types";
+import PostsActionTypes from './posts.types';
 import {
   updateItemDetails,
   addNewItem,
   deleteItem,
-} from "../redux-reducer-utils";
+} from '../redux-reducer-utils';
 
 const initialState = {
   isFetching: false,
   posts: [],
-  errorMessage: "",
+  errorMessage: '',
 };
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
+    case PostsActionTypes.CLEAR_POST_MESSAGES:
+      return {
+        ...state,
+        errorMessage: null,
+        message: null,
+      };
     case PostsActionTypes.FETCH_POSTS_START:
       return {
         ...state,

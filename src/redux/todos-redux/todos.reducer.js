@@ -1,18 +1,24 @@
-import TodosActionTypes from "./todos.types";
+import TodosActionTypes from './todos.types';
 import {
   updateItemDetails,
   addNewItem,
   deleteItem,
-} from "../redux-reducer-utils";
+} from '../redux-reducer-utils';
 
 const initialState = {
   isFetching: false,
   todos: [],
-  errorMessage: "",
+  errorMessage: '',
 };
 
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case TodosActionTypes.CLEAR_TODO_MESSAGES:
+      return {
+        ...state,
+        errorMessage: null,
+        message: null,
+      };
     case TodosActionTypes.FETCH_TODOS_START:
       return {
         ...state,

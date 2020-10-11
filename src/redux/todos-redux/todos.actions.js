@@ -1,16 +1,20 @@
-import todosActionTypes from "./todos.types";
-import axios from "../../utils/axios";
+import todosActionTypes from './todos.types';
+import axios from '../../utils/axios';
 
-export const fetchTodosStart = () => ({
+export const clearTodoMessages = () => ({
+  type: todosActionTypes.CLEAR_TODO_MESSAGES,
+});
+
+const fetchTodosStart = () => ({
   type: todosActionTypes.FETCH_TODOS_START,
 });
 
-export const fetchTodosSuccess = (todos) => ({
+const fetchTodosSuccess = (todos) => ({
   type: todosActionTypes.FETCH_TODOS_SUCCESS,
   payload: todos,
 });
 
-export const fetchTodosFailure = (errorMessage) => ({
+const fetchTodosFailure = (errorMessage) => ({
   type: todosActionTypes.FETCH_TODOS_FAILURE,
   payload: errorMessage,
 });
@@ -19,7 +23,7 @@ export const fetchTodosStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchTodosStart());
     axios
-      .get("todos")
+      .get('todos')
       .then((res) => {
         const todos = res.data;
         dispatch(fetchTodosSuccess(todos));

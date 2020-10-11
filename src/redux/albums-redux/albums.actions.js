@@ -1,6 +1,9 @@
-import AlbumsActionTypes from "./albums.types";
-import axios from "../../utils/axios";
+import AlbumsActionTypes from './albums.types';
+import axios from '../../utils/axios';
 
+export const clearAlbumMessages = () => ({
+  type: AlbumsActionTypes.CLEAR_ALBUM_MESSAGES,
+});
 export const fetchAlbumsStart = () => ({
   type: AlbumsActionTypes.FETCH_ALBUMS_START,
 });
@@ -19,7 +22,7 @@ export const fetchAlbumsStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchAlbumsStart());
     axios
-      .get("albums")
+      .get('albums')
       .then((res) => {
         const albums = res.data;
         dispatch(fetchAlbumsSuccess(albums));

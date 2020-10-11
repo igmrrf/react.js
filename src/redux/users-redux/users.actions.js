@@ -1,16 +1,20 @@
-import UsersActionTypes from "./users.types";
-import axios from "../../utils/axios";
+import UsersActionTypes from './users.types';
+import axios from '../../utils/axios';
 
-export const fetchUsersStart = () => ({
+export const clearUserMessages = () => ({
+  type: UsersActionTypes.CLEAR_USER_MESSAGES,
+});
+
+const fetchUsersStart = () => ({
   type: UsersActionTypes.FETCH_USERS_START,
 });
 
-export const fetchUsersSuccess = (users) => ({
+const fetchUsersSuccess = (users) => ({
   type: UsersActionTypes.FETCH_USERS_SUCCESS,
   payload: users,
 });
 
-export const fetchUsersFailure = (errorMessage) => ({
+const fetchUsersFailure = (errorMessage) => ({
   type: UsersActionTypes.FETCH_USERS_FAILURE,
   payload: errorMessage,
 });
@@ -19,7 +23,7 @@ export const fetchUsersStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchUsersStart());
     axios
-      .get("users")
+      .get('users')
       .then((res) => {
         const users = res.data;
         dispatch(fetchUsersSuccess(users));
@@ -28,16 +32,16 @@ export const fetchUsersStartAsync = () => {
   };
 };
 
-export const editUserStart = () => ({
+const editUserStart = () => ({
   type: UsersActionTypes.EDIT_USER_START,
 });
 
-export const editUserSuccess = (user) => ({
+const editUserSuccess = (user) => ({
   type: UsersActionTypes.EDIT_USER_SUCCESS,
   payload: user,
 });
 
-export const editUserFailure = (errorMessage) => ({
+const editUserFailure = (errorMessage) => ({
   type: UsersActionTypes.EDIT_USER_FAILURE,
   payload: errorMessage,
 });
@@ -55,16 +59,16 @@ export const editUserStartAsync = (data) => {
   };
 };
 
-export const addUserStart = () => ({
+const addUserStart = () => ({
   type: UsersActionTypes.ADD_USER_START,
 });
 
-export const addUserSuccess = (user) => ({
+const addUserSuccess = (user) => ({
   type: UsersActionTypes.ADD_USER_SUCCESS,
   payload: user,
 });
 
-export const addUserFailure = (errorMessage) => ({
+const addUserFailure = (errorMessage) => ({
   type: UsersActionTypes.ADD_USER_FAILURE,
   payload: errorMessage,
 });
@@ -82,16 +86,16 @@ export const addUserStartAsync = (data) => {
   };
 };
 
-export const deleteUserStart = () => ({
+const deleteUserStart = () => ({
   type: UsersActionTypes.DELETE_USER_START,
 });
 
-export const deleteUserSuccess = (id) => ({
+const deleteUserSuccess = (id) => ({
   type: UsersActionTypes.DELETE_USER_SUCCESS,
   payload: id,
 });
 
-export const deleteUserFailure = (errorMessage) => ({
+const deleteUserFailure = (errorMessage) => ({
   type: UsersActionTypes.DELETE_USER_FAILURE,
   payload: errorMessage,
 });

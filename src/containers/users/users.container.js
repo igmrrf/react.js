@@ -1,44 +1,47 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import React, { useEffect, useState } from 'react';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import {
   fetchUsersStartAsync,
   deleteUserStartAsync,
-} from "../../redux/users-redux/users.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../components/user-edit-modal.component";
-import AddItemModal from "../../components/user-add-modal.component";
-import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
+  clearUserMessages,
+} from '../../redux/users-redux/users.actions';
+import { connect } from 'react-redux';
+import Pagination from '@material-ui/lab/Pagination';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Box from '@material-ui/core/Box';
+import TransitionsModal from '../../components/user-edit-modal.component';
+import AddItemModal from '../../components/user-add-modal.component';
+import DeleteForeverRounded from '@material-ui/icons/DeleteForeverRounded';
+import blue from '@material-ui/core/colors/blue';
+import SkeletonComponent from '../../components/skeleton.component';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: "center",
+    textAlign: 'center',
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
   },
   userImage: {
-    height: "20vmin",
-    pointerEvents: "none",
+    height: '20vmin',
+    pointerEvents: 'none',
   },
   card: {
     padding: theme.spacing(2),
-    position: "relative",
+    position: 'relative',
   },
   delete: {
-    position: "absolute",
-    top: "10px",
-    left: "10px",
-    cursor: "pointer",
+    position: 'absolute',
+    top: '10px',
+    left: '10px',
+    cursor: 'pointer',
   },
   pagination: {
-    display: "flex",
-    justifyContent: "center",
-    marginLeft: "auto",
+    display: 'flex',
+    justifyContent: 'center',
+    marginLeft: 'auto',
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
   },
@@ -46,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   length: {
-    fontSize: "16px",
+    fontSize: '16px',
     color: blue,
   },
 }));
@@ -54,9 +57,12 @@ const useStyles = makeStyles((theme) => ({
 const UserContainer = ({
   fetchUsersStartAsync,
   deleteUserStartAsync,
+  clearUserMessages,
   users,
   isFetching,
+  errorMessage,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
@@ -65,8 +71,15 @@ const UserContainer = ({
   const count = Math.ceil(users.length / 10);
 
   useEffect(() => {
-    fetchUsersStartAsync();
-  }, [fetchUsersStartAsync]);
+    if (users.length < 1) fetchUsersStartAsync();
+  }, [fetchUsersStartAsync, users]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      enqueueSnackbar(errorMessage, { variant: 'error' });
+      clearUserMessages();
+    }
+  }, [errorMessage, clearUserMessages, enqueueSnackbar]);
 
   useEffect(() => {
     setPageUsers(users.slice(minimum, maximum));
@@ -80,43 +93,47 @@ const UserContainer = ({
 
   return (
     <Box className={classes.root}>
-      <Typography variant={"h2"} component={"h1"}>
+      <Typography variant={'h2'} component={'h1'}>
         Users <strong className={classes.length}> [{users.length}]</strong>
       </Typography>
       <AddItemModal />
 
-      <Grid container justify={"center"} alignItems={"center"} spacing={4}>
-        {pageUsers.map((each) => (
-          <Grid item xs={10} sm={5} md={3} key={each.id}>
-            <Paper className={classes.card} elevation={10}>
-              {each.id}
-              <DeleteForeverRounded
-                color={"primary"}
-                className={classes.delete}
-                onClick={() => deleteUserStartAsync(each.id)}
-              />
+      <Grid container justify={'center'} alignItems={'center'} spacing={4}>
+        {pageUsers.length > 1 ? (
+          pageUsers.map((each) => (
+            <Grid item xs={10} sm={5} md={3} key={each.id}>
+              <Paper className={classes.card} elevation={10}>
+                {each.id}
+                <DeleteForeverRounded
+                  color={'primary'}
+                  className={classes.delete}
+                  onClick={() => deleteUserStartAsync(each.id)}
+                />
 
-              <Typography>{each.name}</Typography>
-              <Typography> {each.username}</Typography>
-              <Typography>{each.email}</Typography>
-              <Typography>{each.phone}</Typography>
-              <Typography>{each.website}</Typography>
+                <Typography>{each.name}</Typography>
+                <Typography> {each.username}</Typography>
+                <Typography>{each.email}</Typography>
+                <Typography>{each.phone}</Typography>
+                <Typography>{each.website}</Typography>
 
-              <Box>
-                <TransitionsModal key={each.id} user={each} />
-              </Box>
-            </Paper>
-          </Grid>
-        ))}
+                <Box>
+                  <TransitionsModal key={each.id} user={each} />
+                </Box>
+              </Paper>
+            </Grid>
+          ))
+        ) : (
+          <SkeletonComponent />
+        )}
       </Grid>
       <Pagination
         count={count}
         page={page}
         onChange={handleChange}
         className={classes.pagination}
-        color="primary"
-        variant="outlined"
-        size="small"
+        color='primary'
+        variant='outlined'
+        size='small'
       />
     </Box>
   );
@@ -125,11 +142,13 @@ const UserContainer = ({
 const mapDispatchToProps = (dispatch) => ({
   fetchUsersStartAsync: () => dispatch(fetchUsersStartAsync()),
   deleteUserStartAsync: (id) => dispatch(deleteUserStartAsync(id)),
+  clearUserMessages: () => dispatch(clearUserMessages()),
 });
 
 const mapStateToProps = (state) => ({
   users: state.users.users,
   isFetching: state.users.isFetching,
+  errorMessage: state.users.errorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);

@@ -1,9 +1,9 @@
-import AlbumsActionTypes from "./albums.types";
+import AlbumsActionTypes from './albums.types';
 import {
   updateItemDetails,
   deleteItem,
   addNewItem,
-} from "../redux-reducer-utils";
+} from '../redux-reducer-utils';
 
 const initialState = {
   isFetching: false,
@@ -12,6 +12,12 @@ const initialState = {
 
 const albumReducer = (state = initialState, action) => {
   switch (action.type) {
+    case AlbumsActionTypes.CLEAR_ALBUM_MESSAGES:
+      return {
+        ...state,
+        errorMessage: null,
+        message: null,
+      };
     case AlbumsActionTypes.FETCH_ALBUMS_START:
       return {
         ...state,

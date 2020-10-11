@@ -1,18 +1,24 @@
-import CommentsActionTypes from "./comments.types";
+import CommentsActionTypes from './comments.types';
 import {
   updateItemDetails,
   deleteItem,
   addNewItem,
-} from "../redux-reducer-utils";
+} from '../redux-reducer-utils';
 
 const initialState = {
   isFetching: false,
   comments: [],
-  errorMessage: "",
+  errorMessage: '',
 };
 
 const commentReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CommentsActionTypes.CLEAR_COMMENT_MESSAGES:
+      return {
+        ...state,
+        errorMessage: null,
+        message: null,
+      };
     case CommentsActionTypes.FETCH_COMMENTS_START:
       return {
         ...state,
