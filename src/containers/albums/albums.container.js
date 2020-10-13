@@ -18,6 +18,12 @@ import blue from '@material-ui/core/colors/blue';
 import SkeletonComponent from '../../components/skeleton.component';
 import { useSnackbar } from 'notistack';
 import { Redirect } from 'react-router-dom';
+import {
+  selectAlbumsFetchStatus,
+  selectAlbumsData,
+  selectAlbumsErrorMessage,
+} from '../../redux/albums-redux/albums.selectors';
+import { createStructuredSelector } from 'reselect';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -150,10 +156,10 @@ const mapDispatchToProps = (dispatch) => ({
   clearAlbumMessages: () => dispatch(clearAlbumMessages()),
 });
 
-const mapStateToProps = (state) => ({
-  albums: state.albums.albums,
-  isFetching: state.albums.isFetching,
-  errorMessage: state.albums.errorMessage,
+const mapStateToProps = createStructuredSelector({
+  albums: selectAlbumsData,
+  isFetching: selectAlbumsFetchStatus,
+  errorMessage: selectAlbumsErrorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlbumContainer);
