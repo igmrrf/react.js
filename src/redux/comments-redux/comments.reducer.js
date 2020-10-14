@@ -1,14 +1,11 @@
-import CommentsActionTypes from './comments.types';
-import {
-  updateItemDetails,
-  deleteItem,
-  addNewItem,
-} from '../redux-reducer-utils';
+import CommentsActionTypes from "./comments.types";
+import { updateItemDetails, deleteItem, addNewItem } from "../reducer-utils";
 
 const initialState = {
   isFetching: false,
-  comments: [],
-  errorMessage: '',
+  data: [],
+  errorMessage: null,
+  message: null,
 };
 
 const commentReducer = (state = initialState, action) => {
@@ -28,7 +25,7 @@ const commentReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        comments: action.payload,
+        data: action.payload,
       };
     case CommentsActionTypes.FETCH_COMMENTS_FAILURE:
       return {
@@ -44,7 +41,7 @@ const commentReducer = (state = initialState, action) => {
     case CommentsActionTypes.EDIT_COMMENT_SUCCESS:
       return {
         ...state,
-        comments: updateItemDetails(state.comments, action.payload),
+        data: updateItemDetails(state.comments, action.payload),
         isFetching: false,
       };
     case CommentsActionTypes.EDIT_COMMENT_FAILURE:
@@ -61,7 +58,7 @@ const commentReducer = (state = initialState, action) => {
     case CommentsActionTypes.ADD_COMMENT_SUCCESS:
       return {
         ...state,
-        comments: addNewItem(state.comments, action.payload),
+        data: addNewItem(state.comments, action.payload),
         isFetching: false,
       };
     case CommentsActionTypes.ADD_COMMENT_FAILURE:
@@ -78,7 +75,7 @@ const commentReducer = (state = initialState, action) => {
     case CommentsActionTypes.DELETE_COMMENT_SUCCESS:
       return {
         ...state,
-        comments: deleteItem(state.comments, action.payload),
+        data: deleteItem(state.comments, action.payload),
         isFetching: false,
       };
     case CommentsActionTypes.DELETE_COMMENT_FAILURE:

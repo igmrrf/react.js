@@ -1,19 +1,19 @@
-import CommentsActionTypes from './comments.types';
-import axios from '../../utils/axios';
+import CommentsActionTypes from "./comments.types";
+import axios from "../../utils/axios";
 
 export const clearCommentMessages = () => ({
   type: CommentsActionTypes.CLEAR_COMMENT_MESSAGES,
 });
-const fetchCommentsStart = () => ({
+export const fetchCommentsStart = () => ({
   type: CommentsActionTypes.FETCH_COMMENTS_START,
 });
 
-const fetchCommentsSuccess = (comments) => ({
+export const fetchCommentsSuccess = (comments) => ({
   type: CommentsActionTypes.FETCH_COMMENTS_SUCCESS,
   payload: comments,
 });
 
-const fetchCommentsFailure = (errorMessage) => ({
+export const fetchCommentsFailure = (errorMessage) => ({
   type: CommentsActionTypes.FETCH_COMMENTS_FAILURE,
   payload: errorMessage,
 });
@@ -22,7 +22,7 @@ export const fetchCommentsStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchCommentsStart());
     axios
-      .get('comments')
+      .get("comments")
       .then((res) => {
         const comments = res.data;
         dispatch(fetchCommentsSuccess(comments));
@@ -31,16 +31,16 @@ export const fetchCommentsStartAsync = () => {
   };
 };
 
-const editCommentStart = () => ({
+export const editCommentStart = () => ({
   type: CommentsActionTypes.EDIT_COMMENT_START,
 });
 
-const editCommentSuccess = (comment) => ({
+export const editCommentSuccess = (comment) => ({
   type: CommentsActionTypes.EDIT_COMMENT_SUCCESS,
   payload: comment,
 });
 
-const editCommentFailure = (errorMessage) => ({
+export const editCommentFailure = (errorMessage) => ({
   type: CommentsActionTypes.EDIT_COMMENT_FAILURE,
   payload: errorMessage,
 });
@@ -58,16 +58,16 @@ export const editCommentStartAsync = (data) => {
   };
 };
 
-const addCommentStart = () => ({
+export const addCommentStart = () => ({
   type: CommentsActionTypes.ADD_COMMENT_START,
 });
 
-const addCommentSuccess = (comment) => ({
+export const addCommentSuccess = (comment) => ({
   type: CommentsActionTypes.ADD_COMMENT_SUCCESS,
   payload: comment,
 });
 
-const addCommentFailure = (errorMessage) => ({
+export const addCommentFailure = (errorMessage) => ({
   type: CommentsActionTypes.ADD_COMMENT_FAILURE,
   payload: errorMessage,
 });
@@ -85,16 +85,16 @@ export const addCommentStartAsync = (data) => {
   };
 };
 
-const deleteCommentStart = () => ({
+export const deleteCommentStart = () => ({
   type: CommentsActionTypes.DELETE_COMMENT_START,
 });
 
-const deleteCommentSuccess = (id) => ({
+export const deleteCommentSuccess = (id) => ({
   type: CommentsActionTypes.DELETE_COMMENT_SUCCESS,
   payload: id,
 });
 
-const deleteCommentFailure = (errorMessage) => ({
+export const deleteCommentFailure = (errorMessage) => ({
   type: CommentsActionTypes.DELETE_COMMENT_FAILURE,
   payload: errorMessage,
 });

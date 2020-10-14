@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist';
-import albumReducer from './albums-redux/albums.reducer';
-import commentReducer from './comments-redux/comments.reducer';
-import photoReducer from './photos-redux/photos.reducer';
-import postReducer from './posts-redux/posts.reducer';
-import todoReducer from './todos-redux/todos.reducer';
-import userReducer from './users-redux/users.reducer';
-import storage from 'redux-persist/lib/storage';
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import albumReducer from "./albums/reducer";
+import commentReducer from "./comments-redux/comments.reducer";
+import photoReducer from "./photos-redux/photos.reducer";
+import postReducer from "./posts-redux/posts.reducer";
+import todoReducer from "./todos-redux/todos.reducer";
+import userReducer from "./users-redux/users.reducer";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 

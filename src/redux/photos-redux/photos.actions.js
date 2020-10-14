@@ -1,19 +1,19 @@
-import PhotosActionTypes from './photos.types';
-import axios from '../../utils/axios';
+import PhotosActionTypes from "./photos.types";
+import axios from "../../utils/axios";
 
 export const clearPhotoMessages = () => ({
   type: PhotosActionTypes.CLEAR_PHOTO_MESSAGES,
 });
-const fetchPhotosStart = () => ({
+export const fetchPhotosStart = () => ({
   type: PhotosActionTypes.FETCH_PHOTOS_START,
 });
 
-const fetchPhotosSuccess = (photos) => ({
+export const fetchPhotosSuccess = (photos) => ({
   type: PhotosActionTypes.FETCH_PHOTOS_SUCCESS,
   payload: photos,
 });
 
-const fetchPhotosFailure = (errorMessage) => ({
+export const fetchPhotosFailure = (errorMessage) => ({
   type: PhotosActionTypes.FETCH_PHOTOS_FAILURE,
   payload: errorMessage,
 });
@@ -22,7 +22,7 @@ export const fetchPhotosStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchPhotosStart());
     axios
-      .get('photos')
+      .get("photos")
       .then((res) => {
         const photos = res.data;
         dispatch(fetchPhotosSuccess(photos));
@@ -31,16 +31,16 @@ export const fetchPhotosStartAsync = () => {
   };
 };
 
-const editPhotoStart = () => ({
+export const editPhotoStart = () => ({
   type: PhotosActionTypes.EDIT_PHOTO_START,
 });
 
-const editPhotoSuccess = (photo) => ({
+export const editPhotoSuccess = (photo) => ({
   type: PhotosActionTypes.EDIT_PHOTO_SUCCESS,
   payload: photo,
 });
 
-const editPhotoFailure = (errorMessage) => ({
+export const editPhotoFailure = (errorMessage) => ({
   type: PhotosActionTypes.EDIT_PHOTO_FAILURE,
   payload: errorMessage,
 });
@@ -58,16 +58,16 @@ export const editPhotoStartAsync = (data) => {
   };
 };
 
-const addPhotoStart = () => ({
+export const addPhotoStart = () => ({
   type: PhotosActionTypes.ADD_PHOTO_START,
 });
 
-const addPhotoSuccess = (photo) => ({
+export const addPhotoSuccess = (photo) => ({
   type: PhotosActionTypes.ADD_PHOTO_SUCCESS,
   payload: photo,
 });
 
-const addPhotoFailure = (errorMessage) => ({
+export const addPhotoFailure = (errorMessage) => ({
   type: PhotosActionTypes.ADD_PHOTO_FAILURE,
   payload: errorMessage,
 });
@@ -85,16 +85,16 @@ export const addPhotoStartAsync = (data) => {
   };
 };
 
-const deletePhotoStart = () => ({
+export const deletePhotoStart = () => ({
   type: PhotosActionTypes.DELETE_PHOTO_START,
 });
 
-const deletePhotoSuccess = (id) => ({
+export const deletePhotoSuccess = (id) => ({
   type: PhotosActionTypes.DELETE_PHOTO_SUCCESS,
   payload: id,
 });
 
-const deletePhotoFailure = (errorMessage) => ({
+export const deletePhotoFailure = (errorMessage) => ({
   type: PhotosActionTypes.DELETE_PHOTO_FAILURE,
   payload: errorMessage,
 });

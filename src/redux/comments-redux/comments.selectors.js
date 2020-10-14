@@ -1,6 +1,6 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-export const selectComments = (state) => state.ablums;
+export const selectComments = (state) => state.comments;
 
 export const selectCommentsData = createSelector(
   [selectComments],

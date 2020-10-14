@@ -1,14 +1,11 @@
-import PostsActionTypes from './posts.types';
-import {
-  updateItemDetails,
-  addNewItem,
-  deleteItem,
-} from '../redux-reducer-utils';
+import PostsActionTypes from "./posts.types";
+import { updateItemDetails, addNewItem, deleteItem } from "../reducer-utils";
 
 const initialState = {
   isFetching: false,
-  posts: [],
-  errorMessage: '',
+  data: [],
+  errorMessage: null,
+  message: null,
 };
 
 const postReducer = (state = initialState, action) => {
@@ -28,7 +25,7 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        posts: action.payload,
+        data: action.payload,
       };
     case PostsActionTypes.FETCH_POSTS_FAILURE:
       return {
@@ -44,7 +41,7 @@ const postReducer = (state = initialState, action) => {
     case PostsActionTypes.EDIT_POST_SUCCESS:
       return {
         ...state,
-        posts: updateItemDetails(state.posts, action.payload),
+        data: updateItemDetails(state.posts, action.payload),
         isFetching: false,
       };
     case PostsActionTypes.EDIT_POST_FAILURE:
@@ -61,7 +58,7 @@ const postReducer = (state = initialState, action) => {
     case PostsActionTypes.ADD_POST_SUCCESS:
       return {
         ...state,
-        posts: addNewItem(state.posts, action.payload),
+        data: addNewItem(state.posts, action.payload),
         isFetching: false,
       };
     case PostsActionTypes.ADD_POST_FAILURE:
@@ -78,7 +75,7 @@ const postReducer = (state = initialState, action) => {
     case PostsActionTypes.DELETE_POST_SUCCESS:
       return {
         ...state,
-        posts: deleteItem(state.posts, action.payload),
+        data: deleteItem(state.posts, action.payload),
         isFetching: false,
       };
     case PostsActionTypes.DELETE_POST_FAILURE:

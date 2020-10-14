@@ -1,6 +1,6 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-export const selectAlbums = (state) => state.ablums;
+export const selectAlbums = (state) => state.albums;
 
 export const selectAlbumsData = createSelector(
   [selectAlbums],

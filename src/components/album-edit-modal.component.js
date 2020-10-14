@@ -6,9 +6,10 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editAlbumStartAsync } from "../redux/albums-redux/albums.actions";
+import { editAlbumStartAsync } from "../redux/albums/actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
+import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ album, editAlbumStartAsync }) {
+function EditModal({ album, editAlbumStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(album.title);
@@ -60,12 +61,10 @@ function TransitionsModal({ album, editAlbumStartAsync }) {
 
   return (
     <div>
-      <Edit
-        variant={"outlined"}
-        color={"primary"}
-        onClick={handleOpen}
-        className={classes.edit}
-      />
+      <Fab color={"promary"} aria-lable={"edit"}>
+        <Edit variant={"outlined"} color={"primary"} onClick={handleOpen} />
+      </Fab>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -111,4 +110,4 @@ const mapDispatchToProps = (dispatch) => ({
   editAlbumStartAsync: (data) => dispatch(editAlbumStartAsync(data)),
 });
 
-export default connect(null, mapDispatchToProps)(TransitionsModal);
+export default connect(null, mapDispatchToProps)(EditModal);

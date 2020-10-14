@@ -1,14 +1,11 @@
-import TodosActionTypes from './todos.types';
-import {
-  updateItemDetails,
-  addNewItem,
-  deleteItem,
-} from '../redux-reducer-utils';
+import TodosActionTypes from "./todos.types";
+import { updateItemDetails, addNewItem, deleteItem } from "../reducer-utils";
 
 const initialState = {
   isFetching: false,
-  todos: [],
-  errorMessage: '',
+  data: [],
+  errorMessage: null,
+  message: null,
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -28,7 +25,7 @@ const todoReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        todos: action.payload,
+        data: action.payload,
       };
     case TodosActionTypes.FETCH_TODOS_FAILURE:
       return {
@@ -44,7 +41,7 @@ const todoReducer = (state = initialState, action) => {
     case TodosActionTypes.EDIT_TODO_SUCCESS:
       return {
         ...state,
-        todos: updateItemDetails(state.todos, action.payload),
+        data: updateItemDetails(state.todos, action.payload),
         isFetching: false,
       };
     case TodosActionTypes.EDIT_TODO_FAILURE:
@@ -61,7 +58,7 @@ const todoReducer = (state = initialState, action) => {
     case TodosActionTypes.ADD_TODO_SUCCESS:
       return {
         ...state,
-        todos: addNewItem(state.todos, action.payload),
+        data: addNewItem(state.todos, action.payload),
         isFetching: false,
       };
     case TodosActionTypes.ADD_TODO_FAILURE:
@@ -78,7 +75,7 @@ const todoReducer = (state = initialState, action) => {
     case TodosActionTypes.DELETE_TODO_SUCCESS:
       return {
         ...state,
-        todos: deleteItem(state.todos, action.payload),
+        data: deleteItem(state.todos, action.payload),
         isFetching: false,
       };
     case TodosActionTypes.DELETE_TODO_FAILURE:

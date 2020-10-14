@@ -1,13 +1,9 @@
-import UsersActionTypes from './users.types';
-import {
-  deleteItem,
-  addNewItem,
-  updateItemDetails,
-} from '../redux-reducer-utils';
+import UsersActionTypes from "./users.types";
+import { deleteItem, addNewItem, updateItemDetails } from "../reducer-utils";
 
 const initialState = {
   isFetching: false,
-  users: [],
+  data: [],
   errorMessage: null,
   message: null,
 };
@@ -32,27 +28,27 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        users: action.payload,
+        data: action.payload,
       };
 
     case UsersActionTypes.EDIT_USER_SUCCESS:
       return {
         ...state,
-        users: updateItemDetails(state.users, action.payload),
+        data: updateItemDetails(state.users, action.payload),
         isFetching: false,
       };
 
     case UsersActionTypes.ADD_USER_SUCCESS:
       return {
         ...state,
-        users: addNewItem(state.users, action.payload),
+        data: addNewItem(state.users, action.payload),
         isFetching: false,
       };
 
     case UsersActionTypes.DELETE_USER_SUCCESS:
       return {
         ...state,
-        users: deleteItem(state.users, action.payload),
+        data: deleteItem(state.users, action.payload),
         isFetching: false,
       };
     case UsersActionTypes.DELETE_USER_FAILURE:

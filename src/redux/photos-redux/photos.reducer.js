@@ -1,14 +1,11 @@
-import PhotosActionTypes from './photos.types';
-import {
-  updateItemDetails,
-  deleteItem,
-  addNewItem,
-} from '../redux-reducer-utils';
+import PhotosActionTypes from "./photos.types";
+import { updateItemDetails, deleteItem, addNewItem } from "../reducer-utils";
 
 const initialState = {
   isFetching: false,
-  photos: [],
-  errorMessage: '',
+  data: [],
+  errorMessage: null,
+  message: null,
 };
 
 const photoReducer = (state = initialState, action) => {
@@ -28,7 +25,7 @@ const photoReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        photos: action.payload,
+        data: action.payload,
       };
     case PhotosActionTypes.FETCH_PHOTOS_FAILURE:
       return {
@@ -44,7 +41,7 @@ const photoReducer = (state = initialState, action) => {
     case PhotosActionTypes.EDIT_PHOTO_SUCCESS:
       return {
         ...state,
-        photos: updateItemDetails(state.photos, action.payload),
+        data: updateItemDetails(state.photos, action.payload),
         isFetching: false,
       };
     case PhotosActionTypes.EDIT_PHOTO_FAILURE:
@@ -61,7 +58,7 @@ const photoReducer = (state = initialState, action) => {
     case PhotosActionTypes.ADD_PHOTO_SUCCESS:
       return {
         ...state,
-        photos: addNewItem(state.photos, action.payload),
+        data: addNewItem(state.photos, action.payload),
         isFetching: false,
       };
     case PhotosActionTypes.ADD_PHOTO_FAILURE:
@@ -78,7 +75,7 @@ const photoReducer = (state = initialState, action) => {
     case PhotosActionTypes.DELETE_PHOTO_SUCCESS:
       return {
         ...state,
-        photos: deleteItem(state.photos, action.payload),
+        data: deleteItem(state.photos, action.payload),
         isFetching: false,
       };
     case PhotosActionTypes.DELETE_PHOTO_FAILURE:

@@ -1,13 +1,11 @@
-import AlbumsActionTypes from './albums.types';
-import {
-  updateItemDetails,
-  deleteItem,
-  addNewItem,
-} from '../redux-reducer-utils';
+import AlbumsActionTypes from "./types";
+import { updateItemDetails, deleteItem, addNewItem } from "../reducer-utils";
 
 const initialState = {
   isFetching: false,
-  albums: [],
+  data: [],
+  errorMessage: null,
+  message: null,
 };
 
 const albumReducer = (state = initialState, action) => {
@@ -27,7 +25,7 @@ const albumReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        albums: action.payload,
+        data: action.payload,
       };
     case AlbumsActionTypes.FETCH_ALBUMS_FAILURE:
       return {
@@ -43,7 +41,7 @@ const albumReducer = (state = initialState, action) => {
     case AlbumsActionTypes.EDIT_ALBUM_SUCCESS:
       return {
         ...state,
-        albums: updateItemDetails(state.albums, action.payload),
+        data: updateItemDetails(state.albums, action.payload),
         isFetching: false,
       };
     case AlbumsActionTypes.EDIT_ALBUM_FAILURE:
@@ -60,7 +58,7 @@ const albumReducer = (state = initialState, action) => {
     case AlbumsActionTypes.ADD_ALBUM_SUCCESS:
       return {
         ...state,
-        albums: addNewItem(state.albums, action.payload),
+        data: addNewItem(state.albums, action.payload),
         isFetching: false,
       };
     case AlbumsActionTypes.ADD_ALBUM_FAILURE:
@@ -77,7 +75,7 @@ const albumReducer = (state = initialState, action) => {
     case AlbumsActionTypes.DELETE_ALBUM_SUCCESS:
       return {
         ...state,
-        albums: deleteItem(state.albums, action.payload),
+        data: deleteItem(state.albums, action.payload),
         isFetching: false,
       };
     case AlbumsActionTypes.DELETE_ALBUM_FAILURE:

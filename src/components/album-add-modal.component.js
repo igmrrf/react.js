@@ -2,11 +2,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
+import Fab from "@material-ui/core/Fab";
 import Fade from "@material-ui/core/Fade";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
-import { addAlbumStartAsync } from "../redux/albums-redux/albums.actions";
+import { addAlbumStartAsync } from "../redux/albums/actions";
 import { connect } from "react-redux";
 import Add from "@material-ui/icons/Add";
 
@@ -61,14 +63,14 @@ function AddItemModal({ addAlbumStartAsync }) {
 
   return (
     <div>
-      <Button
+      <Fab
         onClick={handleOpen}
         variant={"contained"}
         color={"secondary"}
-        className={classes.add}
+        aria-label="add"
       >
-        Add <Add color={"primary"} fontSize={"small"} />
-      </Button>
+        <AddIcon />
+      </Fab>
 
       <Modal
         aria-labelledby="transition-modal-title"

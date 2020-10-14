@@ -88,7 +88,8 @@ export default function Navigation() {
             <Button
               variant={"contained"}
               color={"primary"}
-              component={RouterLink}
+              component={"a"}
+              href={"https://github.com/igmrrf/react-redux-jsonplaceholder"}
               className={classes.buttonLinks}
             >
               Github
