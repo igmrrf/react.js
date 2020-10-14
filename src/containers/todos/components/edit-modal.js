@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editPhotoStartAsync } from "../redux/photos-redux/photos.actions";
+import { editTodoStartAsync } from "../../../redux/todos-redux/todos.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 
@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ photo, editPhotoStartAsync }) {
+function TransitionsModal({ todo, editTodoStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = React.useState(photo.title);
+  const [newTitle, setNewTitle] = React.useState(todo.title);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,13 +48,13 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setTitle(event.target.value);
+    setNewTitle(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...photo, title };
-    editPhotoStartAsync(data);
+    const data = { ...todo, title: newTitle };
+    editTodoStartAsync(data);
     handleClose();
   };
 
@@ -87,11 +87,10 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
               <TextField
                 label={"Title"}
                 name={"title"}
-                value={title}
+                value={newTitle}
                 onChange={handleChange}
                 fullWidth
               />
-
               <Button
                 onClick={handlePost}
                 variant={"contained"}
@@ -109,7 +108,7 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editPhotoStartAsync: (data) => dispatch(editPhotoStartAsync(data)),
+  editTodoStartAsync: (data) => dispatch(editTodoStartAsync(data)),
 });
 
 export default connect(null, mapDispatchToProps)(TransitionsModal);

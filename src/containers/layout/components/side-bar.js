@@ -7,7 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import Home from "@material-ui/icons/Home";
 import Menu from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-import ListItemLink from "./link";
+import ListItemLink from "../../../components/link";
 import Button from "@material-ui/core/Button";
 import {
   AllInbox,
@@ -79,12 +79,11 @@ export default function SideBarShared() {
     >
       <List>
         {Links.map((link) => (
-          <div>
+          <div key={link.to}>
             <ListItemLink
               to={link.to}
               primary={link.primary}
               icon={link.icon}
-              key={link.primary}
             />
             <Divider />
           </div>

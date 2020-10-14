@@ -6,9 +6,9 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editTodoStartAsync } from "../redux/todos-redux/todos.actions";
+import { addPhotoStartAsync } from "../../../redux/photos-redux/photos.actions";
 import { connect } from "react-redux";
-import Edit from "@material-ui/icons/Edit";
+import Add from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,24 +21,26 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "150px",
+    height: "180px",
+  },
+  add: {
+    height: "50px",
+    margin: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    zIndex: "1000",
   },
   button: {
     marginTop: theme.spacing(2),
   },
-  edit: {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    cursor: "pointer",
-  },
 }));
 
-function TransitionsModal({ todo, editTodoStartAsync }) {
+function AddItemModal({ addPhotoStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState(todo.title);
-
+  const [state, setState] = React.useState({
+    title: "",
+    thumbnailUrl: "",
+  });
   const handleOpen = () => {
     setOpen(true);
   };
@@ -46,26 +48,32 @@ function TransitionsModal({ todo, editTodoStartAsync }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setState({ ...state, [event.target.name]: event.target.value });
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...todo, title: newTitle };
-    editTodoStartAsync(data);
+    const data = { ...state };
+    addPhotoStartAsync(data);
     handleClose();
+    setState({
+      title: "",
+      thumbnailUrl: "",
+    });
   };
 
   return (
     <div>
-      <Edit
-        variant={"outlined"}
-        color={"primary"}
+      <Button
         onClick={handleOpen}
-        className={classes.edit}
-      />
+        variant={"contained"}
+        color={"secondary"}
+        className={classes.add}
+      >
+        Add <Add color={"primary"} fontSize={"small"} />
+      </Button>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -81,13 +89,20 @@ function TransitionsModal({ todo, editTodoStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Edit
+              Add New Photo
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
                 label={"Title"}
                 name={"title"}
-                value={newTitle}
+                value={state.title}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label={"Image url"}
+                name={"thumbnailUrl"}
+                value={state.thumbnailUrl}
                 onChange={handleChange}
                 fullWidth
               />
@@ -97,7 +112,7 @@ function TransitionsModal({ todo, editTodoStartAsync }) {
                 color={"secondary"}
                 className={classes.button}
               >
-                Submit
+                Create
               </Button>
             </form>
           </div>
@@ -108,7 +123,7 @@ function TransitionsModal({ todo, editTodoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editTodoStartAsync: (data) => dispatch(editTodoStartAsync(data)),
+  addPhotoStartAsync: (data) => dispatch(addPhotoStartAsync(data)),
 });
 
-export default connect(null, mapDispatchToProps)(TransitionsModal);
+export default connect(null, mapDispatchToProps)(AddItemModal);

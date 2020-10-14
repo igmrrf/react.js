@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addPostStartAsync } from "../redux/posts-redux/posts.actions";
+import { addPostStartAsync } from "../../../redux/posts-redux/posts.actions";
 import { connect } from "react-redux";
 import Add from "@material-ui/icons/Add";
 

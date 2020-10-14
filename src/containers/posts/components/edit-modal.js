@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editCommentStartAsync } from "../redux/comments-redux/comments.actions";
+import { editPostStartAsync } from "../../../redux/posts-redux/posts.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "150px",
+    height: "200px",
   },
   button: {
     marginTop: theme.spacing(2),
@@ -34,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ comment, editCommentStartAsync }) {
+function TransitionsModal({ post, editPostStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newBody, setNewBody] = React.useState(comment.body);
+  const [title, setTitle] = React.useState(post.title);
+  const [body, setBody] = React.useState(post.body);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,13 +49,17 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewBody(event.target.value);
+    setTitle(event.target.value);
+  };
+
+  const handleBody = (event) => {
+    setBody(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...comment, body: newBody };
-    editCommentStartAsync(data);
+    const data = { ...post, title, body };
+    editPostStartAsync(data);
     handleClose();
   };
 
@@ -81,14 +86,21 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Edit Comment
+              Edit
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
+                label={"Title"}
+                name={"title"}
+                value={title}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
                 label={"Body"}
                 name={"body"}
-                value={newBody}
-                onChange={handleChange}
+                value={body}
+                onChange={handleBody}
                 fullWidth
               />
               <Button
@@ -108,7 +120,7 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editCommentStartAsync: (data) => dispatch(editCommentStartAsync(data)),
+  editPostStartAsync: (data) => dispatch(editPostStartAsync(data)),
 });
 
 export default connect(null, mapDispatchToProps)(TransitionsModal);

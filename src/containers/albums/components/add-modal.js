@@ -8,9 +8,8 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
-import { addAlbumStartAsync } from "../redux/albums/actions";
+import { addAlbumStartAsync } from "../../../redux/albums/actions";
 import { connect } from "react-redux";
-import Add from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -63,12 +62,7 @@ function AddItemModal({ addAlbumStartAsync }) {
 
   return (
     <div>
-      <Fab
-        onClick={handleOpen}
-        variant={"contained"}
-        color={"secondary"}
-        aria-label="add"
-      >
+      <Fab onClick={handleOpen} color={"secondary"} aria-label="add">
         <AddIcon />
       </Fab>
 

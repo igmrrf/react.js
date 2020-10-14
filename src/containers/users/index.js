@@ -1,47 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import React, { useEffect, useState } from "react";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import {
   fetchUsersStartAsync,
   deleteUserStartAsync,
   clearUserMessages,
-} from '../../redux/users-redux/users.actions';
-import { connect } from 'react-redux';
-import Pagination from '@material-ui/lab/Pagination';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Box from '@material-ui/core/Box';
-import TransitionsModal from '../../components/user-edit-modal.component';
-import AddItemModal from '../../components/user-add-modal.component';
-import DeleteForeverRounded from '@material-ui/icons/DeleteForeverRounded';
-import blue from '@material-ui/core/colors/blue';
-import SkeletonComponent from '../../components/skeleton.component';
-import { useSnackbar } from 'notistack';
+} from "../../redux/users-redux/users.actions";
+import { connect } from "react-redux";
+import Pagination from "@material-ui/lab/Pagination";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Box from "@material-ui/core/Box";
+import TransitionsModal from "./components/edit-modal";
+import AddItemModal from "./components/add-modal";
+import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
+import blue from "@material-ui/core/colors/blue";
+import SkeletonComponent from "../components/skeleton.component";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: 'center',
+    textAlign: "center",
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
   },
   userImage: {
-    height: '20vmin',
-    pointerEvents: 'none',
+    height: "20vmin",
+    pointerEvents: "none",
   },
   card: {
     padding: theme.spacing(2),
-    position: 'relative',
+    position: "relative",
   },
   delete: {
-    position: 'absolute',
-    top: '10px',
-    left: '10px',
-    cursor: 'pointer',
+    position: "absolute",
+    top: "10px",
+    left: "10px",
+    cursor: "pointer",
   },
   pagination: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginLeft: 'auto',
+    display: "flex",
+    justifyContent: "center",
+    marginLeft: "auto",
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
   },
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   length: {
-    fontSize: '16px',
+    fontSize: "16px",
     color: blue,
   },
 }));
@@ -76,7 +76,7 @@ const UserContainer = ({
 
   useEffect(() => {
     if (errorMessage) {
-      enqueueSnackbar(errorMessage, { variant: 'error' });
+      enqueueSnackbar(errorMessage, { variant: "error" });
       clearUserMessages();
     }
   }, [errorMessage, clearUserMessages, enqueueSnackbar]);
@@ -93,19 +93,19 @@ const UserContainer = ({
 
   return (
     <Box className={classes.root}>
-      <Typography variant={'h2'} component={'h1'}>
+      <Typography variant={"h2"} component={"h1"}>
         Users <strong className={classes.length}> [{users.length}]</strong>
       </Typography>
       <AddItemModal />
 
-      <Grid container justify={'center'} alignItems={'center'} spacing={4}>
+      <Grid container justify={"center"} alignItems={"center"} spacing={4}>
         {pageUsers.length > 1 ? (
           pageUsers.map((each) => (
             <Grid item xs={10} sm={5} md={3} key={each.id}>
               <Paper className={classes.card} elevation={10}>
                 {each.id}
                 <DeleteForeverRounded
-                  color={'primary'}
+                  color={"primary"}
                   className={classes.delete}
                   onClick={() => deleteUserStartAsync(each.id)}
                 />
@@ -131,9 +131,9 @@ const UserContainer = ({
         page={page}
         onChange={handleChange}
         className={classes.pagination}
-        color='primary'
-        variant='outlined'
-        size='small'
+        color="primary"
+        variant="outlined"
+        size="small"
       />
     </Box>
   );

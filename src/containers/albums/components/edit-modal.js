@@ -6,9 +6,10 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addPhotoStartAsync } from "../redux/photos-redux/photos.actions";
+import { editAlbumStartAsync } from "../../../redux/albums/actions";
 import { connect } from "react-redux";
-import Add from "@material-ui/icons/Add";
+import Edit from "@material-ui/icons/Edit";
+import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,26 +22,24 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "180px",
-  },
-  add: {
-    height: "50px",
-    margin: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    zIndex: "1000",
+    height: "150px",
   },
   button: {
     marginTop: theme.spacing(2),
   },
+  edit: {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    cursor: "pointer",
+  },
 }));
 
-function AddItemModal({ addPhotoStartAsync }) {
+function EditModal({ album, editAlbumStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
-    title: "",
-    thumbnailUrl: "",
-  });
+  const [newTitle, setNewTitle] = React.useState(album.title);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -48,31 +47,23 @@ function AddItemModal({ addPhotoStartAsync }) {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
+    setNewTitle(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...state };
-    addPhotoStartAsync(data);
+    const data = { ...album, title: newTitle };
+    editAlbumStartAsync(data);
     handleClose();
-    setState({
-      title: "",
-      thumbnailUrl: "",
-    });
   };
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        variant={"contained"}
-        color={"secondary"}
-        className={classes.add}
-      >
-        Add <Add color={"primary"} fontSize={"small"} />
-      </Button>
+      <Fab color={"primary"} aria-label={"edit"}>
+        <Edit variant={"outlined"} onClick={handleOpen} />
+      </Fab>
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -89,20 +80,13 @@ function AddItemModal({ addPhotoStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Add New Photo
+              Edit
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
                 label={"Title"}
                 name={"title"}
-                value={state.title}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label={"Image url"}
-                name={"thumbnailUrl"}
-                value={state.thumbnailUrl}
+                value={newTitle}
                 onChange={handleChange}
                 fullWidth
               />
@@ -112,7 +96,7 @@ function AddItemModal({ addPhotoStartAsync }) {
                 color={"secondary"}
                 className={classes.button}
               >
-                Create
+                Submit
               </Button>
             </form>
           </div>
@@ -123,7 +107,7 @@ function AddItemModal({ addPhotoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addPhotoStartAsync: (data) => dispatch(addPhotoStartAsync(data)),
+  editAlbumStartAsync: (data) => dispatch(editAlbumStartAsync(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AddItemModal);
+export default connect(null, mapDispatchToProps)(EditModal);

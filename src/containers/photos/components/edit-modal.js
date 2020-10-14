@@ -6,9 +6,9 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addTodoStartAsync } from "../redux/todos-redux/todos.actions";
+import { editPhotoStartAsync } from "../../../redux/photos-redux/photos.actions";
 import { connect } from "react-redux";
-import Add from "@material-ui/icons/Add";
+import Edit from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -23,21 +23,21 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     height: "150px",
   },
-  add: {
-    height: "50px",
-    margin: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    zIndex: "1000",
-  },
   button: {
     marginTop: theme.spacing(2),
   },
+  edit: {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    cursor: "pointer",
+  },
 }));
 
-function AddItemModal({ addTodoStartAsync }) {
+function TransitionsModal({ photo, editPhotoStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState("");
+  const [title, setTitle] = React.useState(photo.title);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,28 +48,24 @@ function AddItemModal({ addTodoStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setNewTitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { userId: 1, title: newTitle };
-    addTodoStartAsync(data);
+    const data = { ...photo, title };
+    editPhotoStartAsync(data);
     handleClose();
-    setNewTitle("");
   };
 
   return (
     <div>
-      <Button
+      <Edit
+        variant={"outlined"}
+        color={"primary"}
         onClick={handleOpen}
-        variant={"contained"}
-        color={"secondary"}
-        className={classes.add}
-      >
-        Add <Add color={"primary"} fontSize={"small"} />
-      </Button>
-
+        className={classes.edit}
+      />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -85,23 +81,24 @@ function AddItemModal({ addTodoStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Add New Todo
+              Edit
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"Todo"}
-                name={"todo"}
-                value={newTitle}
+                label={"Title"}
+                name={"title"}
+                value={title}
                 onChange={handleChange}
                 fullWidth
               />
+
               <Button
                 onClick={handlePost}
                 variant={"contained"}
                 color={"secondary"}
                 className={classes.button}
               >
-                Create
+                Submit
               </Button>
             </form>
           </div>
@@ -112,7 +109,7 @@ function AddItemModal({ addTodoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodoStartAsync: (data) => dispatch(addTodoStartAsync(data)),
+  editPhotoStartAsync: (data) => dispatch(editPhotoStartAsync(data)),
 });
 
-export default connect(null, mapDispatchToProps)(AddItemModal);
+export default connect(null, mapDispatchToProps)(TransitionsModal);

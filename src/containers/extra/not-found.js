@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import notFound from "../static/404.svg";
+import notFound from "../../static/404.svg";
 import { Link as RouterLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NotFoundContainer() {
+function NotFound() {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -47,4 +47,4 @@ function NotFoundContainer() {
   );
 }
 
-export default NotFoundContainer;
+export default NotFound;

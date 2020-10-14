@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editUserStartAsync } from "../redux/users-redux/users.actions";
+import { editCommentStartAsync } from "../../../redux/comments-redux/comments.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 
@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ user, editUserStartAsync }) {
+function TransitionsModal({ comment, editCommentStartAsync }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState(user.email);
+  const [newBody, setNewBody] = React.useState(comment.body);
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,13 +48,13 @@ function TransitionsModal({ user, editUserStartAsync }) {
   };
 
   const handleChange = (event) => {
-    setEmail(event.target.value);
+    setNewBody(event.target.value);
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    const data = { ...user, email };
-    editUserStartAsync(data);
+    const data = { ...comment, body: newBody };
+    editCommentStartAsync(data);
     handleClose();
   };
 
@@ -81,13 +81,13 @@ function TransitionsModal({ user, editUserStartAsync }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Edit E-mail
+              Edit Comment
             </Typography>
             <form onSubmit={handlePost}>
               <TextField
-                label={"E-mail"}
-                name={"email"}
-                value={email}
+                label={"Body"}
+                name={"body"}
+                value={newBody}
                 onChange={handleChange}
                 fullWidth
               />
@@ -108,7 +108,7 @@ function TransitionsModal({ user, editUserStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editUserStartAsync: (data) => dispatch(editUserStartAsync(data)),
+  editCommentStartAsync: (data) => dispatch(editCommentStartAsync(data)),
 });
 
 export default connect(null, mapDispatchToProps)(TransitionsModal);

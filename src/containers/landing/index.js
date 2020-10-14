@@ -4,12 +4,12 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import album from "../static/album.svg";
-import comment from "../static/comment.svg";
-import photo from "../static/photo.svg";
-import post from "../static/post.svg";
-import todo from "../static/todo.svg";
-import user from "../static/user.svg";
+import album from "../../static/album.svg";
+import comment from "../../static/comment.svg";
+import photo from "../../static/photo.svg";
+import post from "../../static/post.svg";
+import todo from "../../static/todo.svg";
+import user from "../../static/user.svg";
 import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
