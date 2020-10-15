@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addUserStartAsync } from "../../../redux/users-redux/users.actions";
+import { addUserStart } from "../../../redux/users/users.actions";
 import { connect } from "react-redux";
 import Add from "@material-ui/icons/Add";
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addUserStartAsync }) {
+function AddItemModal({ addUserStart }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({
@@ -90,7 +90,7 @@ function AddItemModal({ addUserStartAsync }) {
       // geo: { ...geo },
       // company: { ...company },
     };
-    addUserStartAsync(data);
+    addUserStart(data);
     handleClose();
     // setAddress({
     //   street: "",
@@ -273,7 +273,7 @@ function AddItemModal({ addUserStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addUserStartAsync: (data) => dispatch(addUserStartAsync(data)),
+  addUserStart: (data) => dispatch(addUserStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddItemModal);

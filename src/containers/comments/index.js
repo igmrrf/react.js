@@ -1,47 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import React, { useEffect, useState } from "react";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import {
-  fetchCommentsStartAsync,
-  deleteCommentStartAsync,
-  clearCommentMessages,
-} from '../../redux/comments-redux/comments.actions';
-import { connect } from 'react-redux';
-import Pagination from '@material-ui/lab/Pagination';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Box from '@material-ui/core/Box';
-import TransitionsModal from '../../components/comment-edit-modal.component';
-import AddItemModal from '../../components/comment-add-modal.component';
-import DeleteForeverRounded from '@material-ui/icons/DeleteForeverRounded';
-import SkeletonComponent from '../../components/skeleton.component';
-import blue from '@material-ui/core/colors/blue';
-import { useSnackbar } from 'notistack';
+  fetchCommentsStart,
+  deleteCommentStart,
+} from "../../redux/comments/comments.actions";
+import { connect } from "react-redux";
+import Pagination from "@material-ui/lab/Pagination";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Box from "@material-ui/core/Box";
+import TransitionsModal from "./components/edit-modal";
+import AddItemModal from "./components/add-modal";
+import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
+import SkeletonComponent from "../components/skeleton.component";
+import blue from "@material-ui/core/colors/blue";
+import { useSnackbar } from "notistack";
+import { createStructuredSelector } from "reselect";
+import {
+  selectCommentsData,
+  selectCommentsErrorMessage,
+  selectCommentsFetchStatus,
+} from "../../redux/comments/comments.selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: 'center',
+    textAlign: "center",
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
   },
   commentImage: {
-    height: '20vmin',
-    pointerEvents: 'none',
+    height: "20vmin",
+    pointerEvents: "none",
   },
   card: {
     padding: theme.spacing(2),
-    position: 'relative',
+    position: "relative",
   },
   delete: {
-    position: 'absolute',
-    top: '10px',
-    left: '10px',
-    cursor: 'pointer',
+    position: "absolute",
+    top: "10px",
+    left: "10px",
+    cursor: "pointer",
   },
   pagination: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginLeft: 'auto',
+    display: "flex",
+    justifyContent: "center",
+    marginLeft: "auto",
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
   },
@@ -49,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   length: {
-    fontSize: '16px',
+    fontSize: "16px",
     color: blue,
   },
   skeleton: {
@@ -59,11 +64,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CommentContainer = ({
-  fetchCommentsStartAsync,
-  deleteCommentStartAsync,
+  fetchCommentsStart,
+  deleteCommentStart,
   comments,
   isFetching,
-  clearCommentMessages,
   errorMessage,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -75,15 +79,15 @@ const CommentContainer = ({
   const count = Math.ceil(comments.length / 10);
 
   useEffect(() => {
-    if (comments.length < 1) fetchCommentsStartAsync();
-  }, [fetchCommentsStartAsync, comments]);
+    if (comments.length < 1) fetchCommentsStart();
+  }, [fetchCommentsStart, comments]);
 
   useEffect(() => {
     if (errorMessage) {
-      enqueueSnackbar(errorMessage, { variant: 'error' });
-      clearCommentMessages();
+      enqueueSnackbar(errorMessage, { variant: "error" });
     }
-  }, [errorMessage, clearCommentMessages, enqueueSnackbar]);
+  }, [errorMessage, enqueueSnackbar]);
+
   useEffect(() => {
     setPageComments(comments.slice(minimum, maximum));
   }, [page, isFetching, comments, minimum, maximum]);
@@ -96,22 +100,22 @@ const CommentContainer = ({
 
   return (
     <Box className={classes.root}>
-      <Typography variant={'h2'} component={'h1'}>
+      <Typography variant={"h2"} component={"h1"}>
         Comments
         <strong className={classes.length}> [{comments.length}]</strong>
       </Typography>
       <AddItemModal />
 
-      <Grid container justify={'center'} alignItems={'center'} spacing={4}>
+      <Grid container justify={"center"} alignItems={"center"} spacing={4}>
         {pageComments.length > 1 ? (
           pageComments.map((each) => (
             <Grid item xs={10} sm={5} md={3} key={each.id}>
               <Paper className={classes.card} elevation={10}>
                 {each.id}
                 <DeleteForeverRounded
-                  color={'primary'}
+                  color={"primary"}
                   className={classes.delete}
-                  onClick={() => deleteCommentStartAsync(each.id)}
+                  onClick={() => deleteCommentStart(each.id)}
                 />
                 <Typography>
                   {each.name} ({each.email})
@@ -132,24 +136,23 @@ const CommentContainer = ({
         page={page}
         onChange={handleChange}
         className={classes.pagination}
-        color='primary'
-        variant='outlined'
-        size='small'
+        color="primary"
+        variant="outlined"
+        size="small"
       />
     </Box>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCommentsStartAsync: () => dispatch(fetchCommentsStartAsync()),
-  deleteCommentStartAsync: (id) => dispatch(deleteCommentStartAsync(id)),
-  clearCommentMessages: () => dispatch(clearCommentMessages()),
+  fetchCommentsStart: () => dispatch(fetchCommentsStart()),
+  deleteCommentStart: (id) => dispatch(deleteCommentStart(id)),
 });
 
-const mapStateToProps = (state) => ({
-  comments: state.comments.comments,
-  isFetching: state.comments.isFetching,
-  errorMessage: state.comments.errorMessage,
+const mapStateToProps = createStructuredSelector({
+  comments: selectCommentsData,
+  isFetching: selectCommentsFetchStatus,
+  errorMessage: selectCommentsErrorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);

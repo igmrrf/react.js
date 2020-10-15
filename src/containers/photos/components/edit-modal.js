@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editPhotoStartAsync } from "../../../redux/photos-redux/photos.actions";
+import { editPhotoStart } from "../../../redux/photos/photos.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ photo, editPhotoStartAsync }) {
+function TransitionsModal({ photo, editPhotoStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(photo.title);
@@ -54,7 +54,7 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...photo, title };
-    editPhotoStartAsync(data);
+    editPhotoStart(data);
     handleClose();
   };
 
@@ -109,7 +109,7 @@ function TransitionsModal({ photo, editPhotoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editPhotoStartAsync: (data) => dispatch(editPhotoStartAsync(data)),
+  editPhotoStart: (data) => dispatch(editPhotoStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(TransitionsModal);

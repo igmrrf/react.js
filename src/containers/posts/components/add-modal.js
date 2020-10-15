@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addPostStartAsync } from "../../../redux/posts-redux/posts.actions";
+import { addPostStart } from "../../../redux/posts/posts.actions";
 import { connect } from "react-redux";
 import Add from "@material-ui/icons/Add";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addPostStartAsync }) {
+function AddItemModal({ addPostStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
@@ -58,7 +58,7 @@ function AddItemModal({ addPostStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { userId: 1, title, body };
-    addPostStartAsync(data);
+    addPostStart(data);
     handleClose();
     setBody("");
     setTitle("");
@@ -126,7 +126,7 @@ function AddItemModal({ addPostStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addPostStartAsync: (data) => dispatch(addPostStartAsync(data)),
+  addPostStart: (data) => dispatch(addPostStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddItemModal);

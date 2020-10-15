@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editCommentStartAsync } from "../../../redux/comments-redux/comments.actions";
+import { editCommentStart } from "../../../redux/comments/comments.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ comment, editCommentStartAsync }) {
+function TransitionsModal({ comment, editCommentStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newBody, setNewBody] = React.useState(comment.body);
@@ -54,7 +54,7 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...comment, body: newBody };
-    editCommentStartAsync(data);
+    editCommentStart(data);
     handleClose();
   };
 
@@ -108,7 +108,7 @@ function TransitionsModal({ comment, editCommentStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editCommentStartAsync: (data) => dispatch(editCommentStartAsync(data)),
+  editCommentStart: (data) => dispatch(editCommentStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(TransitionsModal);

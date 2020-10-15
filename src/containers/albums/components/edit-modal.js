@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editAlbumStartAsync } from "../../../redux/albums/actions";
+import { editAlbumStart } from "../../../redux/albums/albums.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditModal({ album, editAlbumStartAsync }) {
+function EditModal({ album, editAlbumStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(album.title);
@@ -55,7 +55,7 @@ function EditModal({ album, editAlbumStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...album, title: newTitle };
-    editAlbumStartAsync(data);
+    editAlbumStart(data);
     handleClose();
   };
 
@@ -107,7 +107,7 @@ function EditModal({ album, editAlbumStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editAlbumStartAsync: (data) => dispatch(editAlbumStartAsync(data)),
+  editAlbumStart: (data) => dispatch(editAlbumStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(EditModal);

@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Zoom from "@material-ui/core/Zoom";
-import Navigation from "../../components/navbar";
+import Navigation from "./components/navbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {

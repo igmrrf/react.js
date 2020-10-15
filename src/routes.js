@@ -1,7 +1,7 @@
 import React, { Suspense, Fragment, lazy } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
-import LoadingScreen from "./components/loading-screen.component";
-import Home from "./containers/home.container";
+import LoadingScreen from "./containers/extra/loading-screen";
+import Home from "./containers/landing";
 import Layout from "./containers/layout";
 
 export const renderRoutes = (routes = []) => (
@@ -32,42 +32,42 @@ const routes = [
   {
     exact: true,
     path: "/404",
-    component: lazy(() => import("./containers/not-found.container")),
+    component: lazy(() => import("./containers/extra/not-found")),
   },
   {
     exact: true,
     path: "/loading",
-    component: lazy(() => import("./components/loading-screen.component")),
+    component: lazy(() => import("./containers/extra/loading-screen")),
   },
   {
     exact: true,
     path: "/albums",
-    component: lazy(() => import("./containers/albums/albums.container")),
+    component: lazy(() => import("./containers/albums")),
   },
   {
     exact: true,
     path: "/comments",
-    component: lazy(() => import("./containers/comments/comments.container")),
+    component: lazy(() => import("./containers/comments")),
   },
   {
     exact: true,
     path: "/photos",
-    component: lazy(() => import("./containers/photos/photos.container")),
+    component: lazy(() => import("./containers/photos")),
   },
   {
     exact: true,
     path: "/posts",
-    component: lazy(() => import("./containers/posts/posts.container")),
+    component: lazy(() => import("./containers/posts")),
   },
   {
     exact: true,
     path: "/todos",
-    component: lazy(() => import("./containers/todos/todos.container")),
+    component: lazy(() => import("./containers/todos")),
   },
   {
     exact: true,
     path: "/users",
-    component: lazy(() => import("./containers/users/users.container")),
+    component: lazy(() => import("./containers/users")),
   },
   {
     path: "/",

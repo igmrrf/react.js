@@ -1,18 +1,18 @@
 import { all, call } from "redux-saga/effects";
-import albumsSaga from "./albums/sagas";
-// import { commentsSaga } from './comments-redux/comments.sagas';
-// import { photosSaga } from './photos-redux/photos.sagas';
-// import { postsSaga } from './posts-redux/posts.sagas';
-// import { todosSaga } from './todos-redux/todos.sagas';
-// import { usersSaga } from './users-redux/users.sagas';
+import albumsSaga from "./albums/albums.sagas";
+import commentsSaga from "./comments/comments.sagas";
+import photosSaga from "./photos/photos.sagas";
+import postsSaga from "./posts/posts.sagas";
+import todosSaga from "./todos/todos.sagas";
+import usersSaga from "./users/users.sagas";
 
 export default function* rootSaga() {
   yield all([
     call(albumsSaga),
-    // call(commentsSaga),
-    // call(photosSaga),
-    // call(postsSaga),
-    // call(todosSaga),
-    // call(usersSaga),
+    call(commentsSaga),
+    call(photosSaga),
+    call(postsSaga),
+    call(todosSaga),
+    call(usersSaga),
   ]);
 }

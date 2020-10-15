@@ -7,7 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import Home from "@material-ui/icons/Home";
 import Menu from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-import ListItemLink from "../../../components/link";
+import ListItemLink from "../../components/link";
 import Button from "@material-ui/core/Button";
 import {
   AllInbox,

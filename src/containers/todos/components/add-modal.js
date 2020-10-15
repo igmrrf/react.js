@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addTodoStartAsync } from "../../../redux/todos-redux/todos.actions";
+import { addTodoStart } from "../../../redux/todos/todos.actions";
 import { connect } from "react-redux";
 import Add from "@material-ui/icons/Add";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addTodoStartAsync }) {
+function AddItemModal({ addTodoStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState("");
@@ -54,7 +54,7 @@ function AddItemModal({ addTodoStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { userId: 1, title: newTitle };
-    addTodoStartAsync(data);
+    addTodoStart(data);
     handleClose();
     setNewTitle("");
   };
@@ -112,7 +112,7 @@ function AddItemModal({ addTodoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodoStartAsync: (data) => dispatch(addTodoStartAsync(data)),
+  addTodoStart: (data) => dispatch(addTodoStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddItemModal);

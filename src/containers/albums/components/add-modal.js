@@ -8,7 +8,7 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
-import { addAlbumStartAsync } from "../../../redux/albums/actions";
+import { addAlbumStart } from "../../../redux/albums/albums.actions";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addAlbumStartAsync }) {
+function AddItemModal({ addAlbumStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState("");
@@ -55,7 +55,7 @@ function AddItemModal({ addAlbumStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { userId: 1, title: newTitle };
-    addAlbumStartAsync(data);
+    addAlbumStart(data);
     handleClose();
     setNewTitle("");
   };
@@ -108,7 +108,7 @@ function AddItemModal({ addAlbumStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addAlbumStartAsync: (data) => dispatch(addAlbumStartAsync(data)),
+  addAlbumStart: (data) => dispatch(addAlbumStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddItemModal);

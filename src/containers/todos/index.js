@@ -1,50 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import React, { useEffect, useState } from "react";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import {
-  fetchTodosStartAsync,
-  deleteTodoStartAsync,
-  clearTodoMessages,
-} from '../../redux/todos-redux/todos.actions';
-import { connect } from 'react-redux';
-import Pagination from '@material-ui/lab/Pagination';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Box from '@material-ui/core/Box';
-import TransitionsModal from '../../components/todo-edit-modal.component';
-import AddItemModal from '../../components/todo-add-modal.component';
-import DeleteForeverRounded from '@material-ui/icons/DeleteForeverRounded';
-import blue from '@material-ui/core/colors/blue';
-import { CheckCircle, CheckCircleOutline } from '@material-ui/icons';
-import SkeletonComponent from '../../components/skeleton.component';
-import { useSnackbar } from 'notistack';
+  fetchTodosStart,
+  deleteTodoStart,
+} from "../../redux/todos/todos.actions";
+import { connect } from "react-redux";
+import Pagination from "@material-ui/lab/Pagination";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Box from "@material-ui/core/Box";
+import TransitionsModal from "./components/edit-modal";
+import AddItemModal from "./components/add-modal";
+import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
+import blue from "@material-ui/core/colors/blue";
+import { CheckCircle, CheckCircleOutline } from "@material-ui/icons";
+import SkeletonComponent from "../components/skeleton.component";
+import { useSnackbar } from "notistack";
+import { createStructuredSelector } from "reselect";
+import {
+  selectTodosData,
+  selectTodosErrorMessage,
+  selectTodosFetchStatus,
+} from "../../redux/todos/todos.selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: 'center',
+    textAlign: "center",
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
   },
   todoImage: {
-    height: '20vmin',
-    pointerEvents: 'none',
+    height: "20vmin",
+    pointerEvents: "none",
   },
   card: {
     padding: theme.spacing(2),
-    position: 'relative',
+    position: "relative",
   },
   delete: {
-    position: 'absolute',
-    top: '10px',
-    left: '10px',
-    cursor: 'pointer',
+    position: "absolute",
+    top: "10px",
+    left: "10px",
+    cursor: "pointer",
   },
   pagination: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginLeft: 'auto',
+    display: "flex",
+    justifyContent: "center",
+    marginLeft: "auto",
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
   },
@@ -52,18 +57,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   length: {
-    fontSize: '16px',
+    fontSize: "16px",
     color: blue,
   },
 }));
 
 const TodoContainer = ({
-  fetchTodosStartAsync,
-  deleteTodoStartAsync,
+  fetchTodosStart,
+  deleteTodoStart,
   todos,
   isFetching,
   errorMessage,
-  clearTodoMessages,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
@@ -74,15 +78,14 @@ const TodoContainer = ({
   const count = Math.ceil(todos.length / 10);
 
   useEffect(() => {
-    if (todos.length < 1) fetchTodosStartAsync();
-  }, [fetchTodosStartAsync, todos]);
+    if (todos.length < 1) fetchTodosStart();
+  }, [fetchTodosStart, todos]);
 
   useEffect(() => {
     if (errorMessage) {
-      enqueueSnackbar(errorMessage, { variant: 'error' });
-      clearTodoMessages();
+      enqueueSnackbar(errorMessage, { variant: "error" });
     }
-  }, [errorMessage, clearTodoMessages, enqueueSnackbar]);
+  }, [errorMessage, enqueueSnackbar]);
 
   useEffect(() => {
     setPageTodos(todos.slice(minimum, maximum));
@@ -96,21 +99,21 @@ const TodoContainer = ({
 
   return (
     <Box className={classes.root}>
-      <Typography variant={'h2'} component={'h1'}>
+      <Typography variant={"h2"} component={"h1"}>
         Todos <strong className={classes.length}> [{todos.length}]</strong>
       </Typography>
       <AddItemModal />
 
-      <Grid container justify={'center'} alignItems={'center'} spacing={4}>
+      <Grid container justify={"center"} alignItems={"center"} spacing={4}>
         {pageTodos.length > 1 ? (
           pageTodos.map((each) => (
             <Grid item xs={10} sm={5} md={3} key={each.id}>
               <Paper className={classes.card} elevation={10}>
                 {each.id}
                 <DeleteForeverRounded
-                  color={'primary'}
+                  color={"primary"}
                   className={classes.delete}
-                  onClick={() => deleteTodoStartAsync(each.id)}
+                  onClick={() => deleteTodoStart(each.id)}
                 />
 
                 <Typography>{each.title}</Typography>
@@ -119,11 +122,11 @@ const TodoContainer = ({
                     <Checkbox
                       icon={<CheckCircleOutline />}
                       checkedIcon={<CheckCircle />}
-                      name='checkedH'
+                      name="checkedH"
                       checked={each.completed}
                     />
                   }
-                  label={each.completed ? 'Completed' : 'Uncompleted'}
+                  label={each.completed ? "Completed" : "Uncompleted"}
                 />
 
                 <Box>
@@ -141,24 +144,23 @@ const TodoContainer = ({
         page={page}
         onChange={handleChange}
         className={classes.pagination}
-        color='primary'
-        variant='outlined'
-        size='small'
+        color="primary"
+        variant="outlined"
+        size="small"
       />
     </Box>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchTodosStartAsync: () => dispatch(fetchTodosStartAsync()),
-  deleteTodoStartAsync: (id) => dispatch(deleteTodoStartAsync(id)),
-  clearTodoMessages: () => dispatch(clearTodoMessages()),
+  fetchTodosStart: () => dispatch(fetchTodosStart()),
+  deleteTodoStart: (id) => dispatch(deleteTodoStart(id)),
 });
 
-const mapStateToProps = (state) => ({
-  todos: state.todos.todos,
-  isFetching: state.todos.isFetching,
-  errorMessage: state.todos.errorMessage,
+const mapStateToProps = createStructuredSelector({
+  todos: selectTodosData,
+  isFetching: selectTodosFetchStatus,
+  errorMessage: selectTodosErrorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);

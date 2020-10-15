@@ -1,11 +1,11 @@
-import { compose, createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import logger from '../utils/logger';
-import monitorReducerEnhancer from '../utils/monitorReducer';
-import { persistStore } from 'redux-persist';
-import rootReducer from './root.reducer';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './root.sagas';
+import { compose, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import logger from "../utils/logger";
+import monitorReducerEnhancer from "../utils/monitor";
+import { persistStore } from "redux-persist";
+import rootReducer from "./root.reducer";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./root.sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 

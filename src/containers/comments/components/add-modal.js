@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
-import { addCommentStartAsync } from "../../../redux/comments-redux/comments.actions";
+import { addCommentStart } from "../../../redux/comments/comments.actions";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddCommentModal({ addCommentStartAsync }) {
+function AddCommentModal({ addCommentStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
@@ -60,7 +60,7 @@ function AddCommentModal({ addCommentStartAsync }) {
     const { name, email, body } = state;
     event.preventDefault();
     const data = { postId: 1, email, name, body };
-    addCommentStartAsync(data);
+    addCommentStart(data);
     handleClose();
     setState({
       body: "",
@@ -146,7 +146,7 @@ function AddCommentModal({ addCommentStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addCommentStartAsync: (data) => dispatch(addCommentStartAsync(data)),
+  addCommentStart: (data) => dispatch(addCommentStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddCommentModal);

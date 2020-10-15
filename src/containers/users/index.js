@@ -3,10 +3,9 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import {
-  fetchUsersStartAsync,
-  deleteUserStartAsync,
-  clearUserMessages,
-} from "../../redux/users-redux/users.actions";
+  fetchUsersStart,
+  deleteUserStart,
+} from "../../redux/users/users.actions";
 import { connect } from "react-redux";
 import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -17,6 +16,12 @@ import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import blue from "@material-ui/core/colors/blue";
 import SkeletonComponent from "../components/skeleton.component";
 import { useSnackbar } from "notistack";
+import { createStructuredSelector } from "reselect";
+import {
+  selectUsersData,
+  selectUsersErrorMessage,
+  selectUsersFetchStatus,
+} from "../../redux/users/users.selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +60,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserContainer = ({
-  fetchUsersStartAsync,
-  deleteUserStartAsync,
-  clearUserMessages,
+  fetchUsersStart,
+  deleteUserStart,
   users,
   isFetching,
   errorMessage,
@@ -71,15 +75,14 @@ const UserContainer = ({
   const count = Math.ceil(users.length / 10);
 
   useEffect(() => {
-    if (users.length < 1) fetchUsersStartAsync();
-  }, [fetchUsersStartAsync, users]);
+    if (users.length < 1) fetchUsersStart();
+  }, [fetchUsersStart, users]);
 
   useEffect(() => {
     if (errorMessage) {
       enqueueSnackbar(errorMessage, { variant: "error" });
-      clearUserMessages();
     }
-  }, [errorMessage, clearUserMessages, enqueueSnackbar]);
+  }, [errorMessage, enqueueSnackbar]);
 
   useEffect(() => {
     setPageUsers(users.slice(minimum, maximum));
@@ -107,7 +110,7 @@ const UserContainer = ({
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => deleteUserStartAsync(each.id)}
+                  onClick={() => deleteUserStart(each.id)}
                 />
 
                 <Typography>{each.name}</Typography>
@@ -140,15 +143,14 @@ const UserContainer = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUsersStartAsync: () => dispatch(fetchUsersStartAsync()),
-  deleteUserStartAsync: (id) => dispatch(deleteUserStartAsync(id)),
-  clearUserMessages: () => dispatch(clearUserMessages()),
+  fetchUsersStart: () => dispatch(fetchUsersStart()),
+  deleteUserStart: (id) => dispatch(deleteUserStart(id)),
 });
 
-const mapStateToProps = (state) => ({
-  users: state.users.users,
-  isFetching: state.users.isFetching,
-  errorMessage: state.users.errorMessage,
+const mapStateToProps = createStructuredSelector({
+  users: selectUsersData,
+  isFetching: selectUsersFetchStatus,
+  errorMessage: selectUsersErrorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);

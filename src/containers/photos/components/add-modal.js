@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { addPhotoStartAsync } from "../../../redux/photos-redux/photos.actions";
+import { addPhotoStart } from "../../../redux/photos/photos.actions";
 import { connect } from "react-redux";
 import Add from "@material-ui/icons/Add";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addPhotoStartAsync }) {
+function AddItemModal({ addPhotoStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
@@ -55,7 +55,7 @@ function AddItemModal({ addPhotoStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...state };
-    addPhotoStartAsync(data);
+    addPhotoStart(data);
     handleClose();
     setState({
       title: "",
@@ -123,7 +123,7 @@ function AddItemModal({ addPhotoStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addPhotoStartAsync: (data) => dispatch(addPhotoStartAsync(data)),
+  addPhotoStart: (data) => dispatch(addPhotoStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddItemModal);

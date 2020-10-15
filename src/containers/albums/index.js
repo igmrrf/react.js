@@ -2,24 +2,27 @@ import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { fetchAlbumsStart, deleteAlbumStart } from "../../redux/albums/actions";
+import {
+  fetchAlbumsStart,
+  deleteAlbumStart,
+} from "../../redux/albums/albums.actions";
 import { connect } from "react-redux";
 import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
 import Fab from "@material-ui/core/Fab";
-import EditModal from "../../components/album-edit-modal.component";
-import AddItemModal from "../../components/album-add-modal.component";
+import EditModal from "./components/edit-modal";
+import AddItemModal from "./components/add-modal";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import blue from "@material-ui/core/colors/blue";
-import SkeletonComponent from "../../components/skeleton.component";
+import SkeletonComponent from "../components/skeleton.component";
 import { useSnackbar } from "notistack";
 import { Redirect } from "react-router-dom";
 import {
   selectAlbumsFetchStatus,
   selectAlbumsData,
   selectAlbumsErrorMessage,
-} from "../../redux/albums/selectors";
+} from "../../redux/albums/albums.selectors";
 import { createStructuredSelector } from "reselect";
 
 const useStyles = makeStyles((theme) => ({
@@ -72,12 +75,8 @@ const AlbumContainer = ({
   const count = Math.ceil(albums.length / 10);
 
   useEffect(() => {
-    console.log(albums);
     if (albums.length < 1) fetchAlbumsStart();
   }, [fetchAlbumsStart, albums]);
-  useEffect(() => {
-    console.log(albums);
-  });
 
   useEffect(() => {
     if (errorMessage) {

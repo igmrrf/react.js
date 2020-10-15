@@ -6,7 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { editUserStartAsync } from "../../../redux/users-redux/users.actions";
+import { editUserStart } from "../../../redux/users/users.actions";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ user, editUserStartAsync }) {
+function TransitionsModal({ user, editUserStart }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState(user.email);
@@ -54,7 +54,7 @@ function TransitionsModal({ user, editUserStartAsync }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...user, email };
-    editUserStartAsync(data);
+    editUserStart(data);
     handleClose();
   };
 
@@ -108,7 +108,7 @@ function TransitionsModal({ user, editUserStartAsync }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  editUserStartAsync: (data) => dispatch(editUserStartAsync(data)),
+  editUserStart: (data) => dispatch(editUserStart(data)),
 });
 
 export default connect(null, mapDispatchToProps)(TransitionsModal);
