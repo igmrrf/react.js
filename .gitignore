@@ -13,10 +13,7 @@
 
 # IDE
 /.idea
-idea
-.idea
-./idea/
-.idea/
+
 # Text Editors
 .vscode
 
