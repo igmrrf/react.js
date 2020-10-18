@@ -55,13 +55,13 @@ function App() {
     <div className={classes.root}>
       <Box className={classes.App}>
         <Typography
-          variant={"h3"}
-          component={"h1"}
+          variant={'h3'}
+          component={'h1'}
           className={classes.AppHeader}
         >
-          React-Redux & JSONPlaceHolder
+          JSON Placeholder: React Redux
         </Typography>
-        <Grid container justify={"center"} alignItems={"center"} spacing={4}>
+        <Grid container justify={'center'} alignItems={'center'} spacing={4}>
           {Fixes.map((item) => (
             <Grid
               item
@@ -73,11 +73,11 @@ function App() {
               className={classes.AppLink}
             >
               <Paper elevation={10} className={classes.card}>
-                <Typography variant={"h4"} component={"h1"}>
+                <Typography variant={'h4'} component={'h1'}>
                   {item.title}
                 </Typography>
-                <img src={item.src} className={classes.AppLogo} alt="logo" />
-                <Typography variant={"subtitle1"} component={"p"}>
+                <img src={item.src} className={classes.AppLogo} alt='logo' />
+                <Typography variant={'subtitle1'} component={'p'}>
                   {item.text}
                 </Typography>
               </Paper>
