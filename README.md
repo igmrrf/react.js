@@ -1,8 +1,5 @@
 # REACT, REDUX & JSONPLACEHOLDER FAKE API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br />
-By now React needs no introduction anymore but if you insist, you can click the "Create React App" above to learn more about it.
-
 ## Tool Stack
 
 1. React
@@ -22,6 +19,38 @@ Gets a copy of the codebase to your development environment
 Installs Dependencies and Dev-dependencies required to run the project successfully
 
 After which you can run either of the available scripts that fit your purpose
+
+## Dependencies
+
+    "dependencies": {
+        "@material-ui/core": "^4.11.0",
+        "@material-ui/icons": "^4.9.1",
+        "@material-ui/lab": "^4.0.0-alpha.56",
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.3.2",
+        "@testing-library/user-event": "^7.1.2",
+        "axios": "^0.20.0",
+        "notistack": "^1.0.0",
+        "nprogress": "^0.2.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-redux": "^7.2.1",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "3.4.3",
+        "react-spring": "^8.0.27",
+        "redux": "^4.0.5",
+        "redux-persist": "^6.0.0",
+        "redux-saga": "^1.1.3",
+        "redux-thunk": "^2.3.0",
+        "reselect": "^4.0.0"
+    },
+
+## Dev Dependencies
+
+    "devDependencies": {
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.5"
+    }
 
 ## Available Scripts
 
