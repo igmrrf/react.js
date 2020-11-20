@@ -10,11 +10,11 @@
 
 Open your terminal and run the following commands to get your copy of the projct running on your local or remote environment
 
-### `git clone https://github.com/igmrrf/reactreduxjsonapi`
+##### `git clone https://github.com/igmrrf/react-redux-jsonplaceholder`
 
 Gets a copy of the codebase to your development environment
 
-### `yarn install`
+##### `yarn install`
 
 Installs Dependencies and Dev-dependencies required to run the project successfully
 
