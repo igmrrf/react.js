@@ -4,10 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import Home from "@material-ui/icons/Home";
 import Menu from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-import ListItemLink from "../../components/link";
+import ListItemLink from "../../containers/components/link";
 import Button from "@material-ui/core/Button";
 import {
   AllInbox,
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Links = [
-  { primary: "R, R & J", to: "/", icon: <Home /> },
   { primary: "Albums", to: "/albums", icon: <PhotoLibrary /> },
   { primary: "Comments", to: "/comments", icon: <Comment /> },
   { primary: "Photos", to: "/photos", icon: <Photo /> },
@@ -78,6 +76,8 @@ export default function SideBarShared() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
+        <ListItemLink to={"/"} primary={"R, R & J"} />
+        <Divider />
         {Links.map((link) => (
           <div key={link.to}>
             <ListItemLink
@@ -95,6 +95,8 @@ export default function SideBarShared() {
             variant={"contained"}
             color={"primary"}
             component={"a"}
+            target="_blank"
+            rel="noopener noreferrer"
             href={"https://github.com/igmrrf/react-redux-jsonplaceholder"}
             className={classes.buttonLinks}
           >
