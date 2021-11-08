@@ -89,6 +89,8 @@ export default function Navigation() {
               variant={"contained"}
               color={"primary"}
               component={"a"}
+              target="_blank"
+              rel="noopener noreferrer"
               href={"https://github.com/igmrrf/react-redux-jsonplaceholder"}
               className={classes.buttonLinks}
             >

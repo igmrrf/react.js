@@ -1,8 +1,8 @@
 import React, { Suspense, Fragment, lazy } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import LoadingScreen from "./containers/extra/loading-screen";
-import Home from "./containers/landing";
-import Layout from "./containers/layout";
+import Home from "./views/landing";
+import Layout from "./layout";
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -42,32 +42,32 @@ const routes = [
   {
     exact: true,
     path: "/albums",
-    component: lazy(() => import("./containers/albums")),
+    component: lazy(() => import("./views/albums")),
   },
   {
     exact: true,
     path: "/comments",
-    component: lazy(() => import("./containers/comments")),
+    component: lazy(() => import("./views/comments")),
   },
   {
     exact: true,
     path: "/photos",
-    component: lazy(() => import("./containers/photos")),
+    component: lazy(() => import("./views/photos")),
   },
   {
     exact: true,
     path: "/posts",
-    component: lazy(() => import("./containers/posts")),
+    component: lazy(() => import("./views/posts")),
   },
   {
     exact: true,
     path: "/todos",
-    component: lazy(() => import("./containers/todos")),
+    component: lazy(() => import("./views/todos")),
   },
   {
     exact: true,
     path: "/users",
-    component: lazy(() => import("./containers/users")),
+    component: lazy(() => import("./views/users")),
   },
   {
     path: "/",
