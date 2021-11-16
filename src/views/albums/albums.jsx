@@ -18,12 +18,22 @@ import blue from "@material-ui/core/colors/blue";
 import SkeletonComponent from "../../containers/components/skeleton.component";
 import { useSnackbar } from "notistack";
 import { Redirect } from "react-router-dom";
-import {
+import { createStructuredSelector } from "reselect";
+import useData from "../../hooks/useData";
+
+const {
   selectAlbumsFetchStatus,
   selectAlbumsData,
   selectAlbumsErrorMessage,
-} from "../../redux/albums/albums.selectors";
-import { createStructuredSelector } from "reselect";
+} = require(`../../redux/${"albums"}/${"albums"}.selectors`);
+
+console.log(File);
+console.log(FileList);
+console.log(FileReader);
+console.log(__filename);
+console.log(window.FileSystemEntry);
+console.log(window.FileSystemDirectoryEntry);
+console.log(window.FileSystemFileEntry);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +83,8 @@ const AlbumContainer = ({
   const [pageAlbums, setPageAlbums] = useState([]);
   const classes = useStyles();
   const count = Math.ceil(albums.length / 10);
+  const data = useData();
+  console.log(data);
 
   useEffect(() => {
     if (albums.length < 1) fetchAlbumsStart();

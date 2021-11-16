@@ -10,14 +10,12 @@ const useStyles = makeStyles((theme) => ({
   link: {
     padding: "20px 5px",
   },
-  icon: {
-    color: "blue",
-    background: "blue",
-  },
 }));
 function ListItemLink(props) {
   const classes = useStyles();
-  const { icon, primary, to } = props;
+  const { icon, primary, to, type } = props;
+  console.log(type);
+  console.log(to);
 
   const CustomLink = React.useMemo(
     () =>
@@ -27,10 +25,14 @@ function ListItemLink(props) {
     [to]
   );
 
-  return (
+  return type === undefined ? (
+    <ListItem button component={CustomLink}>
+      <ListItemText className={classes.link} primary={primary} />
+    </ListItem>
+  ) : (
     <li>
       <ListItem button component={CustomLink}>
-        <ListItemIcon className={classes.link}>{icon}</ListItemIcon>
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
         <ListItemText className={classes.link} primary={primary} />
       </ListItem>
     </li>
