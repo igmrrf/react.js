@@ -1,6 +1,7 @@
-
 ::-webkit-scrollbar {
   width: 10px;
+  width: 0;
+  height: 0;
 }
 
 /* Track */
@@ -11,15 +12,14 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #f50057;
+  background: #6c62ff;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #a30025;
+  background: white;
 }
-
 
 body {
   margin: 0;
@@ -27,6 +27,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

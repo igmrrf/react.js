@@ -9,6 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 import Hidden from "@material-ui/core/Hidden";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
+import ListItemLink from "../../containers/components/link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: theme.spacing(5),
+    textDecoration: "none",
   },
   buttonLinks: {
     margin: theme.spacing(1, 1.5),
@@ -37,11 +39,19 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     color: "white",
   },
+
   borderless: {
     border: "none",
   },
 }));
-
+const Links = [
+  { primary: "Albums", to: "/albums" },
+  { primary: "Comments", to: "/comments" },
+  { primary: "Photos", to: "/photos" },
+  { primary: "Posts", to: "/posts" },
+  { primary: "Todos", to: "/todos" },
+  { primary: "Users", to: "/users" },
+];
 export default function Navigation() {
   const classes = useStyles();
 
@@ -54,36 +64,12 @@ export default function Navigation() {
           </Link>
         </Typography>
         <Hidden smDown>
-          <Paper className={classes.link} elevation={0}>
-            <Link to="/albums" color="inherit" component={RouterLink}>
-              <Typography variant={"h6"}>Albums</Typography>
-            </Link>
-          </Paper>
-          <Paper className={classes.link} elevation={0}>
-            <Link to="/comments" color="inherit" component={RouterLink}>
-              <Typography variant={"h6"}>Comments</Typography>
-            </Link>
-          </Paper>
-          <Paper className={classes.link} elevation={0}>
-            <Link to={"/photos"} color="inherit" component={RouterLink}>
-              <Typography variant={"h6"}>Photos</Typography>
-            </Link>
-          </Paper>{" "}
-          <Paper className={classes.link} elevation={0}>
-            <Link to={"/posts"} color="inherit" component={RouterLink}>
-              <Typography variant={"h6"}>Posts</Typography>
-            </Link>
-          </Paper>
-          <Paper className={classes.link} elevation={0}>
-            <Link to={"/todos"} color="inherit" component={RouterLink}>
-              <Typography variant={"h6"}>Todos</Typography>
-            </Link>
-          </Paper>
-          <Paper className={classes.link} elevation={0}>
-            <Link to={"/users"} component={RouterLink} color="inherit">
-              <Typography variant={"h6"}>Users</Typography>
-            </Link>
-          </Paper>
+          {Links.map((link, index) => (
+            <Paper className={classes.link} elevation={0} key={index}>
+              <ListItemLink primary={link.primary} to={link.to} />
+            </Paper>
+          ))}
+
           <div className={classes.links}>
             <Button
               variant={"contained"}

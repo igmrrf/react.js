@@ -8,6 +8,8 @@ import Menu from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import ListItemLink from "../../containers/components/link";
 import Button from "@material-ui/core/Button";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import {
   AllInbox,
   Comment,
@@ -16,18 +18,24 @@ import {
   PhotoLibrary,
   PlaylistAddCheck,
 } from "@material-ui/icons";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: 250,
+    width: 500,
   },
-  fullList: {
-    width: "auto",
-  },
+
   buttonLinks: {
     margin: theme.spacing(2),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
+  },
+  title: {
+    flexGrow: 1,
+    textAlign: "center",
+    padding: "2vh 5px",
+    color: theme.palette.primary.main,
+    fontWeight: 700,
   },
   link: {
     display: "flex",
@@ -38,22 +46,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Links = [
-  { primary: "Albums", to: "/albums", icon: <PhotoLibrary /> },
-  { primary: "Comments", to: "/comments", icon: <Comment /> },
-  { primary: "Photos", to: "/photos", icon: <Photo /> },
-  { primary: "Posts", to: "/posts", icon: <AllInbox /> },
-  { primary: "Todos", to: "/todos", icon: <PlaylistAddCheck /> },
-  { primary: "Users", to: "/users", icon: <People /> },
+  {
+    primary: "Albums",
+    to: "/albums",
+    icon: <PhotoLibrary color={"primary"} />,
+  },
+  { primary: "Comments", to: "/comments", icon: <Comment color={"primary"} /> },
+  { primary: "Photos", to: "/photos", icon: <Photo color={"primary"} /> },
+  { primary: "Posts", to: "/posts", icon: <AllInbox color={"primary"} /> },
+  {
+    primary: "Todos",
+    to: "/todos",
+    icon: <PlaylistAddCheck color={"primary"} />,
+  },
+  { primary: "Users", to: "/users", icon: <People color={"primary"} /> },
 ];
 
 export default function SideBarShared() {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  const [state, setState] = React.useState({ left: true });
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -68,19 +79,22 @@ export default function SideBarShared() {
 
   const list = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
+      className={clsx(classes.list)}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItemLink to={"/"} primary={"R, R & J"} />
+        <Typography variant="h5" className={classes.title}>
+          <Link to="/" color="inherit" component={RouterLink}>
+            R,R & J
+          </Link>
+        </Typography>
         <Divider />
         {Links.map((link) => (
           <div key={link.to}>
             <ListItemLink
+              type={"list"}
               to={link.to}
               primary={link.primary}
               icon={link.icon}
