@@ -1,14 +1,12 @@
+import { Typography } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
-import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Edit from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { editUserStartAsync } from "../../../views/users/users.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -23,21 +21,21 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     height: "150px",
   },
+  add: {
+    height: "50px",
+    margin: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    zIndex: "1000",
+  },
   button: {
     marginTop: theme.spacing(2),
   },
-  edit: {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    cursor: "pointer",
-  },
 }));
 
-function TransitionsModal({ user }) {
+function AddModal({ title, resetInput, setInput, thunk, values, Form }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState(user.email);
+
   const dispatch = useDispatch();
 
   const handleOpen = () => {
@@ -48,25 +46,27 @@ function TransitionsModal({ user }) {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setEmail(event.target.value);
+  const handleChange = ({ target: { value, name } }) => {
+    setInput({ value, name });
   };
 
   const handlePost = (event) => {
+    console.log("Called");
+    console.log({ values });
     event.preventDefault();
-    const data = { ...user, email };
-    dispatch(editUserStartAsync(data));
+    const data = { userId: 1, ...values };
+    console.log({ data });
+    dispatch(thunk(data));
     handleClose();
+    resetInput();
   };
 
   return (
     <div>
-      <Edit
-        variant={"outlined"}
-        color={"primary"}
-        onClick={handleOpen}
-        className={classes.edit}
-      />
+      <Fab onClick={handleOpen} color={"secondary"} aria-label="add">
+        <AddIcon />
+      </Fab>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -82,25 +82,14 @@ function TransitionsModal({ user }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography variant={"h5"} component={"h6"}>
-              Edit E-mail
+              {title}
             </Typography>
-            <form onSubmit={handlePost}>
-              <TextField
-                label={"E-mail"}
-                name={"email"}
-                value={email}
-                onChange={handleChange}
-                fullWidth
-              />
-              <Button
-                onClick={handlePost}
-                variant={"contained"}
-                color={"secondary"}
-                className={classes.button}
-              >
-                Submit
-              </Button>
-            </form>
+            <Form
+              handlePost={handlePost}
+              handleChange={handleChange}
+              classes={classes}
+              values={values}
+            />
           </div>
         </Fade>
       </Modal>
@@ -108,4 +97,4 @@ function TransitionsModal({ user }) {
   );
 }
 
-export default TransitionsModal;
+export default AddModal;

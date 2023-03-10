@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { editTodoStart } from "../../../redux/todos/todos.actions";
-import { connect } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { editTodoStartAsync } from "../../../views/todos/todos.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ todo, editTodoStart }) {
+function TransitionsModal({ todo }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(todo.title);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,7 +55,7 @@ function TransitionsModal({ todo, editTodoStart }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...todo, title: newTitle };
-    editTodoStart(data);
+    dispatch(editTodoStartAsync(data));
     handleClose();
   };
 
@@ -107,8 +108,4 @@ function TransitionsModal({ todo, editTodoStart }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  editTodoStart: (data) => dispatch(editTodoStart(data)),
-});
-
-export default connect(null, mapDispatchToProps)(TransitionsModal);
+export default TransitionsModal;

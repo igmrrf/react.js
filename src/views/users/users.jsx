@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import blue from "@material-ui/core/colors/blue";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {
-  fetchUsersStart,
-  deleteUserStart,
-} from "../../redux/users/users.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../containers/users/components/edit-modal";
-import AddItemModal from "../../containers/users/components/add-modal";
+import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
-import SkeletonComponent from "../../containers/components/skeleton.component";
+import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SkeletonComponent from "../../containers/components/skeleton.component";
+import AddItemModal from "../../containers/users/components/add-modal";
+import TransitionsModal from "../../containers/users/components/edit-modal";
 import {
+  deleteUserStartAsync,
+  fetchUsersStartAsync,
   selectUsersData,
   selectUsersErrorMessage,
-  selectUsersFetchStatus,
-} from "../../redux/users/users.selectors";
+  selectUsersIsFetching,
+} from "./users.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,24 +56,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserContainer = ({
-  fetchUsersStart,
-  deleteUserStart,
-  users,
-  isFetching,
-  errorMessage,
-}) => {
+const UserContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pageUsers, setPageUsers] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsersData);
+  const isFetching = useSelector(selectUsersIsFetching);
+  const errorMessage = useSelector(selectUsersErrorMessage);
   const count = Math.ceil(users.length / 10);
 
   useEffect(() => {
-    if (users.length < 1) fetchUsersStart();
-  }, [fetchUsersStart, users]);
+    if (users.length < 1) dispatch(fetchUsersStartAsync());
+  }, [dispatch, users]);
 
   useEffect(() => {
     if (errorMessage) {
@@ -110,7 +105,7 @@ const UserContainer = ({
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => deleteUserStart(each.id)}
+                  onClick={() => dispatch(deleteUserStartAsync(each.id))}
                 />
 
                 <Typography>{each.name}</Typography>
@@ -142,15 +137,4 @@ const UserContainer = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchUsersStart: () => dispatch(fetchUsersStart()),
-  deleteUserStart: (id) => dispatch(deleteUserStart(id)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  users: selectUsersData,
-  isFetching: selectUsersFetchStatus,
-  errorMessage: selectUsersErrorMessage,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);
+export default UserContainer;

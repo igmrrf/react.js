@@ -1,4 +1,4 @@
-export const updateItemDetails = (item_list, itemToUpdate) => {
+export const updateItem = (item_list, itemToUpdate) => {
   const item = item_list.find((item) => item.id === itemToUpdate.id);
   item_list[item_list.indexOf(item)] = itemToUpdate;
   return item_list;

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { addUserStart } from "../../../redux/users/users.actions";
-import { connect } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUserStartAsync } from "../../../views/users/users.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addUserStart }) {
+function AddItemModal() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({
@@ -45,6 +45,8 @@ function AddItemModal({ addUserStart }) {
     phone: "",
     website: "",
   });
+
+  const dispatch = useDispatch();
   // const [company, setCompany] = useState({
   //   name: "",
   //   catchPhrase: "",
@@ -90,7 +92,7 @@ function AddItemModal({ addUserStart }) {
       // geo: { ...geo },
       // company: { ...company },
     };
-    addUserStart(data);
+    dispatch(addUserStartAsync(data));
     handleClose();
     // setAddress({
     //   street: "",
@@ -272,8 +274,4 @@ function AddItemModal({ addUserStart }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addUserStart: (data) => dispatch(addUserStart(data)),
-});
-
-export default connect(null, mapDispatchToProps)(AddItemModal);
+export default AddItemModal;

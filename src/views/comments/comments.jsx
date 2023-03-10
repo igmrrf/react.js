@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import blue from "@material-ui/core/colors/blue";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {
-  fetchCommentsStart,
-  deleteCommentStart,
-} from "../../redux/comments/comments.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../containers/comments/components/edit-modal";
-import AddItemModal from "../../containers/comments/components/add-modal";
+import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import SkeletonComponent from "../../containers/components/skeleton.component";
-import blue from "@material-ui/core/colors/blue";
+import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AddItemModal from "../../containers/comments/components/add-modal";
+import TransitionsModal from "../../containers/comments/components/edit-modal";
+import SkeletonComponent from "../../containers/components/skeleton.component";
 import {
+  deleteCommentStartAsync,
+  fetchCommentsStartAsync,
   selectCommentsData,
   selectCommentsErrorMessage,
-  selectCommentsFetchStatus,
-} from "../../redux/comments/comments.selectors";
+  selectCommentsIsFetching,
+} from "./comments.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,24 +60,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentContainer = ({
-  fetchCommentsStart,
-  deleteCommentStart,
-  comments,
-  isFetching,
-  errorMessage,
-}) => {
+const CommentContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pageComments, setPageComments] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const comments = useSelector(selectCommentsData);
+  const isFetching = useSelector(selectCommentsIsFetching);
+  const errorMessage = useSelector(selectCommentsErrorMessage);
   const count = Math.ceil(comments.length / 10);
 
   useEffect(() => {
-    if (comments.length < 1) fetchCommentsStart();
-  }, [fetchCommentsStart, comments]);
+    if (comments.length < 1) dispatch(fetchCommentsStartAsync());
+  }, [comments, dispatch]);
 
   useEffect(() => {
     if (errorMessage) {
@@ -115,7 +110,7 @@ const CommentContainer = ({
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => deleteCommentStart(each.id)}
+                  onClick={() => dispatch(deleteCommentStartAsync(each.id))}
                 />
                 <Typography>
                   {each.name} ({each.email})
@@ -144,15 +139,4 @@ const CommentContainer = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchCommentsStart: () => dispatch(fetchCommentsStart()),
-  deleteCommentStart: (id) => dispatch(deleteCommentStart(id)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  comments: selectCommentsData,
-  isFetching: selectCommentsFetchStatus,
-  errorMessage: selectCommentsErrorMessage,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);
+export default CommentContainer;
