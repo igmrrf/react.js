@@ -104,7 +104,7 @@ const userSlice = createSlice({
       })
       .addCase(deleteUserStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-        state.errorMessage = deleteItem(state.data, action.payload);
+        state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deleteUserStartAsync.rejected, (state, action) => {
         state.isFetching = false;

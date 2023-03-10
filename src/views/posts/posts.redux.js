@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "../../utils/axios";
-import {
-  addNewItem,
-  deleteItem,
-  updateItem,
-} from "../../utils/modifier";
+import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 
 // Thunks
 export const fetchPostsStartAsync = createAsyncThunk(
@@ -109,7 +105,7 @@ const postSlice = createSlice({
       })
       .addCase(deletePostStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-        state.errorMessage = deleteItem(state.data, action.payload);
+        state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deletePostStartAsync.rejected, (state, action) => {
         state.isFetching = false;

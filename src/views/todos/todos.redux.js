@@ -104,7 +104,7 @@ const todoSlice = createSlice({
       })
       .addCase(deleteTodoStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-        state.errorMessage = deleteItem(state.data, action.payload);
+        state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deleteTodoStartAsync.rejected, (state, action) => {
         state.isFetching = false;
