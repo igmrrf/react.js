@@ -1,4 +1,2 @@
-import EditPhoto from "./components/edit-modal";
-import AddPhoto from "./components/add-modal";
-
-export default { EditPhoto, AddPhoto };
+export { default as AddPhoto } from "./components/add-modal";
+export { default as EditPhoto } from "./components/edit-modal";

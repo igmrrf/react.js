@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { editPhotoStartAsync } from "../../../views/photos/photos.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 
-function TransitionsModal({ photo }) {
+export default function EditPhotoModal({ photo }) {
   const classes = useEditStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(photo.title);
@@ -85,4 +85,3 @@ function TransitionsModal({ photo }) {
   );
 }
 
-export default TransitionsModal;

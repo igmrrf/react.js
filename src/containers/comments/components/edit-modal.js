@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { editCommentStartAsync } from "../../../views/comments/comments.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 
-function TransitionsModal({ comment }) {
+export default function EditCommentModal({ comment }) {
   const classes = useEditStyles();
   const [open, setOpen] = React.useState(false);
   const [newBody, setNewBody] = React.useState(comment.body);
@@ -83,5 +83,3 @@ function TransitionsModal({ comment }) {
     </div>
   );
 }
-
-export default TransitionsModal;

@@ -12,7 +12,7 @@ export const useAddStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "250px",
+    height: "auto",
   },
   add: {
     height: "50px",
@@ -83,4 +83,9 @@ export const useContainerStyles = makeStyles((theme) => ({
     fontSize: "16px",
     color: blue,
   },
+  edit_Delete: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
 }));
+

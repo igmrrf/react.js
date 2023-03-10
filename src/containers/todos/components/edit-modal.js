@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { editTodoStartAsync } from "../../../views/todos/todos.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 
-function TransitionsModal({ todo }) {
+export default function EditTodoModal({ todo }) {
   const classes = useEditStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(todo.title);
@@ -83,5 +83,3 @@ function TransitionsModal({ todo }) {
     </div>
   );
 }
-
-export default TransitionsModal;

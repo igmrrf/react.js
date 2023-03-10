@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { editUserStartAsync } from "../../../views/users/users.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 
-function TransitionsModal({ user }) {
+export default function EditUserModal({ user }) {
   const classes = useEditStyles();
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState(user.email);
@@ -83,5 +83,3 @@ function TransitionsModal({ user }) {
     </div>
   );
 }
-
-export default TransitionsModal;

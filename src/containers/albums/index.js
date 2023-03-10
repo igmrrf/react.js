@@ -1,4 +1,2 @@
-import EditAlbum from "./components/edit-modal";
-import AddAlbum from "./components/add-modal";
-
-export default { EditAlbum, AddAlbum };
+export { default as AddAlbum } from "./components/add-modal";
+export { default as EditAlbum } from "./components/edit-modal";

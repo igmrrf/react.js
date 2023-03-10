@@ -1,4 +1,2 @@
-import EditTodo from "./components/edit-modal";
-import AddTodo from "./components/add-modal";
-
-export default { EditTodo, AddTodo };
+export { default as AddTodo } from "./components/add-modal";
+export { default as EditTodo } from "./components/edit-modal";

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { editPostStartAsync } from "../../../views/posts/posts.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 
-function TransitionsModal({ post, editPostStart }) {
+export default function EditPostModal({ post, editPostStart }) {
   const classes = useEditStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(post.title);
@@ -95,5 +95,3 @@ function TransitionsModal({ post, editPostStart }) {
     </div>
   );
 }
-
-export default TransitionsModal;

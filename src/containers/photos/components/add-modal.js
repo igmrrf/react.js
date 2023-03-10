@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addPhotoStartAsync } from "../../../views/photos/photos.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
-function AddItemModal() {
+export default function AddPhotoModal() {
   const classes = useAddStyles();
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
@@ -99,5 +99,3 @@ function AddItemModal() {
     </div>
   );
 }
-
-export default AddItemModal;

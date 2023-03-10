@@ -1,15 +1,15 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import SideBarShared from "./side-bar";
-import { Link as RouterLink } from "react-router-dom";
 import Hidden from "@material-ui/core/Hidden";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import ListItemLink from "../../containers/components/link";
+import SideBarShared from "./side-bar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,11 +39,8 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     color: "white",
   },
-
-  borderless: {
-    border: "none",
-  },
 }));
+
 const Links = [
   { primary: "Albums", to: "/albums" },
   { primary: "Comments", to: "/comments" },

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addPostStartAsync } from "../../../views/posts/posts.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
-function AddItemModal() {
+export default function AddPostModal() {
   const classes = useAddStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
@@ -101,5 +101,3 @@ function AddItemModal() {
     </div>
   );
 }
-
-export default AddItemModal;

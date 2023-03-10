@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addUserStartAsync } from "../../../views/users/users.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
-function AddItemModal() {
+export default function AddUserModal() {
   const classes = useAddStyles();
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({
@@ -248,5 +248,3 @@ function AddItemModal() {
     </div>
   );
 }
-
-export default AddItemModal;

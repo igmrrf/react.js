@@ -1,6 +1,5 @@
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
@@ -38,9 +37,13 @@ function EditModal({ album }) {
 
   return (
     <div>
-      <Fab color={"primary"} aria-label={"edit"}>
-        <Edit variant={"outlined"} onClick={handleOpen} />
-      </Fab>
+      <Edit
+        aria-label={"edit"}
+        variant={"outlined"}
+        color={"primary"}
+        onClick={handleOpen}
+        className={classes.edit}
+      />
 
       <Modal
         aria-labelledby="transition-modal-title"

@@ -1,4 +1,2 @@
-import EditPost from "./components/edit-modal";
-import AddPost from "./components/add-modal";
-
-export default { EditPost, AddPost };
+export { default as AddPost } from "./components/add-modal";
+export { default as EditPost } from "./components/edit-modal";

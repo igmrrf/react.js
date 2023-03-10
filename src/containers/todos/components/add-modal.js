@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addTodoStartAsync } from "../../../views/todos/todos.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
-function AddItemModal() {
+export default function AddTodoModal() {
   const classes = useAddStyles();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState("");
@@ -87,5 +87,3 @@ function AddItemModal() {
     </div>
   );
 }
-
-export default AddItemModal;
