@@ -7,8 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useAddStyles } from "../../../components/styles/Styles";
 import { addPostStartAsync } from "../../../views/posts/posts.redux";
+import { useAddStyles } from "../../extra/styles/Styles";
 
 function AddItemModal() {
   const classes = useAddStyles();

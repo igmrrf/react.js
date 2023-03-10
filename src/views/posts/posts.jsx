@@ -7,8 +7,8 @@ import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useContainerStyles } from "../../components/styles/Styles";
 import SkeletonComponent from "../../containers/components/skeleton.component";
+import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import AddItemModal from "../../containers/posts/components/add-modal";
 import TransitionsModal from "../../containers/posts/components/edit-modal";
 import {

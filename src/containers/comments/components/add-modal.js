@@ -8,8 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useAddStyles } from "../../../components/styles/Styles";
 import { addCommentStartAsync } from "../../../views/comments/comments.redux";
+import { useAddStyles } from "../../extra/styles/Styles";
 
 function AddCommentModal() {
   const classes = useAddStyles();

@@ -1,8 +1,8 @@
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
-import AddModal from "../../../components/modals/AddModal";
 import { addAlbumStartAsync } from "../../../views/albums/albums.redux";
+import AddModal from "../../extra/modals/AddModal";
 
 function AddItemModal() {
   const [data, setData] = useState({ title: "" });
@@ -63,8 +63,6 @@ export default AddItemModal;
 // import React from "react";
 // import { useDispatch } from "react-redux";
 // import { addAlbumStartAsync } from "../../../views/albums/albums.redux";
-
-
 
 // function AddItemModal() {
 //   const classes = useAddStyles();

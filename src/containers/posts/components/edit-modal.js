@@ -7,8 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useEditStyles } from "../../../components/styles/Styles";
 import { editPostStartAsync } from "../../../views/posts/posts.redux";
+import { useEditStyles } from "../../extra/styles/Styles";
 
 function TransitionsModal({ post, editPostStart }) {
   const classes = useEditStyles();

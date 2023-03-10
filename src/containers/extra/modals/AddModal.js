@@ -6,7 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import AddIcon from "@material-ui/icons/Add";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useAddStyles } from "../../../components/styles/Styles";
+import { useAddStyles } from "../styles/Styles";
 
 function AddModal({ title, resetInput, setInput, thunk, values, Form }) {
   const classes = useAddStyles();
