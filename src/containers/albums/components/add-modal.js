@@ -64,32 +64,10 @@ export default AddItemModal;
 // import { useDispatch } from "react-redux";
 // import { addAlbumStartAsync } from "../../../views/albums/albums.redux";
 
-// const useStyles = makeStyles((theme) => ({
-//   modal: {
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   paper: {
-//     backgroundColor: theme.palette.background.paper,
-//     borderRadius: "20px",
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 3),
-//     height: "150px",
-//   },
-//   add: {
-//     height: "50px",
-//     margin: theme.spacing(2),
-//     marginBottom: theme.spacing(4),
-//     zIndex: "1000",
-//   },
-//   button: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
+
 
 // function AddItemModal() {
-//   const classes = useStyles();
+//   const classes = useAddStyles();
 //   const [open, setOpen] = React.useState(false);
 //   const [newTitle, setNewTitle] = React.useState("");
 //   const dispatch = useDispatch();

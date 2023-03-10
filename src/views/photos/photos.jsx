@@ -1,14 +1,13 @@
 import Box from "@material-ui/core/Box";
-import blue from "@material-ui/core/colors/blue";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useContainerStyles } from "../../components/styles/Styles";
 import SkeletonComponent from "../../containers/components/skeleton.component";
 import AddItemModal from "../../containers/photos/components/add-modal";
 import TransitionsModal from "../../containers/photos/components/edit-modal";
@@ -21,49 +20,13 @@ import {
   selectPhotosIsFetching,
 } from "./photos.redux";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    textAlign: "center",
-    paddingRight: theme.spacing(4),
-    paddingLeft: theme.spacing(4),
-  },
-  photoImage: {
-    height: "20vmin",
-    pointerEvents: "none",
-  },
-  card: {
-    padding: theme.spacing(2),
-    position: "relative",
-  },
-  delete: {
-    position: "absolute",
-    top: "10px",
-    left: "10px",
-    cursor: "pointer",
-  },
-  pagination: {
-    display: "flex",
-    justifyContent: "center",
-    marginLeft: "auto",
-    paddingBottom: theme.spacing(2),
-    paddingTop: theme.spacing(2),
-  },
-  button: {
-    marginTop: theme.spacing(2),
-  },
-  length: {
-    fontSize: "16px",
-    color: blue,
-  },
-}));
-
 const PhotoContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pagePhotos, setPagePhotos] = useState([]);
-  const classes = useStyles();
+  const classes = useContainerStyles();
   const dispatch = useDispatch();
   const photos = useSelector(selectPhotosData);
   const isFetching = useSelector(selectPhotosIsFetching);

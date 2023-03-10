@@ -2,41 +2,16 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAddStyles } from "../../../components/styles/Styles";
 import { addUserStartAsync } from "../../../views/users/users.redux";
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: "20px",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    height: "350px",
-    width: "320px",
-  },
-  add: {
-    height: "50px",
-    margin: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    zIndex: "1000",
-  },
-  button: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
 function AddItemModal() {
-  const classes = useStyles();
+  const classes = useAddStyles();
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({
     email: "",
