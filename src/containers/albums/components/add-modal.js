@@ -12,7 +12,6 @@ function AddItemModal() {
   };
 
   const updateData = ({ value, name }) => {
-    console.log({ [name]: value });
     setData({ ...data, [name]: value });
   };
 

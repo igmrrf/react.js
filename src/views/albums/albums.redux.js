@@ -25,7 +25,7 @@ export const editAlbumStartAsync = createAsyncThunk(
 export const addAlbumStartAsync = createAsyncThunk(
   "albums/addAlbumStartAsync",
   async (album) => {
-    const response = await axios.album(`Albums/`, album);
+    const response = await axios.post(`Albums/`, album);
     const addedAlbum = response.data;
 
     return addedAlbum;
@@ -34,9 +34,9 @@ export const addAlbumStartAsync = createAsyncThunk(
 
 export const deleteAlbumStartAsync = createAsyncThunk(
   "albums/deleteAlbumStartAsync",
-  async (id) => {
-    const response = await axios.delete(`Albums/${id}`);
-    const deletedAlbum = response.data;
+  async (album) => {
+    const response = await axios.delete(`Albums/${album.id}`);
+    const deletedAlbum = { ...album, ...response.data };
 
     return deletedAlbum;
   }

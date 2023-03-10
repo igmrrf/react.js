@@ -110,7 +110,7 @@ const CommentContainer = () => {
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => dispatch(deleteCommentStartAsync(each.id))}
+                  onClick={() => dispatch(deleteCommentStartAsync(each))}
                 />
                 <Typography>
                   {each.name} ({each.email})

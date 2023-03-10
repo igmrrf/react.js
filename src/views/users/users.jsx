@@ -105,7 +105,7 @@ const UserContainer = () => {
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => dispatch(deleteUserStartAsync(each.id))}
+                  onClick={() => dispatch(deleteUserStartAsync(each))}
                 />
 
                 <Typography>{each.name}</Typography>

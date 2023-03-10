@@ -108,7 +108,7 @@ const TodoContainer = () => {
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => dispatch(deleteTodoStartAsync(each.id))}
+                  onClick={() => dispatch(deleteTodoStartAsync(each))}
                 />
 
                 <Typography>{each.title}</Typography>

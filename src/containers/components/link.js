@@ -14,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
 function ListItemLink(props) {
   const classes = useStyles();
   const { icon, primary, to, type } = props;
-  console.log(type);
-  console.log(to);
+
 
   const CustomLink = React.useMemo(
     () =>

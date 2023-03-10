@@ -6,7 +6,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import Pagination from "@material-ui/lab/Pagination";
-import { createSelector } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,8 +65,6 @@ const PostContainer = () => {
   const [pagePosts, setPagePosts] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const tryFish = createSelector([selectPostsData], (data) => data);
-  console.log({ tryFish });
   const posts = useSelector(selectPostsData);
   const isFetching = useSelector(selectPostsIsFetching);
   const errorMessage = useSelector(selectPostsErrorMessage);
@@ -111,7 +108,7 @@ const PostContainer = () => {
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => dispatch(deletePostStartAsync(each.id))}
+                  onClick={() => dispatch(deletePostStartAsync(each))}
                 />
                 <Typography>Title: {each.title}</Typography>
                 <Typography>Body: {each.body}</Typography>

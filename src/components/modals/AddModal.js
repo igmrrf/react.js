@@ -51,11 +51,8 @@ function AddModal({ title, resetInput, setInput, thunk, values, Form }) {
   };
 
   const handlePost = (event) => {
-    console.log("Called");
-    console.log({ values });
     event.preventDefault();
     const data = { userId: 1, ...values };
-    console.log({ data });
     dispatch(thunk(data));
     handleClose();
     resetInput();

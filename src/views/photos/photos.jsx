@@ -107,7 +107,7 @@ const PhotoContainer = () => {
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => dispatch(deletePhotoStartAsync(each.id))}
+                  onClick={() => dispatch(deletePhotoStartAsync(each))}
                 />
 
                 <Typography>{each.title}</Typography>

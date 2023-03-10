@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 import axios from "../../utils/axios";
+import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 
 export const fetchPhotosStartAsync = createAsyncThunk(
   "photos/fetchPhotosStartAsync",
@@ -24,7 +24,7 @@ export const editPhotoStartAsync = createAsyncThunk(
 export const addPhotoStartAsync = createAsyncThunk(
   "photos/addPhotoStartAsync",
   async (photo) => {
-    const response = await axios.photo(`Photos/`, photo);
+    const response = await axios.post(`Photos/`, photo);
     const addedPhoto = response.data;
 
     return addedPhoto;
@@ -33,9 +33,9 @@ export const addPhotoStartAsync = createAsyncThunk(
 
 export const deletePhotoStartAsync = createAsyncThunk(
   "photos/deletePhotoStartAsync",
-  async (id) => {
-    const response = await axios.delete(`Photos/${id}`);
-    const deletedPhoto = response.data;
+  async (photo) => {
+    const response = await axios.delete(`Photos/${photo.id}`);
+    const deletedPhoto = { ...photo, ...response.data };
 
     return deletedPhoto;
   }
@@ -103,7 +103,7 @@ const photoSlice = createSlice({
       })
       .addCase(deletePhotoStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-         state.data = deleteItem(state.data, action.payload);
+        state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deletePhotoStartAsync.rejected, (state, action) => {
         state.isFetching = false;

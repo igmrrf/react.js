@@ -25,7 +25,7 @@ export const editCommentStartAsync = createAsyncThunk(
 export const addCommentStartAsync = createAsyncThunk(
   "comments/addCommentStartAsync",
   async (comment) => {
-    const response = await axios.comment(`Comments/`, comment);
+    const response = await axios.post(`Comments/`, comment);
     const addedComment = response.data;
 
     return addedComment;
@@ -34,9 +34,9 @@ export const addCommentStartAsync = createAsyncThunk(
 
 export const deleteCommentStartAsync = createAsyncThunk(
   "comments/deleteCommentStartAsync",
-  async (id) => {
-    const response = await axios.delete(`Comments/${id}`);
-    const deletedComment = response.data;
+  async (comment) => {
+    const response = await axios.delete(`Comments/${comment.id}`);
+    const deletedComment = { ...comment, ...response.data };
 
     return deletedComment;
   }

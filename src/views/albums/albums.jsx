@@ -8,21 +8,15 @@ import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import AddItemModal from "../../containers/albums/components/add-modal";
 import EditModal from "../../containers/albums/components/edit-modal";
 import SkeletonComponent from "../../containers/components/skeleton.component";
 import useData from "../../hooks/useData";
 
-import {
-  deleteAlbumStartAsync,
-  fetchAlbumsStartAsync,
-  selectAlbumsData,
-  selectAlbumsErrorMessage,
-  selectAlbumsIsFetching,
-} from "./albums.redux";
+import { deleteAlbumStartAsync, fetchAlbumsStartAsync } from "./albums.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,32 +54,26 @@ const useStyles = makeStyles((theme) => ({
 
 const Albums = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const [page, setPage] = useState(1);
-  const [minimum, setMinimum] = useState(0);
-  const [maximum, setMaximum] = useState(10);
-  const [pageAlbums, setPageAlbums] = useState([]);
+
   const classes = useStyles();
   const dispatch = useDispatch();
-  const albums = useSelector(selectAlbumsData);
-  const isFetching = useSelector(selectAlbumsIsFetching);
-  const errorMessage = useSelector(selectAlbumsErrorMessage);
-  const count = Math.ceil(albums.length / 10);
-  const data = useData();
-  console.log(data);
 
-  useEffect(() => {
-    if (albums.length < 1) dispatch(fetchAlbumsStartAsync());
-  }, [albums, dispatch]);
+  const [
+    albums,
+    errorMessage,
+    count,
+    pageAlbums,
+    setMaximum,
+    setMinimum,
+    page,
+    setPage,
+  ] = useData("albums", fetchAlbumsStartAsync);
 
   useEffect(() => {
     if (errorMessage) {
       enqueueSnackbar(errorMessage, { variant: "error" });
     }
   }, [errorMessage, enqueueSnackbar]);
-
-  useEffect(() => {
-    setPageAlbums(albums.slice(minimum, maximum));
-  }, [page, isFetching, albums, minimum, maximum]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -121,7 +109,7 @@ const Albums = () => {
                     <EditModal key={each.id} album={each} />
                     <Fab color={"primary"} aria-label={"delete"}>
                       <DeleteForeverRounded
-                        onClick={() => dispatch(deleteAlbumStartAsync(each.id))}
+                        onClick={() => dispatch(deleteAlbumStartAsync(each))}
                       />
                     </Fab>
                   </Box>

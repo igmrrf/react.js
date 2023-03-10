@@ -25,7 +25,7 @@ export const editUserStartAsync = createAsyncThunk(
 export const addUserStartAsync = createAsyncThunk(
   "users/addUserStartAsync",
   async (user) => {
-    const response = await axios.user(`Users/`, user);
+    const response = await axios.post(`Users/`, user);
     const addedUser = response.data;
 
     return addedUser;
@@ -34,9 +34,9 @@ export const addUserStartAsync = createAsyncThunk(
 
 export const deleteUserStartAsync = createAsyncThunk(
   "users/deleteUserStartAsync",
-  async (id) => {
-    const response = await axios.delete(`Users/${id}`);
-    const deletedUser = response.data;
+  async (user) => {
+    const response = await axios.delete(`Users/${user.id}`);
+    const deletedUser = { ...user, ...response.data };
 
     return deletedUser;
   }
@@ -91,7 +91,7 @@ const userSlice = createSlice({
       })
       .addCase(addUserStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-         state.data = addNewItem(state.data, action.payload);
+        state.data = addNewItem(state.data, action.payload);
       })
       .addCase(addUserStartAsync.rejected, (state, action) => {
         state.isFetching = false;

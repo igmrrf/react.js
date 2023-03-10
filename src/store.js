@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import logger from "./utils/logger";
 import albumsReducer from "./views/albums/albums.redux";
 import commentsReducer from "./views/comments/comments.redux";
 import photosReducer from "./views/photos/photos.redux";
@@ -15,4 +16,5 @@ export const store = configureStore({
     todos: todosReducer,
     users: usersReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

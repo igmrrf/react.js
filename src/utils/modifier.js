@@ -9,6 +9,6 @@ export const addNewItem = (itemList, itemToAdd) => {
   return itemList;
 };
 
-export const deleteItem = (itemList, id) => {
-  return itemList.filter((item) => item.id !== id);
+export const deleteItem = (itemList, itemToDelete) => {
+  return itemList.filter((item) => item.id !== itemToDelete.id);
 };
