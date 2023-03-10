@@ -1,39 +1,28 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import blue from "@material-ui/core/colors/blue";
+import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {
-  fetchAlbumsStart,
-  deleteAlbumStart,
-} from "../../redux/albums/albums.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import Fab from "@material-ui/core/Fab";
-import EditModal from "../../containers/albums/components/edit-modal";
-import AddItemModal from "../../containers/albums/components/add-modal";
+import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
-import SkeletonComponent from "../../containers/components/skeleton.component";
+import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
+import AddItemModal from "../../containers/albums/components/add-modal";
+import EditModal from "../../containers/albums/components/edit-modal";
+import SkeletonComponent from "../../containers/components/skeleton.component";
 import useData from "../../hooks/useData";
 
-const {
-  selectAlbumsFetchStatus,
+import {
+  deleteAlbumStartAsync,
+  fetchAlbumsStartAsync,
   selectAlbumsData,
   selectAlbumsErrorMessage,
-} = require(`../../redux/${"albums"}/${"albums"}.selectors`);
-
-console.log(File);
-console.log(FileList);
-console.log(FileReader);
-console.log(__filename);
-console.log(window.FileSystemEntry);
-console.log(window.FileSystemDirectoryEntry);
-console.log(window.FileSystemFileEntry);
+  selectAlbumsIsFetching,
+} from "./albums.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,26 +58,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AlbumContainer = ({
-  fetchAlbumsStart,
-  deleteAlbumStart,
-  albums,
-  errorMessage,
-  isFetching,
-}) => {
+const Albums = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pageAlbums, setPageAlbums] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const albums = useSelector(selectAlbumsData);
+  const isFetching = useSelector(selectAlbumsIsFetching);
+  const errorMessage = useSelector(selectAlbumsErrorMessage);
   const count = Math.ceil(albums.length / 10);
   const data = useData();
   console.log(data);
 
   useEffect(() => {
-    if (albums.length < 1) fetchAlbumsStart();
-  }, [fetchAlbumsStart, albums]);
+    if (albums.length < 1) dispatch(fetchAlbumsStartAsync());
+  }, [albums, dispatch]);
 
   useEffect(() => {
     if (errorMessage) {
@@ -134,7 +121,7 @@ const AlbumContainer = ({
                     <EditModal key={each.id} album={each} />
                     <Fab color={"primary"} aria-label={"delete"}>
                       <DeleteForeverRounded
-                        onClick={() => deleteAlbumStart(each.id)}
+                        onClick={() => dispatch(deleteAlbumStartAsync(each.id))}
                       />
                     </Fab>
                   </Box>
@@ -158,15 +145,4 @@ const AlbumContainer = ({
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchAlbumsStart: () => dispatch(fetchAlbumsStart()),
-  deleteAlbumStart: (id) => dispatch(deleteAlbumStart(id)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  albums: selectAlbumsData,
-  isFetching: selectAlbumsFetchStatus,
-  errorMessage: selectAlbumsErrorMessage,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumContainer);
+export default Albums;

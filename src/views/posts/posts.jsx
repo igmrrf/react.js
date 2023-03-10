@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import blue from "@material-ui/core/colors/blue";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {
-  fetchPostsStart,
-  deletePostStart,
-} from "../../redux/posts/posts.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../containers/posts/components/edit-modal";
-import AddItemModal from "../../containers/posts/components/add-modal";
+import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
-import SkeletonComponent from "../../containers/components/skeleton.component";
+import Pagination from "@material-ui/lab/Pagination";
+import { createSelector } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SkeletonComponent from "../../containers/components/skeleton.component";
+import AddItemModal from "../../containers/posts/components/add-modal";
+import TransitionsModal from "../../containers/posts/components/edit-modal";
 import {
+  clearPostMessage,
+  deletePostStartAsync,
+  fetchPostsStartAsync,
   selectPostsData,
   selectPostsErrorMessage,
-  selectPostsFetchStatus,
-} from "../../redux/posts/posts.selectors";
+  selectPostsIsFetching,
+} from "./posts.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,32 +58,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PostContainer = ({
-  fetchPostsStart,
-  deletePostStart,
-  posts,
-  clearPostMessages,
-  errorMessage,
-  isFetching,
-}) => {
+const PostContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pagePosts, setPagePosts] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const tryFish = createSelector([selectPostsData], (data) => data);
+  console.log({ tryFish });
+  const posts = useSelector(selectPostsData);
+  const isFetching = useSelector(selectPostsIsFetching);
+  const errorMessage = useSelector(selectPostsErrorMessage);
+
   const count = Math.ceil(posts.length / 10);
 
   useEffect(() => {
-    if (posts.length < 1) fetchPostsStart();
-  }, [fetchPostsStart, posts]);
+    if (posts.length < 1) dispatch(fetchPostsStartAsync());
+  }, [dispatch, posts]);
 
   useEffect(() => {
     if (errorMessage) {
       enqueueSnackbar(errorMessage, { variant: "error" });
-      clearPostMessages();
+      dispatch(clearPostMessage());
     }
-  }, [errorMessage, clearPostMessages, enqueueSnackbar]);
+  }, [errorMessage, enqueueSnackbar, dispatch]);
 
   useEffect(() => {
     setPagePosts(posts.slice(minimum, maximum));
@@ -112,7 +111,7 @@ const PostContainer = ({
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => deletePostStart(each.id)}
+                  onClick={() => dispatch(deletePostStartAsync(each.id))}
                 />
                 <Typography>Title: {each.title}</Typography>
                 <Typography>Body: {each.body}</Typography>
@@ -139,15 +138,4 @@ const PostContainer = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchPostsStart: () => dispatch(fetchPostsStart()),
-  deletePostStart: (id) => dispatch(deletePostStart(id)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  posts: selectPostsData,
-  isFetching: selectPostsFetchStatus,
-  errorMessage: selectPostsErrorMessage,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
+export default PostContainer;

@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Checkbox from "@material-ui/core/Checkbox";
+import blue from "@material-ui/core/colors/blue";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {
-  fetchTodosStart,
-  deleteTodoStart,
-} from "../../redux/todos/todos.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../containers/todos/components/edit-modal";
-import AddItemModal from "../../containers/todos/components/add-modal";
-import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
+import Typography from "@material-ui/core/Typography";
 import { CheckCircle, CheckCircleOutline } from "@material-ui/icons";
-import SkeletonComponent from "../../containers/components/skeleton.component";
+import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
+import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SkeletonComponent from "../../containers/components/skeleton.component";
+import AddItemModal from "../../containers/todos/components/add-modal";
+import TransitionsModal from "../../containers/todos/components/edit-modal";
 import {
+  deleteTodoStartAsync,
+  fetchTodosStartAsync,
   selectTodosData,
   selectTodosErrorMessage,
-  selectTodosFetchStatus,
-} from "../../redux/todos/todos.selectors";
+  selectTodosIsFetching,
+} from "./todos.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,24 +59,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TodoContainer = ({
-  fetchTodosStart,
-  deleteTodoStart,
-  todos,
-  isFetching,
-  errorMessage,
-}) => {
+const TodoContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pageTodos, setPageTodos] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const todos = useSelector(selectTodosData);
+  const isFetching = useSelector(selectTodosIsFetching);
+  const errorMessage = useSelector(selectTodosErrorMessage);
   const count = Math.ceil(todos.length / 10);
 
   useEffect(() => {
-    if (todos.length < 1) fetchTodosStart();
-  }, [fetchTodosStart, todos]);
+    if (todos.length < 1) dispatch(fetchTodosStartAsync());
+  }, [dispatch, todos]);
 
   useEffect(() => {
     if (errorMessage) {
@@ -113,7 +108,7 @@ const TodoContainer = ({
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => deleteTodoStart(each.id)}
+                  onClick={() => dispatch(deleteTodoStartAsync(each.id))}
                 />
 
                 <Typography>{each.title}</Typography>
@@ -152,15 +147,4 @@ const TodoContainer = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchTodosStart: () => dispatch(fetchTodosStart()),
-  deleteTodoStart: (id) => dispatch(deleteTodoStart(id)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  todos: selectTodosData,
-  isFetching: selectTodosFetchStatus,
-  errorMessage: selectTodosErrorMessage,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
+export default TodoContainer;

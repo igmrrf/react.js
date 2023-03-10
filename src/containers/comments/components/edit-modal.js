@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { editCommentStart } from "../../../redux/comments/comments.actions";
-import { connect } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { editCommentStartAsync } from "../../../views/comments/comments.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ comment, editCommentStart }) {
+function TransitionsModal({ comment }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [newBody, setNewBody] = React.useState(comment.body);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,7 +55,7 @@ function TransitionsModal({ comment, editCommentStart }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...comment, body: newBody };
-    editCommentStart(data);
+    dispatch(editCommentStartAsync(data));
     handleClose();
   };
 
@@ -107,8 +108,4 @@ function TransitionsModal({ comment, editCommentStart }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  editCommentStart: (data) => dispatch(editCommentStart(data)),
-});
-
-export default connect(null, mapDispatchToProps)(TransitionsModal);
+export default TransitionsModal;

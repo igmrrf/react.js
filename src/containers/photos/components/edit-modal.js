@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { editPhotoStart } from "../../../redux/photos/photos.actions";
-import { connect } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { editPhotoStartAsync } from "../../../views/photos/photos.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransitionsModal({ photo, editPhotoStart }) {
+function TransitionsModal({ photo }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(photo.title);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,7 +55,7 @@ function TransitionsModal({ photo, editPhotoStart }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...photo, title };
-    editPhotoStart(data);
+    dispatch(editPhotoStartAsync(data));
     handleClose();
   };
 
@@ -108,8 +109,4 @@ function TransitionsModal({ photo, editPhotoStart }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  editPhotoStart: (data) => dispatch(editPhotoStart(data)),
-});
-
-export default connect(null, mapDispatchToProps)(TransitionsModal);
+export default TransitionsModal;

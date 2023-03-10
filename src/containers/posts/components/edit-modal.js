@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { editPostStart } from "../../../redux/posts/posts.actions";
-import { connect } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { editPostStartAsync } from "../../../views/posts/posts.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,6 +39,7 @@ function TransitionsModal({ post, editPostStart }) {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(post.title);
   const [body, setBody] = React.useState(post.body);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -59,7 +60,7 @@ function TransitionsModal({ post, editPostStart }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...post, title, body };
-    editPostStart(data);
+    dispatch(editPostStartAsync(data));
     handleClose();
   };
 
@@ -119,8 +120,4 @@ function TransitionsModal({ post, editPostStart }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  editPostStart: (data) => dispatch(editPostStart(data)),
-});
-
-export default connect(null, mapDispatchToProps)(TransitionsModal);
+export default TransitionsModal;

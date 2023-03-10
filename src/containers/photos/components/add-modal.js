@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { addPhotoStart } from "../../../redux/photos/photos.actions";
-import { connect } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addPhotoStartAsync } from "../../../views/photos/photos.redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,13 +34,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddItemModal({ addPhotoStart }) {
+function AddItemModal() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     title: "",
     thumbnailUrl: "",
   });
+  const dispatch = useDispatch();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -55,7 +57,7 @@ function AddItemModal({ addPhotoStart }) {
   const handlePost = (event) => {
     event.preventDefault();
     const data = { ...state };
-    addPhotoStart(data);
+    dispatch(addPhotoStartAsync(data));
     handleClose();
     setState({
       title: "",
@@ -122,8 +124,4 @@ function AddItemModal({ addPhotoStart }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addPhotoStart: (data) => dispatch(addPhotoStart(data)),
-});
-
-export default connect(null, mapDispatchToProps)(AddItemModal);
+export default AddItemModal;

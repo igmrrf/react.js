@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import blue from "@material-ui/core/colors/blue";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {
-  fetchPhotosStart,
-  deletePhotoStart,
-} from "../../redux/photos/photos.actions";
-import { connect } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Box from "@material-ui/core/Box";
-import TransitionsModal from "../../containers/photos/components/edit-modal";
-import AddItemModal from "../../containers/photos/components/add-modal";
+import Typography from "@material-ui/core/Typography";
 import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
-import blue from "@material-ui/core/colors/blue";
-import SkeletonComponent from "../../containers/components/skeleton.component";
+import Pagination from "@material-ui/lab/Pagination";
 import { useSnackbar } from "notistack";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SkeletonComponent from "../../containers/components/skeleton.component";
+import AddItemModal from "../../containers/photos/components/add-modal";
+import TransitionsModal from "../../containers/photos/components/edit-modal";
 import {
+  clearPhotoMessage,
+  deletePhotoStartAsync,
+  fetchPhotosStartAsync,
   selectPhotosData,
   selectPhotosErrorMessage,
-  selectPhotosFetchStatus,
-} from "../../redux/photos/photos.selectors";
+  selectPhotosIsFetching,
+} from "./photos.redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,32 +57,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PhotoContainer = ({
-  fetchPhotosStart,
-  deletePhotoStart,
-  clearPhotoMessages,
-  errorMessage,
-  photos,
-  isFetching,
-}) => {
+const PhotoContainer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [minimum, setMinimum] = useState(0);
   const [maximum, setMaximum] = useState(10);
   const [pagePhotos, setPagePhotos] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const photos = useSelector(selectPhotosData);
+  const isFetching = useSelector(selectPhotosIsFetching);
+  const errorMessage = useSelector(selectPhotosErrorMessage);
   const count = Math.ceil(photos.length / 10);
 
   useEffect(() => {
-    if (photos.length < 1) fetchPhotosStart();
-  }, [fetchPhotosStart, photos]);
+    if (photos.length < 1) dispatch(fetchPhotosStartAsync());
+  }, [dispatch, photos]);
 
   useEffect(() => {
     if (errorMessage) {
       enqueueSnackbar(errorMessage, { variant: "error" });
-      clearPhotoMessages();
+      dispatch(clearPhotoMessage());
     }
-  }, [errorMessage, clearPhotoMessages, enqueueSnackbar]);
+  }, [errorMessage, enqueueSnackbar, dispatch]);
+
   useEffect(() => {
     setPagePhotos(photos.slice(minimum, maximum));
   }, [page, isFetching, photos, minimum, maximum]);
@@ -111,7 +107,7 @@ const PhotoContainer = ({
                 <DeleteForeverRounded
                   color={"primary"}
                   className={classes.delete}
-                  onClick={() => deletePhotoStart(each.id)}
+                  onClick={() => dispatch(deletePhotoStartAsync(each.id))}
                 />
 
                 <Typography>{each.title}</Typography>
@@ -147,15 +143,4 @@ const PhotoContainer = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchPhotosStart: () => dispatch(fetchPhotosStart()),
-  deletePhotoStart: (id) => dispatch(deletePhotoStart(id)),
-});
-
-const mapStateToProps = createStructuredSelector({
-  photos: selectPhotosData,
-  isFetching: selectPhotosFetchStatus,
-  errorMessage: selectPhotosErrorMessage,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PhotoContainer);
+export default PhotoContainer;
