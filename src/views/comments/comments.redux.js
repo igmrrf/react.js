@@ -104,7 +104,7 @@ const commentSlice = createSlice({
       })
       .addCase(deleteCommentStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-            state.errorMessage = deleteItem(state.data, action.payload);
+        state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deleteCommentStartAsync.rejected, (state, action) => {
         state.isFetching = false;
@@ -131,7 +131,8 @@ export const {
 
 export const selectCommentsData = (state) => state.comments.data;
 
-export const selectCommentsErrorMessage = (state) => state.comments.errorMessage;
+export const selectCommentsErrorMessage = (state) =>
+  state.comments.errorMessage;
 
 export const selectCommentsIsFetching = (state) => state.comments.isFetching;
 

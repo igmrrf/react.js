@@ -104,7 +104,7 @@ const albumSlice = createSlice({
       })
       .addCase(deleteAlbumStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-        state.errorMessage = deleteItem(state.data, action.payload);
+        state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deleteAlbumStartAsync.rejected, (state, action) => {
         state.isFetching = false;

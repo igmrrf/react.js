@@ -103,7 +103,7 @@ const photoSlice = createSlice({
       })
       .addCase(deletePhotoStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-         state.errorMessage = deleteItem(state.data, action.payload);
+         state.data = deleteItem(state.data, action.payload);
       })
       .addCase(deletePhotoStartAsync.rejected, (state, action) => {
         state.isFetching = false;
