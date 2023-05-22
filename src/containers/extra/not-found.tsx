@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Paper, Tooltip } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import notFound from "../../static/404.svg";
+import notFound from "../../assets/404.svg";
 
 const styles = {
   root: {

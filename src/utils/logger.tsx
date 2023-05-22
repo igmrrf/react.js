@@ -1,7 +1,4 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { Store } from "redux";
-
-const logger = (store: Store) => (next: any) => (action: PayloadAction) => {
+const logger = (store: any) => (next: any) => (action: any) => {
   console.group(action.type);
   console.log(
     "%c prev state",
