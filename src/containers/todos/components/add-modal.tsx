@@ -2,14 +2,15 @@ import AddIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { addTodoStartAsync } from "../../../views/todos/todos.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
+import { ITodo } from "../../types";
 
 export default function AddTodoModal() {
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState("");
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -25,7 +26,7 @@ export default function AddTodoModal() {
 
   const handlePost = (event: any) => {
     event.preventDefault();
-    const data = { userId: 1, title: newTitle };
+    const data: ITodo = { userId: 1, title: newTitle };
     dispatch(addTodoStartAsync(data));
     handleClose();
     setNewTitle("");

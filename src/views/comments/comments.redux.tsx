@@ -72,7 +72,7 @@ const commentSlice = createSlice({
       })
       .addCase(fetchCommentsStartAsync.rejected, (state, action) => {
         state.isFetching = false;
-        state.errorMessage = action.payload;
+        state.errorMessage = action.payload || action.error.message;
       });
 
     builder

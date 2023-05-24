@@ -53,7 +53,6 @@ ScrollTop.propTypes = {
 };
 
 export default function BackToTop(props: any) {
-  console.log({ child: props.children });
   return (
     <React.Fragment>
       <Navigation />

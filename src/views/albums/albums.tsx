@@ -1,12 +1,11 @@
-
 import DeleteForeverRounded from "@mui/icons-material/DeleteForeverRounded";
-import { useDispatch } from "react-redux";
 import SkeletonComponent from "../../components/skeleton.component";
 import { AddAlbum, EditAlbum } from "../../containers/albums";
 import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import useData from "../../hooks/useData";
 
 import { Box, Grid, Pagination, Paper, Typography } from "@mui/material";
+import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
 import {
   clearAlbumMessage,
@@ -16,7 +15,7 @@ import {
 
 const Albums = () => {
   const classes = useContainerStyles;
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const [albums, count, pageAlbums, page, handlePageChange] = useData(
     Tags.albums,

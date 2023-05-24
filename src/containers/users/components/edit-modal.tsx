@@ -2,7 +2,7 @@ import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import Edit from "@mui/icons-material/Edit";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { editUserStartAsync } from "../../../views/users/users.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 import { IUser } from "../../types";
@@ -10,7 +10,7 @@ import { IUser } from "../../types";
 export default function EditUserModal({ user }: { user: IUser }) {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState(user.email);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

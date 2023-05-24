@@ -29,6 +29,7 @@ export interface ITodo {
   id?: string;
   userId: number;
   title: string;
+  completed?: boolean;
 }
 
 export interface IUser {

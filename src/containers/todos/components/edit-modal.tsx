@@ -2,7 +2,7 @@ import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import Edit from "@mui/icons-material/Edit";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { editTodoStartAsync } from "../../../views/todos/todos.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 import { ITodo } from "../../types";
@@ -10,7 +10,7 @@ import { ITodo } from "../../types";
 export default function EditTodoModal({ todo }: { todo: ITodo }) {
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(todo.title);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch;
 
   const handleOpen = () => {
     setOpen(true);

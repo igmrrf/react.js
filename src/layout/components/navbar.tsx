@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import ListItemLink from "../../components/link";
+import ListItemLink from "../../components/Link";
 import SideBarShared from "./side-bar";
 
 const classes = {

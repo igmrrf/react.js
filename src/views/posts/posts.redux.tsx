@@ -118,21 +118,7 @@ const postSlice = createSlice({
   },
 });
 
-export const {
-  clearPostMessage,
-  // fetchPostsStart,
-  // fetchPostsFailure,
-  // fetchPostsSuccess,
-  // editPostStart,
-  // editPostFailure,
-  // editPostSuccess,
-  // addPostStart,
-  // addPostFailure,
-  // addPostSuccess,
-  // deletePostStart,
-  // deletePostFailure,
-  // deletePostSuccess,
-} = postSlice.actions;
+export const { clearPostMessage } = postSlice.actions;
 
 export const selectPostsData = (state: RootState) => state.posts.data;
 

@@ -2,7 +2,7 @@ import AddIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { addPostStartAsync } from "../../../views/posts/posts.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
@@ -10,7 +10,7 @@ export default function AddPostModal() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,7 +54,6 @@ export default function AddPostModal() {
         open={open}
         onClose={handleClose}
         closeAfterTransition
-   
       >
         <Fade in={open}>
           <Box sx={useAddStyles.paper}>

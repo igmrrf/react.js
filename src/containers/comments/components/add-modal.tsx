@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { addCommentStartAsync } from "../../../views/comments/comments.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
@@ -21,7 +21,7 @@ function AddCommentModal() {
     name: "",
     email: "",
   });
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

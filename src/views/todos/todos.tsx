@@ -12,10 +12,10 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
 import SkeletonComponent from "../../components/skeleton.component";
 import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import { AddTodo, EditTodo } from "../../containers/todos";
+import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
 import useData from "../../hooks/useData";
 import {
@@ -26,7 +26,7 @@ import {
 
 const TodoContainer = () => {
   const classes = useContainerStyles;
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   const [todos, count, pageTodos, page, handlePageChange] = useData(
     Tags.todos,
     fetchTodosStartAsync,

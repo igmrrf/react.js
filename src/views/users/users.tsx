@@ -1,9 +1,9 @@
 import DeleteForeverRounded from "@mui/icons-material/DeleteForeverRounded";
 import { Box, Grid, Pagination, Paper, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
 import SkeletonComponent from "../../components/skeleton.component";
 import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import { AddUser, EditUser } from "../../containers/users";
+import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
 import useData from "../../hooks/useData";
 import {
@@ -14,7 +14,7 @@ import {
 
 const UserContainer = () => {
   const classes = useContainerStyles;
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   const [users, count, pageUsers, page, handlePageChange] = useData(
     Tags.users,
     fetchUsersStartAsync,

@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { addUserStartAsync } from "../../../views/users/users.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
@@ -15,7 +15,7 @@ export default function AddUserModal() {
     website: "",
   });
 
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   // const [company, setCompany] = useState({
   //   name: "",
   //   catchPhrase: "",

@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { addAlbumStartAsync } from "../../../views/albums/albums.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
@@ -17,7 +17,7 @@ function AddAlbumModal() {
   const classes = useAddStyles;
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState("");
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { addPhotoStartAsync } from "../../../views/photos/photos.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 
@@ -11,7 +11,7 @@ export default function AddPhotoModal() {
     title: "",
     thumbnailUrl: "",
   });
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

@@ -25,7 +25,7 @@ function App() {
   const { loading, error, data } = useQuery(GET_POSTS);
 
   useEffect(() => {
-    if (!loading && !posts.length) {
+    if (!loading && !posts?.length) {
       setPosts(data);
     }
     if (error) {

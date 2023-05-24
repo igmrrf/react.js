@@ -2,7 +2,7 @@ import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import Edit from "@mui/icons-material/Edit";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { editPhotoStartAsync } from "../../../views/photos/photos.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 import { IPhoto } from "../../types";
@@ -10,7 +10,7 @@ import { IPhoto } from "../../types";
 export default function EditPhotoModal({ photo }: { photo: IPhoto }) {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(photo.title);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

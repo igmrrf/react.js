@@ -1,7 +1,7 @@
 import Edit from "@mui/icons-material/Edit";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { editAlbumStartAsync } from "../../../views/albums/albums.redux";
 import { useEditStyles as editStyled } from "../../extra/styles/Styles";
 import { IAlbum } from "../../types";
@@ -9,7 +9,7 @@ import { IAlbum } from "../../types";
 function EditModal({ album }: { album: IAlbum }) {
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(album.title);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

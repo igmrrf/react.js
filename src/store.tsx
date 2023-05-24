@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { APISlice } from "./utils/axios";
 import logger from "./utils/logger";
 import albumsReducer from "./views/albums/albums.redux";
 import commentsReducer from "./views/comments/comments.redux";
@@ -15,8 +16,10 @@ export const store = configureStore({
     posts: postsReducer,
     todos: todosReducer,
     users: usersReducer,
+    [APISlice.reducerPath]: APISlice.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([logger, APISlice.middleware]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

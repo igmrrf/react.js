@@ -2,7 +2,7 @@ import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import Edit from "@mui/icons-material/Edit";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { editPostStartAsync } from "../../../views/posts/posts.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 
@@ -10,7 +10,7 @@ export default function EditPostModal({ post }: { post: any }) {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState(post.title);
   const [body, setBody] = React.useState(post.body);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);

@@ -21,7 +21,7 @@ import {
 import clsx from "clsx";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import ListItemLink from "../../components/link";
+import ListItemLink from "../../components/Link";
 
 const classes = {
   list: {

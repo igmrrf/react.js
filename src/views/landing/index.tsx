@@ -10,12 +10,42 @@ import user from "../../assets/user.svg";
 import { WebSocketContext } from "../../context/WebSocketContext";
 
 const sections = [
-  { title: "Albums", src: album, text: "Check Memories made" },
-  { title: "Comments", src: comment, text: "What do you think?" },
-  { title: "Photos", src: photo, text: "Let's take more" },
-  { title: "Posts", src: post, text: "Writing clears the mind" },
-  { title: "Todos", src: todo, text: "Check your checklist" },
-  { title: "Users", src: user, text: "Who's on the platform" },
+  {
+    title: "Albums",
+    testId: "album-test",
+    src: album,
+    text: "Check memories made",
+  },
+  {
+    title: "Comments",
+    testId: "comment-test",
+    src: comment,
+    text: "What do you think?",
+  },
+  {
+    title: "Photos",
+    testId: "photo-test",
+    src: photo,
+    text: "Let's take more",
+  },
+  {
+    title: "Posts",
+    testId: "post-test",
+    src: post,
+    text: "Writing clears the mind",
+  },
+  {
+    title: "Todos",
+    testId: "todo-test",
+    src: todo,
+    text: "Check your checklist",
+  },
+  {
+    title: "Users",
+    testId: "user-test",
+    src: user,
+    text: "Who's on the platform",
+  },
 ];
 
 const Home = () => {
@@ -25,7 +55,7 @@ const Home = () => {
     socket.on("connect", () => {
       console.log("Connected");
     });
-    socket.on("onMessage", (data:any) => {
+    socket.on("onMessage", (data: any) => {
       console.log("Listening to onMessage");
       console.log({ data });
     });
@@ -36,7 +66,6 @@ const Home = () => {
       socket.off("onMessage");
     };
   });
-  console.log("hello World");
   return (
     <div style={{ textAlign: "center" }}>
       <Box sx={{ paddingRight: "40px", paddingLeft: "40px" }}>
@@ -53,22 +82,23 @@ const Home = () => {
           JSON Placeholder: React Redux
         </Typography>
         <Grid container alignItems={"center"} spacing={4}>
-          {sections.map((item) => (
+          {sections.map((section) => (
             <Grid
               item
               xs={11}
               md={4}
               component={RouterLink}
-              to={`/${item.title.toLowerCase()}`}
-              key={item.title}
+              to={`/${section.title.toLowerCase()}`}
+              key={section.title}
               style={{ color: "#61dafb" }}
+              test-id={section.testId}
             >
               <Paper elevation={10} sx={{ padding: "20px" }}>
                 <Typography variant={"h4"} component={"h1"}>
-                  {item.title}
+                  {section.title}
                 </Typography>
                 <img
-                  src={item.src}
+                  src={section.src}
                   style={{
                     height: "20vmin",
                     pointerEvents: "none",
@@ -76,7 +106,7 @@ const Home = () => {
                   alt="logo"
                 />
                 <Typography variant={"subtitle1"} component={"p"}>
-                  {item.text}
+                  {section.text}
                 </Typography>
               </Paper>
             </Grid>

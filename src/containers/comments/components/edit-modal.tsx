@@ -2,7 +2,7 @@ import Edit from "@mui/icons-material/Edit";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { editCommentStartAsync } from "../../../views/comments/comments.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 import { IComment } from "../../types";
@@ -11,7 +11,7 @@ export default function EditCommentModal({ comment }: { comment: IComment }) {
   const classes = useEditStyles;
   const [open, setOpen] = React.useState(false);
   const [newBody, setNewBody] = React.useState(comment.body);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);
