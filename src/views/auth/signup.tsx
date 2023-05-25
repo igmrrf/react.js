@@ -53,8 +53,8 @@ function SignUp() {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
 
-      const email = data.get("email");
-      const password = data.get("password");
+      const email = String(data.get("email"));
+      const password = String(data.get("password"));
       // const lastName = data.get("lastName");
       // const firstName = data.get("firstName");
 

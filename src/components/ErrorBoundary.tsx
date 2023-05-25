@@ -1,54 +1,76 @@
-import React, { Component, ComponentType, ErrorInfo, ForwardRefExoticComponent, FunctionComponent, PropsWithChildren, PropsWithRef, PropsWithoutRef, ReactElement, ReactNode, RefAttributes } from "react";
+import React, {
+  Component,
+  ComponentType,
+  ErrorInfo,
+  FunctionComponent,
+  PropsWithChildren,
+  PropsWithRef,
+  ReactElement,
+  ReactNode,
+} from "react";
 
-function hasArrayChanged(a:unknown[] = [], b: unknown[]= []) {
+function hasArrayChanged(a: unknown[] = [], b: unknown[] = []) {
   return (
     a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]))
   );
 }
 export type ErrorBoundaryContextType = {
-    didCatch: boolean;
-    error: any;
-    resetErrorBoundary: (...args: any[]) => void;
+  didCatch: boolean;
+  error: any;
+  resetErrorBoundary: (...args: any[]) => void;
 };
 // export const ErrorBoundaryContext: import("react").Context<ErrorBoundaryContextType | null>;
 declare function FallbackRender(props: FallbackProps): ReactNode;
 export type FallbackProps = {
-    error: any;
-    resetErrorBoundary: (...args: any[]) => void;
+  error: any;
+  resetErrorBoundary: (...args: any[]) => void;
 };
 type ErrorBoundarySharedProps = {
-    onError?: (error: Error, info: {
-        componentStack: string;
-    }) => void;
-    onReset?: (details: {
-        reason: "imperative-api";
-        args: any[];
-    } | {
-        reason: "keys";
-        prev: any[] | undefined;
-        next: any[] | undefined;
-    }) => void;
-    resetKeys?: any[];
+  onError?: (
+    error: Error,
+    info: {
+      componentStack: string;
+    }
+  ) => void;
+  onReset?: (
+    details:
+      | {
+          reason: "imperative-api";
+          args: any[];
+        }
+      | {
+          reason: "keys";
+          prev: any[] | undefined;
+          next: any[] | undefined;
+        }
+  ) => void;
+  resetKeys?: any[];
 };
 export type ErrorBoundaryPropsWithComponent = ErrorBoundarySharedProps & {
-    fallback?: never;
-    FallbackComponent: ComponentType<FallbackProps>;
-    fallbackRender?: never;
+  fallback?: never;
+  FallbackComponent: ComponentType<FallbackProps>;
+  fallbackRender?: never;
 };
 export type ErrorBoundaryPropsWithRender = ErrorBoundarySharedProps & {
-    fallback?: never;
-    FallbackComponent?: never;
-    fallbackRender: typeof FallbackRender;
+  fallback?: never;
+  FallbackComponent?: never;
+  fallbackRender: typeof FallbackRender;
 };
 export type ErrorBoundaryPropsWithFallback = ErrorBoundarySharedProps & {
-    fallback: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
-    FallbackComponent?: never;
-    fallbackRender?: never;
+  fallback: ReactElement<
+    unknown,
+    string | FunctionComponent | typeof Component
+  > | null;
+  FallbackComponent?: never;
+  fallbackRender?: never;
 };
-export type ErrorBoundaryProps = ErrorBoundaryPropsWithFallback | ErrorBoundaryPropsWithComponent | ErrorBoundaryPropsWithRender;
+export type ErrorBoundaryProps =
+  | ErrorBoundaryPropsWithFallback
+  | ErrorBoundaryPropsWithComponent
+  | ErrorBoundaryPropsWithRender;
 type ErrorBoundaryState = {
-    didCatch: boolean;
-    error: any;
+  didCatch: boolean;
+  error: any;
 };
 // export class ErrorBoundary extends Component<PropsWithRef<PropsWithChildren<ErrorBoundaryProps>>, ErrorBoundaryState> {
 //     state: ErrorBoundaryState;
@@ -62,8 +84,8 @@ type ErrorBoundaryState = {
 //     render(): ReactElement<any, string | import("react").JSXElementConstructor<any>>;
 // }
 export type UseErrorBoundaryApi<Error> = {
-    resetBoundary: () => void;
-    showBoundary: (error: Error) => void;
+  resetBoundary: () => void;
+  showBoundary: (error: Error) => void;
 };
 // export function useErrorBoundary<Error = any>(): UseErrorBoundaryApi<Error>;
 // export function withErrorBoundary<Props extends Object>(component: ComponentType<Props>, errorBoundaryProps: ErrorBoundaryProps): ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<any>>;

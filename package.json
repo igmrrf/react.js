@@ -9,7 +9,9 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "jest --watchAll --verbose --coverage",
     "e2e": "cypress open",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "schema:download": "npx apollo service:download --endpoint:https://api.hashnode.com ./src/app/graphql/graphql-schema.json",
+    "schema:generate-watch": "npx apollo codegen:generate --localSchemaFile=./src/app/graphql/graphql-schema.json --target=typescript --tagName=gql --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",

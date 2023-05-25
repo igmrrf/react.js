@@ -45,7 +45,7 @@ export const auth = getAuth(app)
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider()
 
-async function getAlbums(db: Firestore) {
+export async function getAlbums(db: Firestore) {
   const albumsCollection = collection(db, "albums");
   const albumSnapshot = await getDocs(albumsCollection);
   const albumList = albumSnapshot.docs.map((doc) => doc.data());

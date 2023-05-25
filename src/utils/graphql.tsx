@@ -38,13 +38,13 @@ interface PostResponse {
 
 export const graphQLApi = createApi({
   baseQuery: graphqlRequestBaseQuery({
-    url: "https://api.hashnode.com",
+    url: "https://api.hashnode.com/",
   }),
   endpoints: (builder) => ({
     getPosts: builder.query<GetPostsResponse, unknown>({
       query: () => ({
         document: gql`
-          query GetPosts() {
+          query GetPosts {
             user(username: "igmrrf") {
               publication {
                 posts(page: 0) {
