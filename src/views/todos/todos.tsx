@@ -15,9 +15,9 @@ import {
 import SkeletonComponent from "../../components/skeleton.component";
 import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import { AddTodo, EditTodo } from "../../containers/todos";
-import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
 import useData from "../../hooks/useData";
+import { useAppDispatch } from "../../state/hooks";
 import {
   clearTodoMessage,
   deleteTodoStartAsync,

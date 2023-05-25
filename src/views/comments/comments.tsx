@@ -4,15 +4,17 @@ import { useNavigate } from "react-router-dom";
 import SkeletonComponent from "../../components/skeleton.component";
 import { AddComment, EditComment } from "../../containers/comments";
 import { useContainerStyles } from "../../containers/extra/styles/Styles";
-import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
 import useData from "../../hooks/useData";
+import { useAppDispatch } from "../../state/hooks";
 // import { useFetchPriceQuery } from "./comment.api";
+import { useEffect } from "react";
 import {
   clearCommentMessage,
   deleteCommentStartAsync,
   fetchCommentsStartAsync,
 } from "./comments.redux";
+import { IComment } from "../../containers/types";
 
 const CommentContainer = () => {
   const classes = useContainerStyles;
@@ -27,7 +29,10 @@ const CommentContainer = () => {
   // } = useFetchPriceQuery();
 
   // Find Means to return this
-  if (errorMessage === "Network Error") navigate("/");
+  useEffect(() => {
+    if (errorMessage === "Network Error") return navigate("/");
+  }, [navigate, errorMessage]);
+
   return (
     <Box sx={classes.root}>
       {/* <div>
@@ -66,7 +71,7 @@ const CommentContainer = () => {
         spacing={4}
       >
         {pageComments.length >= 1 ? (
-          pageComments.map((each: any) => (
+          pageComments.map((each: IComment) => (
             <Grid item xs={10} sm={5} md={3} key={each.id}>
               <Paper sx={classes.card} elevation={10}>
                 {each.id}

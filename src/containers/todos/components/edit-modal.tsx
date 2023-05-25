@@ -1,16 +1,18 @@
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import Edit from "@mui/icons-material/Edit";
+// import { useSnackbar } from "notistack";
 import React from "react";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useDispatch } from "react-redux";
 import { editTodoStartAsync } from "../../../views/todos/todos.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 import { ITodo } from "../../types";
 
 export default function EditTodoModal({ todo }: { todo: ITodo }) {
+  // const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(todo.title);
-  const dispatch = useAppDispatch;
+  const dispatch = useDispatch<any>();
 
   const handleOpen = () => {
     setOpen(true);
@@ -24,12 +26,33 @@ export default function EditTodoModal({ todo }: { todo: ITodo }) {
     setNewTitle(event.target.value);
   };
 
-  const handlePost = (event: any) => {
+  const handlePost = async (event: any) => {
     event.preventDefault();
     const data = { ...todo, title: newTitle };
     dispatch(editTodoStartAsync(data));
     handleClose();
   };
+
+  // const handlePost2 = async () => {
+  //   const data = { ...todo, title: newTitle };
+  //   const resultAction = await dispatch(editTodoStartAsync(data));
+  //   if (editTodoStartAsync.fulfilled.match(resultAction)) {
+  //     const todo = resultAction.payload;
+  //     enqueueSnackbar(`Updated ${todo.title}`, { variant: "success" });
+  //   } else {
+  //     if (resultAction.payload) {
+  //       enqueueSnackbar(`Update failed: ${resultAction.payload.errorMessage}`, {
+  //         variant: "error",
+  //       });
+  //     } else {
+  //       enqueueSnackbar(`Update failed: ${resultAction.error.message}`, {
+  //         variant: "error",
+  //       });
+  //     }
+  //   }
+  // };
+
+  // console.log({ handlePost2 });
 
   return (
     <div>

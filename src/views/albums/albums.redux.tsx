@@ -1,7 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IAlbum } from "../../containers/types";
-import { RootState } from "../../store";
+import { RootState } from "../../state/store";
 import axios from "../../utils/axios";
 import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 import { IInitialState } from "../types";

@@ -1,7 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
-import { RootState } from "../store";
-import { useAppDispatch, useAppSelector } from "./redux";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { RootState } from "../state/store";
 import { Tags } from "./types";
 
 const useData = (tag: Tags, asyncAction: any, clearMessage: any) => {

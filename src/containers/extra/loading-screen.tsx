@@ -3,7 +3,7 @@ import { Box, LinearProgress } from "@mui/material";
 const styles = {
   root: {
     alignItems: "center",
-    backgroundColor: "rgb(18,29,51)",
+    backgroundColor: (t: any) => t.palette.primary,
     display: "flex",
     flexDirection: "column",
     height: "100vh",

@@ -1,7 +1,7 @@
 import Edit from "@mui/icons-material/Edit";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch } from "../../../state/hooks";
 import { editAlbumStartAsync } from "../../../views/albums/albums.redux";
 import { useEditStyles as editStyled } from "../../extra/styles/Styles";
 import { IAlbum } from "../../types";

@@ -3,9 +3,9 @@ import { Box, Grid, Pagination, Paper, Typography } from "@mui/material";
 import SkeletonComponent from "../../components/skeleton.component";
 import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import { AddUser, EditUser } from "../../containers/users";
-import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
 import useData from "../../hooks/useData";
+import { useAppDispatch } from "../../state/hooks";
 import {
   clearUserMessage,
   deleteUserStartAsync,

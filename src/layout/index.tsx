@@ -1,4 +1,4 @@
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import {
   Box,
   Container,
@@ -8,7 +8,13 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { PropsWithChildren } from "react";
+// import { ErrorBoundary } from "react-error-boundary";
+import Boundary, {
+  handleStateReset,
+  logError,
+} from "../components/ErrorBoundary";
+import Fallback from "../components/Fallback";
 import Navigation from "./components/navbar";
 
 const classes = {
@@ -19,7 +25,7 @@ const classes = {
   },
 };
 
-function ScrollTop(props: any) {
+function ScrollTop(props: PropsWithChildren) {
   const { children } = props;
 
   const trigger = useScrollTrigger({
@@ -28,11 +34,8 @@ function ScrollTop(props: any) {
     threshold: 100,
   });
 
-  const handleClick = (event: any) => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
-      "#back-to-top-anchor"
-    );
-
+  const handleClick = () => {
+    const anchor = document.querySelector("#back-to-top-anchor");
     if (anchor) {
       anchor.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -54,15 +57,23 @@ ScrollTop.propTypes = {
 
 export default function BackToTop(props: any) {
   return (
-    <React.Fragment>
-      <Navigation />
-      <Toolbar id="back-to-top-anchor" />
-      <Container>{props.children}</Container>
-      <ScrollTop {...props}>
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
-    </React.Fragment>
+    <Boundary
+      // fallbackRender={Fallback}
+      // FallbackComponent={FallbackComponent}
+      onReset={handleStateReset}
+      fallback={<Fallback />}
+      onError={logError}
+    >
+      <React.Fragment>
+        <Navigation />
+        <Toolbar id="back-to-top-anchor" />
+        <Container>{props.children}</Container>
+        <ScrollTop {...props}>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
+      </React.Fragment>
+    </Boundary>
   );
 }

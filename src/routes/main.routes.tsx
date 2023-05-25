@@ -1,7 +1,10 @@
 import { lazy } from "react";
 import Loadable from "../components/Loadable";
 import Layout from "../layout";
+import SignIn from "../views/auth/login";
+import SignUp from "../views/auth/signup";
 import Home from "../views/landing";
+import Private from "../views/private/private";
 const NotFound = Loadable(lazy(() => import("../containers/extra/not-found")));
 const LoadingScreen = Loadable(
   lazy(() => import("../containers/extra/loading-screen"))
@@ -85,6 +88,18 @@ const routes = [
         <Users />,
       </Layout>
     ),
+  },
+  {
+    path: "/login",
+    element: <SignIn />,
+  },
+  {
+    path: "/join",
+    element: <SignUp />,
+  },
+  {
+    path: "/private",
+    element: <Private />,
   },
   {
     path: "*",

@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Routes from "./routes";
+import { useGetPostsQuery } from "./utils/graphql";
+
+// export default app;
 
 const GET_POSTS = gql`
   query GetPosts {
@@ -21,6 +24,15 @@ const GET_POSTS = gql`
 `;
 
 function App() {
+  const {
+    data: dataResult,
+    isLoading,
+    isFetching,
+  } = useGetPostsQuery({ page: 0 });
+  console.log({ dataResult, isLoading, isFetching });
+  if (!isFetching) {
+    console.log({ dataResult });
+  }
   const [posts, setPosts] = useState([]);
   const { loading, error, data } = useQuery(GET_POSTS);
 

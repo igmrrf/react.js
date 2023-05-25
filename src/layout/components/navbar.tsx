@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Box,
   Button,
   Hidden,
   Link,
@@ -7,8 +8,12 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import ListItemLink from "../../components/Link";
+import { AuthContext } from "../../context/AuthContext";
+import { auth } from "../../services/firebase";
 import SideBarShared from "./side-bar";
 
 const classes = {
@@ -22,6 +27,7 @@ const classes = {
     flexGrow: 1,
   },
   links: {
+    border: "2px solid red",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -50,39 +56,61 @@ const Links = [
   { primary: "Users", to: "/users" },
 ];
 export default function Navigation() {
+  const { currentUser } = useContext(AuthContext);
+  console.log({ currentUser });
+  const handleSignOut = async () => {
+    try {
+      const response = await signOut(auth);
+      console.log({ response });
+    } catch (error: any) {
+      console.log({ message: error.message });
+    }
+  };
   return (
-    <AppBar position="sticky" style={{ background: "rgb(18,29,51)" }}>
-      <Toolbar>
-        <Typography variant="h5" sx={classes.title}>
-          <Link to="/" color="inherit" component={RouterLink}>
-            R,R & J
-          </Link>
-        </Typography>
-        <Hidden smDown>
-          {Links.map((link, index) => (
-            <Paper sx={classes.link} elevation={0} key={index}>
-              <ListItemLink primary={link.primary} to={link.to} />
-            </Paper>
-          ))}
-
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed">
+        <Toolbar>
           <div style={classes.links}>
             <Button
               variant={"contained"}
               color={"primary"}
-              component={"a"}
-              target="_blank"
-              rel="noopener noreferrer"
-              href={"https://github.com/igmrrf/react-redux-jsonplaceholder"}
               sx={classes.buttonLinks}
+              onClick={handleSignOut}
             >
-              Github
+              SignOut
             </Button>
           </div>
-        </Hidden>
-        <Hidden mdUp>
-          <SideBarShared />
-        </Hidden>
-      </Toolbar>
-    </AppBar>
+          <Typography variant="h5" sx={classes.title}>
+            <Link to="/" color="inherit" component={RouterLink}>
+              R,R & J
+            </Link>
+          </Typography>
+          <Hidden smDown>
+            {Links.map((link, index) => (
+              <Paper sx={classes.link} elevation={0} key={index}>
+                <ListItemLink primary={link.primary} to={link.to} />
+              </Paper>
+            ))}
+
+            <div style={classes.links}>
+              <Button
+                variant={"contained"}
+                color={"primary"}
+                component={"a"}
+                target="_blank"
+                rel="noopener noreferrer"
+                href={"https://github.com/igmrrf/react-redux-jsonplaceholder"}
+                sx={classes.buttonLinks}
+              >
+                Github
+              </Button>
+            </div>
+          </Hidden>
+          <Hidden mdUp>
+            <SideBarShared />
+          </Hidden>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }

@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch } from "../../../state/hooks";
 import { addCommentStartAsync } from "../../../views/comments/comments.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 

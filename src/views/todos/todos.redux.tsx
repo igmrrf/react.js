@@ -1,9 +1,9 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
-
 import { ITodo } from "../../containers/types";
 import { IGenericState, createGenericSlice } from "../../state";
-import { AppDispatch, RootState } from "../../store";
+import { AppDispatch, Error400s, RootState } from "../../state/store";
 import axios from "../../utils/axios";
+
 import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 
 export const fetchTodosStartAsync = createAsyncThunk(
@@ -16,46 +16,28 @@ export const fetchTodosStartAsync = createAsyncThunk(
   }
 );
 
-interface Error400s {
-  errorMessage: string;
-}
-
-type AsyncThunkConfig = {
-  /** return type for `thunkApi.getState` */
+export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: RootState;
-  /** type for `thunkApi.dispatch` */
   dispatch: AppDispatch;
-  /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
-  extra: { jwt: string };
-  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
   rejectValue: Error400s;
-  /** return type of the `serializeError` option callback */
-  // serializedErrorType?: unknown;
-  // /** type to be returned from the `getPendingMeta` option callback & merged into `pendingAction.meta` */
-  // pendingMeta?: unknown;
-  // /** type to be passed into the second argument of `fulfillWithValue` to finally be merged into `fulfilledAction.meta` */
-  // fulfilledMeta?: unknown;
-  // /** type to be passed into the second argument of `rejectWithValue` to finally be merged into `rejectedAction.meta` */
-  // rejectedMeta?: unknown;
-};
+  extra: { jwt: string; s: string; n: number };
+}>();
 
-export const editTodoStartAsync = createAsyncThunk<
-  any,
-  any,
-  AsyncThunkConfig
->("todos/editTodoAsync", async (todo: ITodo, thunkApi) => {
-  const response = await axios.put(`Todos/${todo.id}`, todo, {
-    headers: { Authorization: `Bearer ${thunkApi.extra.jwt}` },
-  });
-  if (response.status === 400) {
-    return thunkApi.rejectWithValue(response.data);
+export const editTodoStartAsync = createAppAsyncThunk(
+  "todos/editTodoAsync",
+  async (todo: ITodo, thunkApi) => {
+    const response = await axios.put(`Todos/${todo.id}`, todo, {
+      headers: { Authorization: `Bearer ${thunkApi.extra.jwt}` },
+    });
+    console.log("here");
+    if (response.status === 400) {
+      return thunkApi.rejectWithValue(response.data);
+    }
+    const editedTodo = response.data;
+
+    return editedTodo as ITodo;
   }
-  const editedTodo = response.data;
-
-  return editedTodo as ITodo;
-});
-
-
+);
 
 export const addTodoStartAsync = createAsyncThunk(
   "todos/addTodoStartAsync",

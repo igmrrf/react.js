@@ -1,16 +1,44 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
+import { normalize, schema } from "normalizr";
 import { IPhoto } from "../../containers/types";
-import { RootState } from "../../store";
+import { RootState } from "../../state/store";
 import axios from "../../utils/axios";
 import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 import { IInitialState } from "../types";
+
+export const userEntity = new schema.Entity("users");
+export const commentEntity = new schema.Entity("comments", {
+  commenter: userEntity,
+});
+export const photoEntity = new schema.Entity("photos", {
+  author: userEntity,
+  comments: [commentEntity],
+});
 
 export const fetchPhotosStartAsync = createAsyncThunk(
   "photos/fetchPhotosStartAsync",
   async () => {
     const response = await axios.get("Photos");
-    const photos = response.data;
-    return photos;
+    const data = response.data;
+    const normalized = normalize<any, { [key: string]: IPhoto }>(
+      data,
+      photoEntity
+    );
+    // const normalized = normalize<
+    //   any,
+    //   {
+    //     photos: { [key: string]: IPhoto };
+    //     users: { [key: string]: IUser };
+    //     comments: { [key: string]: IComment };
+    //   }
+    // >(data, photoEntity);
+    console.log({ normal: normalized.entities });
+    console.log({ data });
+    return { data, entities: normalized.entities };
   }
 );
 
@@ -43,13 +71,14 @@ export const deletePhotoStartAsync = createAsyncThunk(
     return deletedPhoto;
   }
 );
-
-const initialState: IInitialState = {
+const levelState: IInitialState = {
   isFetching: false,
   data: [],
   errorMessage: null,
   message: null,
 };
+const photosAdapter = createEntityAdapter();
+const initialState = photosAdapter.getInitialState(levelState);
 
 const photoSlice = createSlice({
   name: "photos",
@@ -67,7 +96,9 @@ const photoSlice = createSlice({
       })
       .addCase(fetchPhotosStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
-        state.data = action.payload;
+        state.data = action.payload.data;
+        console.log({ entities: action.payload.entities });
+        photosAdapter.upsertMany(state, action.payload.entities);
       })
       .addCase(fetchPhotosStartAsync.rejected, (state, action) => {
         state.isFetching = false;
@@ -80,6 +111,8 @@ const photoSlice = createSlice({
       })
       .addCase(editPhotoStartAsync.fulfilled, (state, action) => {
         state.isFetching = false;
+        const { id, ...changes } = action.payload;
+        photosAdapter.updateOne(state, { id, changes });
         state.data = updateItem(state.data, action.payload);
       })
       .addCase(editPhotoStartAsync.rejected, (state, action) => {
@@ -115,21 +148,16 @@ const photoSlice = createSlice({
   },
 });
 
-export const {
-  clearPhotoMessage,
-  // fetchPhotosStart,
-  // fetchPhotosFailure,
-  // fetchPhotosSuccess,
-  // editPhotoStart,
-  // editPhotoFailure,
-  // editPhotoSuccess,
-  // addPhotoStart,
-  // addPhotoFailure,
-  // addPhotoSuccess,
-  // deletePhotoStart,
-  // deletePhotoFailure,
-  // deletePhotoSuccess,
-} = photoSlice.actions;
+export const { clearPhotoMessage } = photoSlice.actions;
+
+// Rename the exports for readability in component usage
+// export const {
+//   selectById: selectPhotoById,
+//   selectIds: selectPhotoIds,
+//   selectEntities: selectPhotoEntities,
+//   selectAll: selectAllPhotos,
+//   selectTotal: selectTotalPhotos,
+// } = photosAdapter.getSelectors((state) => state.users);
 
 export const selectPhotosData = (state: RootState) => state.photos.data;
 

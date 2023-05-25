@@ -55,7 +55,7 @@ const Home = () => {
     socket.on("connect", () => {
       console.log("Connected");
     });
-    socket.on("onMessage", (data: any) => {
+    socket.on("onMessage", (data: unknown) => {
       console.log("Listening to onMessage");
       console.log({ data });
     });
@@ -79,7 +79,7 @@ const Home = () => {
             paddingTop: (theme) => theme.spacing(2),
           }}
         >
-          JSON Placeholder: React Redux
+          {import.meta.env.VITE_TITLE}
         </Typography>
         <Grid container alignItems={"center"} spacing={4}>
           {sections.map((section) => (

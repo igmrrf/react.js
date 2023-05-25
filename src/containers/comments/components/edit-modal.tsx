@@ -2,7 +2,7 @@ import Edit from "@mui/icons-material/Edit";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import React from "react";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch } from "../../../state/hooks";
 import { editCommentStartAsync } from "../../../views/comments/comments.redux";
 import { useEditStyles } from "../../extra/styles/Styles";
 import { IComment } from "../../types";

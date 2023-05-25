@@ -9,11 +9,13 @@ import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
-import { WebSocketProvider, socket } from "./context/WebSocketContext.tsx";
+import { AuthProvider } from "./context/AuthContext.tsx";
+import WebSocketProvider from "./context/WebSocketContext.tsx";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { store } from "./store.tsx";
+import { persistor, store } from "./state/store.tsx";
 import theme from "./theme";
 
 const client = new ApolloClient({
@@ -28,9 +30,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <CssBaseline />
         <SnackbarProvider dense maxSnack={3}>
           <Provider store={store}>
-            <WebSocketProvider value={socket}>
-              <App />
-            </WebSocketProvider>
+            <PersistGate persistor={persistor}>
+              <WebSocketProvider>
+                <AuthProvider>
+                  <App />
+                </AuthProvider>
+              </WebSocketProvider>
+            </PersistGate>
           </Provider>
         </SnackbarProvider>
       </ThemeProvider>
@@ -39,12 +45,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 // Register Service Worker on Production
-const onUpdate = (registration: any) => {
+const onUpdate = (registration: unknown) => {
   console.log({ registration });
 };
-const onSuccess = (registration: any) => {
+const onSuccess = (registration: unknown) => {
   console.log({ registration });
 };
+console.log({ PROCESS: process.env.NODE_ENV });
 if (process.env.NODE_ENV === "production") {
   serviceWorker.register({ onUpdate, onSuccess });
 } else {

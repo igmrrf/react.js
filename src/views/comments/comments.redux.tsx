@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { IComment } from "../../containers/types";
-import { RootState } from "../../store";
+import { RootState } from "../../state/store";
 import axios from "../../utils/axios";
 import { addNewItem, deleteItem, updateItem } from "../../utils/modifier";
 import { IInitialState } from "../types";

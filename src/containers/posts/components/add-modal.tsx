@@ -2,7 +2,7 @@ import AddIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
 
 import React from "react";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch } from "../../../state/hooks";
 import { addPostStartAsync } from "../../../views/posts/posts.redux";
 import { useAddStyles } from "../../extra/styles/Styles";
 

@@ -5,8 +5,8 @@ import { useContainerStyles } from "../../containers/extra/styles/Styles";
 import useData from "../../hooks/useData";
 
 import { Box, Grid, Pagination, Paper, Typography } from "@mui/material";
-import { useAppDispatch } from "../../hooks/redux";
 import { Tags } from "../../hooks/types";
+import { useAppDispatch } from "../../state/hooks";
 import {
   clearAlbumMessage,
   deleteAlbumStartAsync,
