@@ -11,7 +11,7 @@ import {
 import { signOut } from "firebase/auth";
 import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import ListItemLink from "../../components/Link";
+import ListItemLink from "../../components/ListItemLink";
 import { AuthContext } from "../../context/AuthContext";
 import { auth } from "../../services/firebase";
 import SideBarShared from "./side-bar";
