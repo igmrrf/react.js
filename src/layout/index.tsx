@@ -29,7 +29,6 @@ function ScrollTop(props: PropsWithChildren) {
   const { children } = props;
 
   const trigger = useScrollTrigger({
-    // target: window ? window() : undefined,
     disableHysteresis: true,
     threshold: 100,
   });
