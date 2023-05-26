@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { Firestore, collection, getDocs } from "firebase/firestore/lite";
+import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -43,6 +44,7 @@ const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 export const auth = getAuth(app)
 export const db = getFirestore(app);
+export const bucket = getStorage(app);
 export const googleProvider = new GoogleAuthProvider()
 
 export async function getAlbums(db: Firestore) {

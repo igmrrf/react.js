@@ -42,23 +42,27 @@ export const graphQLApi = createApi({
   }),
   endpoints: (builder) => ({
     getPosts: builder.query<GetPostsResponse, unknown>({
-      query: () => ({
-        document: gql`
-          query GetPosts {
-            user(username: "igmrrf") {
-              publication {
-                posts(page: 0) {
-                  _id
-                  coverImage
-                  slug
-                  title
-                  brief
+      query: (args: unknown) => {
+        console.log({ args });
+
+        return {
+          document: gql`
+            query GetPosts {
+              user(username: "igmrrf") {
+                publication {
+                  posts(page: 0) {
+                    _id
+                    coverImage
+                    slug
+                    title
+                    brief
+                  }
                 }
               }
             }
-          }
-        `,
-      }),
+          `,
+        };
+      },
     }),
     getPost: builder.query<Post, string>({
       query: (id) => ({

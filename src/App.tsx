@@ -28,8 +28,30 @@ function App() {
     data: dataResult,
     isLoading,
     isFetching,
+    isSuccess,
+    isError,
+    isUninitialized,
   } = useGetPostsQuery({ page: 0 });
-  console.log({ dataResult, isLoading, isFetching });
+  console.log({
+    dataResult,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    isUninitialized,
+  });
+
+  // !
+  // Update mutation hooks return a function to call to call the endpoint
+  // and result {dat, isLoading,isSuccess, isError,error, data, isUninitialized}
+  // const [updatePost, result] = useUpdatePostMutation();
+
+  // if in another app I query to get a single post and it exists here I can query
+  // const { post } = api.useGetPostsQuery(undefined, {
+  //   selectFromResult: ({ data }) => ({
+  //     post: data?.find((post) => post.id === id),
+  //   }),
+  // });
   if (!isFetching) {
     console.log({ dataResult });
   }

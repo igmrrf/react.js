@@ -83,11 +83,59 @@ type ErrorBoundaryState = {
 //     componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: ErrorBoundaryState): void;
 //     render(): ReactElement<any, string | import("react").JSXElementConstructor<any>>;
 // }
+
+
+// import { useErrorBoundary } from "react-error-boundary";
+
+// function Example() {
+//   const { showBoundary } = useErrorBoundary();
+
+//   useEffect(() => {
+//     fetchGreeting(name).then(
+//       response => {
+//         // Set data in state and re-render
+//       },
+//       error => {
+//         // Show error boundary
+//         showBoundary(error);
+//       }
+//     );
+//   });
+
+// import { useErrorBoundary } from "react-error-boundary";
+
+// function ErrorFallback({ error }) {
+//   const { resetBoundary } = useErrorBoundary();
+
+//   return (
+//     <div role="alert">
+//       <p>Something went wrong:</p>
+//       <pre style={{ color: "red" }}>{error.message}</pre>
+//       <button onClick={resetBoundary}>Try again</button>
+//     </div>
+//   );
+// }
+
+// import {withErrorBoundary} from 'react-error-boundary'
+
+// const ComponentWithErrorBoundary = withErrorBoundary(ExampleComponent, {
+//   fallback: <div>Something went wrong</div>,
+//   onError(error, info) {
+//     // Do something with the error
+//     // E.g. log to an error logging client here
+//   },
+// })
+
+// // Can be rendered as <ComponentWithErrorBoundary {...props} />
+
 export type UseErrorBoundaryApi<Error> = {
   resetBoundary: () => void;
   showBoundary: (error: Error) => void;
 };
+
+// TODO implement
 // export function useErrorBoundary<Error = any>(): UseErrorBoundaryApi<Error>;
+// TODO implement withErrorBounday
 // export function withErrorBoundary<Props extends Object>(component: ComponentType<Props>, errorBoundaryProps: ErrorBoundaryProps): ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<any>>;
 
 //# sourceMappingURL=react-error-boundary.d.ts.map
@@ -117,6 +165,7 @@ export function FallbackComponent({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const logError = (error: Error, info: { componentStack: string }) => {
   console.log({ error, info });
 };

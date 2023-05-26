@@ -8,6 +8,46 @@ const CommentAPISlice = APISlice.injectEndpoints({
         query() {
           return `/comments`;
         },
+        // Pick out data and prevent nested properties in a hook or selector
+        transformResponse: (response: { data: IComment[] }, meta, arg) => {
+          console.log({ meta, arg });
+          return response.data;
+        },
+        // Pick out errors and prevent nested properties in a hook or selector
+        transformErrorResponse: (
+          response: { status: string | number },
+          meta,
+          arg
+        ) => {
+          console.log({ meta, arg });
+
+          return response.status;
+        },
+        async onCacheEntryAdded(
+          arg,
+          {
+            dispatch,
+            getState,
+            extra,
+            requestId,
+            cacheEntryRemoved,
+            cacheDataLoaded,
+            getCacheEntry,
+            updateCachedData,
+          }
+        ) {
+          console.log({
+            arg,
+            dispatch,
+            getState,
+            extra,
+            requestId,
+            cacheEntryRemoved,
+            cacheDataLoaded,
+            getCacheEntry,
+            updateCachedData,
+          });
+        },
         // providesTags: ["Comments"],
       }),
       fetchComment: builder.query<IComment[], number>({
@@ -51,7 +91,9 @@ const CommentAPISlice = APISlice.injectEndpoints({
             patchResult.undo();
           }
         },
-        invalidatesTags: (_result, _error, { id }) => [{ type: "Comments", id }],
+        invalidatesTags: (_result, _error, { id }) => [
+          { type: "Comments", id },
+        ],
       }),
       deleteComment: builder.mutation<IComment, number>({
         query(id) {

@@ -4,6 +4,7 @@ import Layout from "../layout";
 import SignIn from "../views/auth/login";
 import SignUp from "../views/auth/signup";
 import Home from "../views/landing";
+import Movies from "../views/movies";
 import Private from "../views/private/private";
 const NotFound = Loadable(lazy(() => import("../containers/extra/not-found")));
 const LoadingScreen = Loadable(
@@ -100,6 +101,10 @@ const routes = [
   {
     path: "/private",
     element: <Private />,
+  },
+  {
+    path: "/movies",
+    element: <Movies />,
   },
   {
     path: "*",
