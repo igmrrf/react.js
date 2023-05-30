@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@alwaysmeticulous/recorder-loader@^2.53.0":
+  version "2.53.0"
+  resolved "https://registry.yarnpkg.com/@alwaysmeticulous/recorder-loader/-/recorder-loader-2.53.0.tgz#6c3a8c1836533c81c3569377125b1507b16953f6"
+  integrity sha512-TtnrOEJo1rNBLWhPE/WCrRJFFwTELB5590hSovh4uFVC1Fyp5xf3ZACP7n3uYCHg09MAzwP5F0IjPde3d1Qzjw==
+
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.1.tgz#99e8e11851128b8702cd57c33684f1d0f260b630"

@@ -1,3 +1,4 @@
+import { tryLoadAndStartRecorder } from "@alwaysmeticulous/recorder-loader";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -17,6 +18,11 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { persistor, store } from "./state/store.tsx";
 import theme from "./theme";
+
+const projectId = import.meta.env.VITE_METICULOUS_PROJECT_ID;
+await tryLoadAndStartRecorder({
+  projectId,
+});
 
 const client = new ApolloClient({
   uri: "https://api.hashnode.com",
