@@ -19,10 +19,13 @@ import * as serviceWorker from "./serviceWorker";
 import { persistor, store } from "./state/store.tsx";
 import theme from "./theme";
 
-const projectId = import.meta.env.VITE_METICULOUS_PROJECT_ID;
-await tryLoadAndStartRecorder({
-  projectId,
-});
+const init = async () => {
+  const projectId = import.meta.env.VITE_METICULOUS_PROJECT_ID;
+  await tryLoadAndStartRecorder({
+    projectId,
+  });
+};
+init();
 
 const client = new ApolloClient({
   uri: "https://api.hashnode.com",
