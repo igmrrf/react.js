@@ -9,6 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import TagManager from "react-gtm-module";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
@@ -19,6 +20,11 @@ import * as serviceWorker from "./serviceWorker";
 import { persistor, store } from "./state/store.tsx";
 import theme from "./theme";
 
+const tagManagerArgs = {
+  gtmId: import.meta.env.VITE_GTM_ID,
+};
+
+TagManager.initialize(tagManagerArgs);
 const init = async () => {
   const projectId = import.meta.env.VITE_METICULOUS_PROJECT_ID;
   await tryLoadAndStartRecorder({
