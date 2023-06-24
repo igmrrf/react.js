@@ -25,6 +25,7 @@ const tagManagerArgs = {
 };
 
 TagManager.initialize(tagManagerArgs);
+console.log({ tagManagerArgs });
 const init = async () => {
   const projectId = import.meta.env.VITE_METICULOUS_PROJECT_ID;
   await tryLoadAndStartRecorder({
