@@ -15,6 +15,7 @@ import {
   fetchCommentsStartAsync,
 } from "./comments.redux";
 import { IComment } from "../../containers/types";
+import { useLoginMutation } from "../auth/auth.api";
 
 const CommentContainer = () => {
   const classes = useContainerStyles;
@@ -27,6 +28,26 @@ const CommentContainer = () => {
   //   isFetching,
   //   error,
   // } = useFetchPriceQuery();
+  const [login, {isLoading}] = useLoginMutation();
+
+  const handleSubmit = async (event)=>{
+    event.preventDefault();
+    try {
+      const result = await login({username: "test", password: "test"}).unwrap();
+      dispatch(setComments(result))
+      console.log({result});
+    } catch (error) {
+      if(!error.status){
+        return navigate("/login");
+      }else if (error.status === 401){
+        return navigate("/login");
+      }else if (error.status === 400){
+        return navigate("/login");
+      }
+
+      console.log({error});
+    }
+  }
 
   // Find Means to return this
   useEffect(() => {

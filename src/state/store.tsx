@@ -49,8 +49,7 @@ const persistConfig = {
   storage,
   blacklist: [APISlice.reducerPath, graphQLApi.reducerPath],
 };
-const env = import.meta.env.VITE_ENVIRONMENT;
-console.log({ env });
+
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
