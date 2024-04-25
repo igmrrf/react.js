@@ -8,7 +8,7 @@ import Movies from "../views/movies";
 import Private from "../views/private/private";
 const NotFound = Loadable(lazy(() => import("../containers/extra/not-found")));
 const LoadingScreen = Loadable(
-  lazy(() => import("../containers/extra/loading-screen"))
+  lazy(() => import("../containers/extra/loading-screen")),
 );
 const Albums = Loadable(lazy(() => import("../views/albums")));
 const Comments = Loadable(lazy(() => import("../views/comments")));

@@ -3,7 +3,7 @@ import {
   configureStore,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-import { getWithExpiry } from "funckage/store";
+import { getWithExpiry } from "funckage/lib/store";
 import {
   getFirebase,
   actionTypes as rrfActionTypes,
@@ -50,7 +50,6 @@ const persistConfig = {
   blacklist: [APISlice.reducerPath, graphQLApi.reducerPath],
 };
 
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const getJWT = (): string | null => {
@@ -74,10 +73,10 @@ export const store = configureStore({
           PURGE,
           REGISTER,
           ...Object.keys(rfConstants.actionTypes).map(
-            (type) => `${rfConstants.actionsPrefix}/${type}`
+            (type) => `${rfConstants.actionsPrefix}/${type}`,
           ),
           ...Object.keys(rrfActionTypes).map(
-            (type) => `@@reactReduxFirebase/${type}`
+            (type) => `@@reactReduxFirebase/${type}`,
           ),
         ],
         ignoredPaths: ["firebase", "firestore"],

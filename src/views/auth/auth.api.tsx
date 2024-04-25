@@ -16,7 +16,6 @@ export const authAPI = APISlice.injectEndpoints({
           retry.fail({ fake: "error" });
         },
       },
-
     }),
     logout: build.mutation<{ success: boolean }, void>({
       query: () => ({
@@ -27,30 +26,33 @@ export const authAPI = APISlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           if (result.data.success) {
-            dispatch(logOut())
+            dispatch(logOut());
             dispatch(APISlice.util.resetApiState({}));
           }
         } catch (error) {
           console.error(error);
         }
-      }
+      },
     }),
 
     refresh: build.mutation({
-      query: ()=>({
+      query: () => ({
         url: "refresh",
         method: "GET",
-      })
-    })
-
+      }),
+    }),
     getErrorProne: build.query<{ success: boolean }, void>({
       query: () => "error-prone",
     }),
   }),
 });
 
-export const { useLoginMutation, useGetErrorProneQuery,useLogoutMutation,useRefreshMutation } = authAPI;
-
+export const {
+  useLoginMutation,
+  useGetErrorProneQuery,
+  useLogoutMutation,
+  useRefreshMutation,
+} = authAPI;
 
 export const {
   endpoints: { login },

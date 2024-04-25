@@ -15,6 +15,7 @@ import ListItemLink from "../../components/ListItemLink";
 import { AuthContext } from "../../context/AuthContext";
 import { auth } from "../../services/firebase";
 import SideBarShared from "./side-bar";
+import { PrintButton } from "checkout-print";
 
 const classes = {
   root: {
@@ -79,6 +80,7 @@ export default function Navigation() {
             >
               SignOut
             </Button>
+            <PrintButton />
           </div>
           <Typography variant="h5" sx={classes.title}>
             <Link to="/" color="inherit" component={RouterLink}>
